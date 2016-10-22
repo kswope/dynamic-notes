@@ -1,6 +1,6 @@
 
 
-This repo is served over at http://kswope.github.io/javascript-notes
+This repo is served over at http://kswope.github.io/dynamic-notes
 
 You are currently on master.  The good stuff is over on gh-pages
 
