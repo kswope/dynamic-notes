@@ -1,0 +1,47 @@
+
+
+.header {
+  margin-top: 4rem;
+  padding: 5px 0px 5px 10px;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+  background-color:#ffe;
+}
+
+.header span {
+  font-size: 3rem;  
+}
+
+p, ul {
+  margin-top: 2rem;
+  font-size: 2rem;
+}
+
+ul {
+  padding-left: 1.2em;
+}
+
+ul ul {
+  margin: 0
+}
+
+.code {
+  font-family: monospace,monospace;
+  margin-top: 25px;
+}
+
+.code .string {
+  color: blue;
+}
+
+.code .comment {
+  color: red;
+}
+
+.code .highlight {
+  font-weight: bold;
+}
+
+.glyphicon-arrow-right {
+  color: #AAA
+}

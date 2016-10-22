@@ -1,0 +1,398 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h2>Effective Javascript</h2>
+    </div>
+  </div>
+
+  <div class="container">
+
+    
+<div class='text'>
+ 
+<div class='header'>
+ <span>Item 3: Beware of Implicit Coercions</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Objects are coerced to numbers via valueOf() and to strings via toString().</p>
+<ul>
+<li>Warning: valueOf takes precedence over toString </li>
+</ul>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;redefine&nbsp;valueOf()&nbsp;for&nbsp;custom&nbsp;objects</span></div>
+<div>var&nbsp;obj&nbsp;=&nbsp;{value:1}</div>
+<div>log(&nbsp;obj&nbsp;+&nbsp;1)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[object&nbsp;Object]1</div>
+<div>&nbsp;</div>
+<div>obj.valueOf&nbsp;=&nbsp;function(){&nbsp;return&nbsp;this.value}</div>
+<div>log(&nbsp;obj&nbsp;+&nbsp;1)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Item 12: Understand Variable Hoisting</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Variable declarations within a block are implicitly hoisted to the top
+of their enclosing function.</p>
+<p>Redeclarations of a variable are treated as a single variable.</p>
+<p>Consider manually hoisting local variable declarations to avoid confusion.</p>
+<p>My addendum: Don't forget let.</p>
+
+</div>
+<div class='text'>
+
+
+</div>
+<div class='code'>
+<div><span></span></div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Item 13: Use Immediately Invoked Function Expressions to Create Local Scopes</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Closures store their outer variables by reference, not by value.</p>
+<p>Immediate invoked functions are a work around for lack of block scoping.</p>
+<p>let is the solution of block level scoping</p>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;without&nbsp;let&nbsp;the&nbsp;following&nbsp;is&nbsp;a&nbsp;disaster&nbsp;(or&nbsp;you&nbsp;could&nbsp;use&nbsp;a&nbsp;immediate&nbsp;function,&nbsp;bleh)</span></div>
+<div>function&nbsp;wrapElements(&nbsp;a&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;var&nbsp;result&nbsp;=&nbsp;[],&nbsp;i,&nbsp;n;</div>
+<div>&nbsp;&nbsp;for&nbsp;(&nbsp;<span class='highlight'>let</span>&nbsp;i&nbsp;=&nbsp;0,&nbsp;n&nbsp;=&nbsp;a.length;&nbsp;i&nbsp;< n; i++ ) { <span class='glyphicon glyphicon-arrow-right'></span>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;result[&nbsp;i&nbsp;]&nbsp;=&nbsp;function()&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;a[&nbsp;i&nbsp;];</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;};</div>
+<div>&nbsp;&nbsp;}</div>
+<div>&nbsp;&nbsp;return&nbsp;result;</div>
+<div>}</div>
+<div>var&nbsp;wrapped&nbsp;=&nbsp;wrapElements(&nbsp;[&nbsp;10,&nbsp;20,&nbsp;30,&nbsp;40,&nbsp;50&nbsp;]&nbsp;);</div>
+<div>var&nbsp;f&nbsp;=&nbsp;wrapped[&nbsp;0&nbsp;];</div>
+<div>log(f())&nbsp;<span class='comment'>//&nbsp;?</span></div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Item 14: Beware of Unportable Scoping of Named Function Expressions</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Depending on where it appears, this could be either a function declaration
+or a named function expression. </p>
+<p>Nevermind: If you are shipping in properly implemented ES5 environments, you've got nothing to worry about!</p>
+
+</div>
+<div class='code'>
+<div>function&nbsp;double(x)&nbsp;{&nbsp;return&nbsp;x&nbsp;*&nbsp;2;&nbsp;}</div>
+<div>&nbsp;</div>
+<div>var&nbsp;obj&nbsp;=&nbsp;{&nbsp;a:&nbsp;1&nbsp;}</div>
+<div>var&nbsp;fun&nbsp;=&nbsp;function()&nbsp;{&nbsp;log(&nbsp;this.a&nbsp;)&nbsp;}</div>
+<div>&nbsp;</div>
+<div>fun.call(obj)</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Item 23: Never Modify the arguments Object</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Use the following idiom to get a copy</p>
+
+</div>
+<div class='code'>
+<div>[].slice.call(arguments)</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Item 25: Use bind to Extract Methods with a Fixed Receiver </span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Beware that extracting a method does not bind the method's receiver to its object.</p>
+<p>Use bind as a shorthand for creating a function bound to the appropriate receiver.</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;buffer&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;entries:&nbsp;[],</div>
+<div>&nbsp;&nbsp;add:&nbsp;function(&nbsp;s&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;this.entries.push(&nbsp;s&nbsp;);</div>
+<div>&nbsp;&nbsp;},</div>
+<div>&nbsp;&nbsp;join:&nbsp;function()&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.entries.join(&nbsp;<span class='string'>""</span>&nbsp;);</div>
+<div>&nbsp;&nbsp;},</div>
+<div>&nbsp;&nbsp;clear:&nbsp;function(){</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;this.entries&nbsp;=&nbsp;[]&nbsp;</div>
+<div>&nbsp;&nbsp;}</div>
+<div>};</div>
+<div>&nbsp;</div>
+<div>var&nbsp;source&nbsp;=&nbsp;[&nbsp;<span class='string'>"867"</span>,&nbsp;<span class='string'>"-"</span>,&nbsp;<span class='string'>"5309"</span>&nbsp;];</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;error</span></div>
+<div><span class='comment'>//&nbsp;source.forEach(buffer.add)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;Cannot&nbsp;read&nbsp;property&nbsp;<span class='string'>'entries'</span>&nbsp;of&nbsp;undefined</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;using&nbsp;bind</span></div>
+<div>source.forEach(&nbsp;buffer.add.bind(&nbsp;buffer&nbsp;)&nbsp;);</div>
+<div>log(&nbsp;buffer.join()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;867-5309</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;clear&nbsp;for&nbsp;next&nbsp;example</span></div>
+<div>buffer.clear()</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;using&nbsp;context</span></div>
+<div>source.forEach(&nbsp;buffer.add,&nbsp;buffer&nbsp;)</div>
+<div>log(&nbsp;buffer.join()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;867-5309</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Item 31: Prefer Object.getPrototypeOf to __proto__</span> 
+<ul>
+<li>Access prototype of an object without a constructor</li>
+<li> Alter prototype of existing object( no Object.create() )</li>
+<li>Unlike __proto__ you can only modify existing prototype, not assign a new one</li>
+</ul>
+</div>
+
+</div>
+<div class='code'>
+<div>var&nbsp;obj&nbsp;=&nbsp;{}</div>
+<div>var&nbsp;proto&nbsp;=&nbsp;Object.getPrototypeOf(&nbsp;obj&nbsp;)</div>
+<div>proto.fun&nbsp;=&nbsp;function()&nbsp;{</div>
+<div>&nbsp;&nbsp;return&nbsp;<span class='string'>"fun"</span></div>
+<div>}</div>
+<div>log(&nbsp;obj.fun()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;fun</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Item 40: Avoid Inheriting from Standard Classes</span> 
+<ul>
+<li>Inheriting from standard classes tends to break due to special internal
+properties such as [[Class]].</li>
+<li>Prefer delegating to properties instead of inheriting from standard
+classes.</li>
+</ul>
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>////&nbsp;bad&nbsp;idea,&nbsp;breaks&nbsp;.length</span></div>
+<div>function&nbsp;Dir()&nbsp;{</div>
+<div>&nbsp;&nbsp;<span class='comment'>//&nbsp;stuff</span></div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>Dir.prototype&nbsp;=&nbsp;Object.create(Array.prototype);</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;delegate&nbsp;instead</span></div>
+<div>function&nbsp;MyArray(array){</div>
+<div>&nbsp;&nbsp;this.array&nbsp;=&nbsp;array</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>MyArray.prototype.forEach&nbsp;=&nbsp;function(&nbsp;fun,&nbsp;context&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;context&nbsp;=&nbsp;context&nbsp;?&nbsp;context&nbsp;:&nbsp;this</div>
+<div>&nbsp;&nbsp;context.array.forEach(&nbsp;fun,&nbsp;context&nbsp;)&nbsp;<span class='comment'>//&nbsp;delegate&nbsp;to&nbsp;real&nbsp;array</span></div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>var&nbsp;a&nbsp;=&nbsp;new&nbsp;MyArray([1,2,3])</div>
+<div>&nbsp;</div>
+<div>a.forEach(&nbsp;x&nbsp;=>&nbsp;log(&nbsp;x&nbsp;)&nbsp;)</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Arrays and Dictionaries</span> 
+<ul>
+</ul>
+</div>
+
+</div>
+<div class='text'>
+
+<p>Item 44: Use null Prototypes to Prevent Prototype Pollution</p>
+<ul>
+<li>In ES5, use Object.create(null) to create prototype-free empty
+objects that are less susceptible to pollution.</li>
+</ul>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;This&nbsp;doesn't&nbsp;work</span></div>
+<div>function&nbsp;C()&nbsp;{&nbsp;}</div>
+<div>C.prototype&nbsp;=&nbsp;null;</div>
+<div>&nbsp;</div>
+<div>var&nbsp;o&nbsp;=&nbsp;new&nbsp;C</div>
+<div>log(&nbsp;Object.getPrototypeOf(&nbsp;o&nbsp;)&nbsp;===&nbsp;Object.prototype&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true&nbsp;,&nbsp;didn't&nbsp;work</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;works</span></div>
+<div>var&nbsp;o&nbsp;=&nbsp;Object.create(&nbsp;null&nbsp;)</div>
+<div>log(&nbsp;Object.getPrototypeOf(&nbsp;o&nbsp;)&nbsp;===&nbsp;Object.prototype&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;false</div>
+<div>log(&nbsp;Object.getPrototypeOf(&nbsp;o&nbsp;)&nbsp;===&nbsp;null&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+
+</div>
+<div class='text'>
+
+<p>Item 48: Avoid Modifying an Object during Enumeration</p>
+<ul>
+<li>ECMAScript Standard: If new properties are added to the object being enumerated
+during enumeration, the newly added properties are not guaranteed
+to be visited in the active enumeration.</li>
+</ul>
+
+</div>
+<div class='code'>
+<div><span></span></div>
+
+</div>
+<div class='text'>
+
+<p>Item 51: Reuse Generic Array Methods on Array-Like Objects</p>
+<ul>
+<li>Any object can be used with generic Array methods if it has indexed
+properties and an appropriate length property.</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>function&nbsp;fun1(){</div>
+<div>&nbsp;&nbsp;[].forEach.call(&nbsp;arguments,&nbsp;x&nbsp;=>&nbsp;log(&nbsp;x&nbsp;)&nbsp;)</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>fun1(1,2,3)</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+<div>&nbsp;</div>
+<div>function&nbsp;fun2(){</div>
+<div>&nbsp;&nbsp;var&nbsp;args&nbsp;=&nbsp;[].slice.call(arguments)&nbsp;<span class='comment'>//&nbsp;slice&nbsp;with&nbsp;no&nbsp;args&nbsp;means&nbsp;all</span></div>
+<div>&nbsp;&nbsp;args.forEach(&nbsp;x&nbsp;=>&nbsp;log(&nbsp;x&nbsp;)&nbsp;)</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>fun2(1,2,3)</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+
+</div>
+<div class='text'>
+
+<p>Item 54: Treat undefined As "No Value"</p>
+<ul>
+<li>The undefined value is special: Whenever JavaScript has no specific
+value to provide it just produces undefined. Unassigned variables
+start out with the value undefined</li>
+<li>Avoid using undefined to represent anything other than the absence
+of a specific value.</li>
+<li>Test for undefined instead of checking arguments.length to provide
+parameter default values.</li>
+<li>Never use truthiness tests for parameter default values that should allow
+0, NaN, or the empty string as valid arguments.</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>var&nbsp;x;</div>
+<div>log(x)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;undefined</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;(&nbsp;function(){&nbsp;return&nbsp;}&nbsp;)()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;undefined</div>
+<div>log(&nbsp;(&nbsp;function()&nbsp;{}&nbsp;)()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;undefined</div>
+<div>log(&nbsp;(&nbsp;function(&nbsp;x&nbsp;)&nbsp;{&nbsp;return&nbsp;x&nbsp;}&nbsp;)()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;undefined</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;More&nbsp;robust&nbsp;test&nbsp;to&nbsp;avoid&nbsp;relying&nbsp;on&nbsp;truthyness&nbsp;for&nbsp;parameters</span></div>
+<div>function&nbsp;Element(&nbsp;width,&nbsp;height&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;this.width&nbsp;=&nbsp;width&nbsp;===&nbsp;undefined&nbsp;?&nbsp;320&nbsp;:&nbsp;width;&nbsp;<span class='comment'>//&nbsp;test&nbsp;with&nbsp;undefined,&nbsp;not&nbsp;just&nbsp;trutyness</span></div>
+<div>&nbsp;&nbsp;this.height&nbsp;=&nbsp;height&nbsp;===&nbsp;undefined&nbsp;?&nbsp;240&nbsp;:&nbsp;height;&nbsp;<span class='comment'>//&nbsp;test&nbsp;with&nbsp;undefined,&nbsp;not&nbsp;just&nbsp;trutyness</span></div>
+<div>&nbsp;&nbsp;<span class='comment'>//&nbsp;...</span></div>
+<div>}</div>
+<div>var&nbsp;c1&nbsp;=&nbsp;new&nbsp;Element(&nbsp;0,&nbsp;0&nbsp;);&nbsp;<span class='comment'>//&nbsp;this&nbsp;would&nbsp;be&nbsp;assigned&nbsp;default&nbsp;values&nbsp;if&nbsp;testing&nbsp;args&nbsp;only&nbsp;for&nbsp;truthyness</span></div>
+<div>&nbsp;</div>
+<div>this.width&nbsp;=&nbsp;_.condUndefined(width,&nbsp;320)&nbsp;<span class='comment'>//&nbsp;if&nbsp;cond&nbsp;width&nbsp;is&nbsp;undefined&nbsp;return&nbsp;320</span></div>
+<div>&nbsp;</div>
+<div>this.width&nbsp;=&nbsp;_.cond()</div>
+<div>&nbsp;</div>
+<div>_.condUndefined&nbsp;=&nbsp;function(value,&nbsp;other){</div>
+<div>&nbsp;&nbsp;return&nbsp;_isUndefined(value)&nbsp;?&nbsp;other&nbsp;:&nbsp;value</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+
+<p>Item 55: Accept Options Objects for Keyword Arguments</p>
+<ul>
+<li>use some implementation of extend to merge defaults</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>function&nbsp;Constructor(&nbsp;argsObject&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;var&nbsp;defaults&nbsp;=&nbsp;{&nbsp;x:&nbsp;0,&nbsp;y:&nbsp;0&nbsp;}</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;argsObject&nbsp;=&nbsp;_.extend(defaults,&nbsp;argsObject)</div>
+<div>&nbsp;&nbsp;log(argsObject)</div>
+<div>&nbsp;</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>new&nbsp;Constructor(&nbsp;{&nbsp;x:&nbsp;100&nbsp;}&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{&nbsp;x:&nbsp;100,&nbsp;y:&nbsp;0&nbsp;}</div>
+
+</div>
+
+  </div> <!-- /container -->
+
+  <script src="../js/vendor/jquery-1.11.2.min.js">
+  <script src="../js/vendor/bootstrap.min.js"></script>
+
+</body>
+
+</html>

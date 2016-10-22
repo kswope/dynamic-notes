@@ -1,0 +1,912 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h2>Speaking Javascript</h2>
+    </div>
+  </div>
+
+  <div class="container">
+
+    
+<div class='text'>
+ 
+<div class='header'>
+ <span>Basic Javascript</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Semicolons terminate statements but not blocks.</p>
+<p>Only time a semicolon follows a block is a function expression</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;fun1&nbsp;=&nbsp;function(&nbsp;x&nbsp;)&nbsp;{&nbsp;return&nbsp;x&nbsp;+&nbsp;1&nbsp;};&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;has&nbsp;semicolon</div>
+<div>var&nbsp;fun2&nbsp;=&nbsp;(&nbsp;x&nbsp;)&nbsp;=>&nbsp;x&nbsp;+&nbsp;1;&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;has&nbsp;semicolon</div>
+<div>log(&nbsp;fun1(1),&nbsp;fun2(1)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2&nbsp;2</div>
+<div>&nbsp;</div>
+<div>if(true){&nbsp;log(<span class='string'>"no&nbsp;semicolon"</span>)}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;no&nbsp;semicolon</div>
+
+</div>
+<div class='text'>
+
+<p>Compount assignment operator += work on strings, yay!.</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;str&nbsp;=&nbsp;<span class='string'>''</span></div>
+<div>str&nbsp;+=&nbsp;<span class='string'>'one'</span></div>
+<div>str&nbsp;+=&nbsp;<span class='string'>'&nbsp;two'</span></div>
+<div>str&nbsp;+=&nbsp;<span class='string'>'&nbsp;three'</span></div>
+<div>log(str)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;one&nbsp;two&nbsp;three</div>
+
+</div>
+<div class='text'>
+
+<p>Primitive values vs objects<p>
+<ul>
+<li>The primitive values are booleans, numbers, strings, null, and undefined</li>
+<li>All other values are objects</li>
+<li>A major difference is how they are compared.</li>
+<li>Properties of primitive values cannot be changed</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;true&nbsp;===&nbsp;true&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(&nbsp;0&nbsp;===&nbsp;0&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(&nbsp;{}&nbsp;===&nbsp;{}&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;false!</div>
+<div>&nbsp;</div>
+<div>var&nbsp;arr&nbsp;=&nbsp;<span class='string'>'abc'</span></div>
+<div>arr.length&nbsp;=&nbsp;100&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;Cannot&nbsp;assign&nbsp;to&nbsp;read&nbsp;only&nbsp;property&nbsp;<span class='string'>'length'</span>&nbsp;of&nbsp;abc&nbsp;(&nbsp;<span class='string'>'use&nbsp;strict'</span>&nbsp;verion&nbsp;)</div>
+<div>arr.here&nbsp;=&nbsp;<span class='string'>'there'</span>&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;Cannot&nbsp;assign&nbsp;to&nbsp;read&nbsp;only&nbsp;property&nbsp;<span class='string'>'here'</span>&nbsp;of&nbsp;abc&nbsp;(&nbsp;<span class='string'>'use&nbsp;strict'</span>&nbsp;version&nbsp;)</div>
+
+</div>
+<div class='text'>
+
+<p>All nonprimitive values are objects</p>
+<p>The most common kinds are</p>
+<ul>
+<li>Plain objects</li>
+<li>Arrays</li>
+<li>Regex</li>
+</ul>
+
+</div>
+<div class='code'>
+<div><span></span></div>
+
+</div>
+<div class='text'>
+
+<p>Categorizing values using typeof and instanceof</p>
+<ul>
+<li>typeof is mainly used for primative values</li>
+<li>instanceof is used for objects</li>
+<li>Life is too short for this nonsense, use lodash or underscore</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;typeof&nbsp;true&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;boolean</div>
+<div>log(&nbsp;typeof&nbsp;<span class='string'>'abc'</span>&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;string</div>
+<div>log(&nbsp;typeof&nbsp;{}&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;object</div>
+<div>log(&nbsp;typeof&nbsp;[]&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;object&nbsp;(lame)</div>
+<div>log(&nbsp;typeof&nbsp;null&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;object&nbsp;(lame)</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;{}&nbsp;instanceof&nbsp;Object&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(&nbsp;[]&nbsp;instanceof&nbsp;Object&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true&nbsp;(&nbsp;oh&nbsp;thanks&nbsp;)</div>
+<div>log(&nbsp;[]&nbsp;instanceof&nbsp;Array&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;underscore&nbsp;or&nbsp;lodash</span></div>
+<div>log(_.isBoolean(true))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(_.isString(<span class='string'>'abc'</span>))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(_.isObject({}))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(_.isObject([]))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(_.isNull(null))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+
+</div>
+<div class='text'>
+
+<p>Basic String Methods</p>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>'abc'</span>.slice(&nbsp;0&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;abc</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.slice(&nbsp;1&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;bc</div>
+<div>log(&nbsp;<span class='string'>'&nbsp;abc&nbsp;'</span>.trim()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;<span class='string'>'abc'</span></div>
+
+</div>
+<div class='text'>
+
+<p>Conditionals</p>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;its&nbsp;<span class='string'>"else&nbsp;if"</span></span></div>
+<div>if&nbsp;(&nbsp;myvar&nbsp;===&nbsp;0&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;<span class='comment'>//&nbsp;then</span></div>
+<div>}&nbsp;<span class='highlight'>else&nbsp;if</span>&nbsp;(&nbsp;myvar&nbsp;===&nbsp;1&nbsp;)&nbsp;{&nbsp;</div>
+<div>&nbsp;&nbsp;<span class='comment'>//&nbsp;else-if</span></div>
+<div>}&nbsp;<span class='highlight'>else&nbsp;if</span>&nbsp;(&nbsp;myvar&nbsp;===&nbsp;2&nbsp;)&nbsp;{&nbsp;</div>
+<div>&nbsp;&nbsp;<span class='comment'>//&nbsp;else-if</span></div>
+<div>}&nbsp;else&nbsp;{</div>
+<div>&nbsp;&nbsp;<span class='comment'>//&nbsp;else</span></div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;I'll&nbsp;never&nbsp;remember&nbsp;this&nbsp;syntax</span></div>
+<div>switch&nbsp;(myVar)&nbsp;{</div>
+<div>&nbsp;&nbsp;case&nbsp;<span class='string'>'one'</span>:&nbsp;<span class='comment'>//&nbsp;compared&nbsp;via&nbsp;===</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;do_one()</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;break</div>
+<div>&nbsp;&nbsp;case&nbsp;<span class='string'>'two'</span>:</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;do_two()</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;break</div>
+<div>&nbsp;&nbsp;default:</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;do_default()</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;there's&nbsp;a&nbsp;do-while&nbsp;loop!</span></div>
+<div>&nbsp;</div>
+<div>do&nbsp;{</div>
+<div>&nbsp;&nbsp;do_something()</div>
+<div>}&nbsp;while&nbsp;(&nbsp;true&nbsp;)</div>
+
+</div>
+<div class='text'>
+
+<p>Enforcing function arity</p>
+
+</div>
+<div class='code'>
+<div>function&nbsp;pair(&nbsp;x,&nbsp;y&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;if&nbsp;(&nbsp;arguments.length&nbsp;!==&nbsp;2&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;new&nbsp;Error(&nbsp;<span class='string'>'Need&nbsp;exactly&nbsp;2&nbsp;arguments'</span>&nbsp;);</div>
+<div>&nbsp;&nbsp;}</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>pair()</div>
+
+</div>
+<div class='text'>
+
+<p>Exception handling, most common way</p>
+<p>My note: try/catch is sketchy for async programming, but uncaught throw is
+probably fine</p>
+
+</div>
+<div class='code'>
+<div>function&nbsp;pair(&nbsp;x,&nbsp;y&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;if&nbsp;(&nbsp;arguments.length&nbsp;!==&nbsp;2&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;new&nbsp;Error(&nbsp;<span class='string'>'Need&nbsp;exactly&nbsp;2&nbsp;arguments'</span>&nbsp;);</div>
+<div>&nbsp;&nbsp;}</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>try&nbsp;{</div>
+<div>&nbsp;&nbsp;pair(1)&nbsp;&nbsp;</div>
+<div>}&nbsp;catch(ex)&nbsp;{</div>
+<div>&nbsp;&nbsp;log(ex.name)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;Error</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+
+<p>Extracting methods</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;obj&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;first:&nbsp;<span class='string'>'john'</span>,</div>
+<div>&nbsp;&nbsp;last:&nbsp;<span class='string'>'doe'</span>,</div>
+<div>&nbsp;&nbsp;data:&nbsp;[1,2,3,4,5],</div>
+<div>&nbsp;&nbsp;full:&nbsp;function(){</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;[this.first,&nbsp;this.last].join(<span class='string'>'&nbsp;'</span>)&nbsp;</div>
+<div>&nbsp;&nbsp;},</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;all:&nbsp;function(){</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;dataString&nbsp;=&nbsp;function(){</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.data.join(<span class='string'>'&nbsp;'</span>)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;[this.first,&nbsp;this.last,&nbsp;dataString.<span class='highlight'>bind</span>(this)()]&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;},</div>
+<div>&nbsp;</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>log(obj.full())&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;john&nbsp;doe</div>
+<div>&nbsp;</div>
+<div>var&nbsp;fun&nbsp;=&nbsp;obj.full.bind(obj)</div>
+<div>log(fun())&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;john&nbsp;doe</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;obj.all()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'john'</span>,&nbsp;<span class='string'>'doe'</span>,&nbsp;<span class='string'>'1&nbsp;2&nbsp;3&nbsp;4&nbsp;5'</span>&nbsp;]</div>
+
+</div>
+<div class='text'>
+
+<p>Multiple places to pass context to some iterators</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;obj&nbsp;=&nbsp;{name:<span class='string'>'kevin'</span>,&nbsp;data:[1,2,3,4,5]}</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;<span class='highlight'>obj</span>.data.map(&nbsp;function(&nbsp;x&nbsp;)&nbsp;{&nbsp;return&nbsp;this.name&nbsp;+&nbsp;x&nbsp;},&nbsp;<span class='highlight'>obj</span>&nbsp;)&nbsp;)&nbsp;</div>
+<div>log(&nbsp;<span class='highlight'>obj</span>.data.map(&nbsp;function(&nbsp;x&nbsp;)&nbsp;{&nbsp;return&nbsp;this.name&nbsp;+&nbsp;x&nbsp;}.bind(&nbsp;<span class='highlight'>obj</span>&nbsp;)&nbsp;)&nbsp;)&nbsp;</div>
+
+</div>
+<div class='text'>
+
+<p>Functions called with <b>new</b> become constructors for objects</p>
+
+</div>
+<div class='code'>
+<div>function&nbsp;MyObject(name){</div>
+<div>&nbsp;&nbsp;this.name&nbsp;=&nbsp;name&nbsp;</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>var&nbsp;obj&nbsp;=&nbsp;new&nbsp;MyObject(<span class='string'>'bob'</span>)</div>
+<div>log(obj.name)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;bob</div>
+
+</div>
+<div class='text'>
+
+<p>Regex</p>
+<ul>
+<li>RegExp.prototype.test() returns a boolean</li>
+<li>RegExp.prototype.exec() works with capture groups and can be looped, capture group at index 1</li>
+<li>String.prototype.replace()</li>
+</ul>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;literal&nbsp;definition</span></div>
+<div>var&nbsp;r&nbsp;=&nbsp;/^a/</div>
+<div>log(&nbsp;r.test(&nbsp;<span class='string'>'abc'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;/a(b+)c/g.exec(&nbsp;<span class='string'>'abc&nbsp;abbc&nbsp;abbbc'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'abc'</span>,&nbsp;<span class='string'><span class='highlight'>'b'</span></span>,&nbsp;index:&nbsp;0,&nbsp;input:&nbsp;<span class='string'>'abc&nbsp;abbc&nbsp;abbbc'</span>&nbsp;]&nbsp;</div>
+<div>&nbsp;</div>
+<div>log(<span class='string'>'abc&nbsp;abc&nbsp;abc'</span>.replace(/b/g,&nbsp;<span class='string'>'B'</span>))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;aBc&nbsp;aBc&nbsp;aBc</div>
+
+</div>
+<div class='text'>
+
+<p>Wrapper objects for primitives</p>
+<ul>
+<li>boolean, number, and string have corresponding constructors: Boolean(), Number(), String(). </li>
+<li>As constructors they are garbage, best avoided.</li>
+<li>As functions they convert to that primitive type.</li>
+</ul>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;as&nbsp;constructor</span></div>
+<div>log(&nbsp;typeof&nbsp;<span class='string'>'abc'</span>&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;string</div>
+<div>log(&nbsp;typeof&nbsp;new&nbsp;String(&nbsp;<span class='string'>'abc'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;object&nbsp;(?)</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>&nbsp;===&nbsp;new&nbsp;String(&nbsp;<span class='string'>'abc'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;false</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>&nbsp;===&nbsp;<span class='string'>'abc'</span>&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;as&nbsp;function</span></div>
+<div>log(&nbsp;123&nbsp;+&nbsp;<span class='string'>'4'</span>)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1234</div>
+<div>log(&nbsp;123&nbsp;+&nbsp;Number(<span class='string'>'4'</span>))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;127</div>
+
+</div>
+<div class='text'>
+
+<p>There is no way of comparing objects in javascript</p>
+<ul>
+<li>Is that unusual?</li>
+</ul>
+
+</div>
+<div class='code'>
+<div><span></span></div>
+
+</div>
+<div class='text'>
+
+<p>The useful Math functions</p>
+<ul>
+<li>Math.floor()</li>
+<li>Math.ceil()</li>
+<li>Math.round()</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;Math.floor(&nbsp;1.9&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>log(&nbsp;Math.ceil(&nbsp;1.1&nbsp;)&nbsp;)&nbsp;&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;Math.round(&nbsp;1.4&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>log(&nbsp;Math.round(&nbsp;1.5&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+
+</div>
+<div class='text'>
+
+<p>parseInt</p>
+<ul>
+<li>parseInt() is useful for parsing strings</li>
+<li>parseInt() is bad for converting numbers to integers</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;parseInt(&nbsp;<span class='string'>'123junk'</span>))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;123</div>
+<div>log(&nbsp;parseInt(&nbsp;1000000000000000000000.5,&nbsp;10&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1,&nbsp;not&nbsp;even&nbsp;close</div>
+<div>log(&nbsp;_.parseInt(&nbsp;1000000000000000000000.5,&nbsp;10&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1,&nbsp;not&nbsp;even&nbsp;close</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Strings</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>charAt()</p>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>'abc'</span>.charAt(&nbsp;2&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;c</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>&nbsp;[&nbsp;2&nbsp;]&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;c</div>
+
+</div>
+<div class='text'>
+
+<p>Converting to string</p>
+<ul>
+<li>String(value) preferred</li>
+<li>'' + value</li>
+<li>value.toString() doesn't work with undefined and null!</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;String(&nbsp;123&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;<span class='string'>'123'</span></div>
+<div>log(&nbsp;<span class='string'>''</span>&nbsp;+&nbsp;123&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;<span class='string'>'123'</span></div>
+<div>&nbsp;</div>
+<div>var&nbsp;value&nbsp;=&nbsp;123</div>
+<div>log(&nbsp;value.toString())&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;'123</div>
+<div>&nbsp;</div>
+<div>var&nbsp;value&nbsp;=&nbsp;null</div>
+<div>log(&nbsp;String(&nbsp;value&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;null</div>
+<div>log(&nbsp;value.toString())&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;TypeError:&nbsp;Cannot&nbsp;read&nbsp;property&nbsp;<span class='string'>'toString'</span>&nbsp;of&nbsp;null</div>
+
+</div>
+<div class='text'>
+
+<p>String.prototype.slice(start, end?)</p>
+<ul>
+<li>Preferred over substring</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>'abc'</span>.slice(-1))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;c</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.slice(-2))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;bc</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.slice(1))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;bc</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.slice(0,2))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;ab</div>
+
+</div>
+<div class='text'>
+
+<p>String.prototype.split(separator?, limit?)</p>
+<ul>
+<li>Preferred over substring</li>
+<li>separator is regex or string</li>
+<li>capture groups are also returned</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(<span class='string'>'fred,&nbsp;barney,&nbsp;&&nbsp;pebbles'</span>.split(/[,&nbsp;]+/))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'fred'</span>,&nbsp;<span class='string'>'barney'</span>,&nbsp;<span class='string'>'&'</span>,&nbsp;<span class='string'>'pebbles'</span>&nbsp;]</div>
+<div>log(<span class='string'>'fred,&nbsp;barney,&nbsp;&&nbsp;pebbles'</span>.split(/([,&nbsp;]+)/))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'fred'</span>,&nbsp;<span class='string'>',&nbsp;'</span>,&nbsp;<span class='string'>'barney'</span>,&nbsp;<span class='string'>',&nbsp;'</span>,&nbsp;<span class='string'>'&'</span>,&nbsp;<span class='string'>'&nbsp;'</span>,&nbsp;<span class='string'>'pebbles'</span>&nbsp;]</div>
+
+</div>
+<div class='text'>
+
+<p>String.prototype.trim()</p>
+<ul>
+<li>Non-destructive</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>'&nbsp;abc&nbsp;'</span>.trim()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;<span class='string'>'abc'</span></div>
+
+</div>
+<div class='text'>
+
+<p>String.prototype.concat(str1, str2, ...)</p>
+<ul>
+<li>Non-destructive</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>''</span>.concat(&nbsp;<span class='string'>'a'</span>,&nbsp;<span class='string'>'b'</span>,&nbsp;<span class='string'>'c'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;<span class='string'>'abc'</span></div>
+
+</div>
+<div class='text'>
+
+<p>String.prototype.indexOf(str, position?)</p>
+<ul>
+<li>Reverse: lastIndexOf(str, position?)</li>
+<li></li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>'abcabc'</span>.indexOf(&nbsp;<span class='string'>'c'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div>log(&nbsp;<span class='string'>'abcabc'</span>.indexOf(&nbsp;<span class='string'>'c'</span>,&nbsp;2+1&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;5</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;<span class='string'>'abcabc'</span>.lastIndexOf(&nbsp;<span class='string'>'c'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;5</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Test, Match, and Replace with Regular Expressions</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>String.prototype.search(regexp)</p>
+<ul>
+<li>Returns <b>index</b> of first match</li>
+<li>Returns -1 if no match</li>
+<li>Captures seem to have no effect</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>'abc'</span>.search(/b/))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.search(/(b)/))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+
+</div>
+<div class='text'>
+
+<p>String.prototype.match(regexp)</p>
+<ul>
+<li>returns match object if no /g</li>
+<li>returns all matches if /g</li>
+<li>captures also affect result but only if no /g ?</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>'-abb--aaab-'</span>.match(&nbsp;/a+b?/&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'ab'</span>,&nbsp;index:&nbsp;1,&nbsp;input:&nbsp;<span class='string'>'-abb--aaab-'</span>&nbsp;]</div>
+<div>log(&nbsp;<span class='string'>'-abb--aaab-'</span>.match(&nbsp;/a+b?/g&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'ab'</span>,&nbsp;<span class='string'>'aaab'</span>&nbsp;]</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;<span class='string'>'-abb--aaab-'</span>.match(&nbsp;/(a+)b?/&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'ab'</span>,&nbsp;<span class='string'>'a'</span>,&nbsp;index:&nbsp;1,&nbsp;input:&nbsp;<span class='string'>'-abb--aaab-'</span>&nbsp;]</div>
+<div>log(&nbsp;<span class='string'>'-abb--aaab-'</span>.match(&nbsp;/(a+)b?/g&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'ab'</span>,&nbsp;<span class='string'>'aaab'</span>&nbsp;]</div>
+
+</div>
+<div class='text'>
+
+<p>String.prototype.replace(search, replacement)</p>
+<ul>
+<li>search can be string or regex</li>
+<li>replacement can be string or function</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;<span class='string'>'abc'</span>.replace(&nbsp;/./g,&nbsp;(&nbsp;x&nbsp;)&nbsp;=>&nbsp;x.toUpperCase()&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;ABC</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Exception handling</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Use the Error constructor</p>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;Don't&nbsp;do&nbsp;this</span></div>
+<div>if&nbsp;(&nbsp;somethingBad&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;throw&nbsp;<span class='string'>"Something&nbsp;bad&nbsp;happened"</span></div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;Do&nbsp;this&nbsp;instead</span></div>
+<div>if&nbsp;(&nbsp;somethingBad&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;throw&nbsp;new&nbsp;Error(&nbsp;<span class='string'>"Something&nbsp;bad&nbsp;happened"</span>&nbsp;)</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+
+<p>Finally is always executed</p>
+
+</div>
+<div class='code'>
+<div>try&nbsp;{</div>
+<div>&nbsp;&nbsp;throw&nbsp;new&nbsp;Error(<span class='string'>'whoops!'</span>)</div>
+<div>}&nbsp;catch&nbsp;(&nbsp;ex&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;log(<span class='string'>'caught&nbsp;'</span>&nbsp;+&nbsp;ex)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;caught&nbsp;Error:&nbsp;whoops!</div>
+<div>}&nbsp;finally&nbsp;{</div>
+<div>&nbsp;&nbsp;log(<span class='string'>'always'</span>)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;always</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+
+<p>Finally doesn't need catch</p>
+
+</div>
+<div class='code'>
+<div>try&nbsp;{</div>
+<div>&nbsp;&nbsp;throw&nbsp;new&nbsp;Error(&nbsp;<span class='string'>'whoops!'</span>&nbsp;)&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;Error:&nbsp;whoops!</div>
+<div>}&nbsp;finally&nbsp;{</div>
+<div>&nbsp;&nbsp;log(&nbsp;<span class='string'>'always'</span>&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;always</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Functions</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p> func.apply( thisValue, *array ) </p>
+ <ul>
+  <li>Is this needed when the ...rest operator is available?</li>
+  <li>Is passing thisValue a common use case?</li>
+  <li>Is this anything more than a glorified splat?</li>
+ </ul>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;Math.max(&nbsp;1,&nbsp;2,&nbsp;3&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+<div>log(&nbsp;Math.max.apply(&nbsp;null,&nbsp;[&nbsp;1,&nbsp;2,&nbsp;3&nbsp;]&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;using&nbsp;...rest&nbsp;operator&nbsp;(needed&nbsp;babel-node&nbsp;to&nbsp;not&nbsp;throw&nbsp;error)</span></div>
+<div>log(&nbsp;Math.max(&nbsp;...[&nbsp;1,&nbsp;2,&nbsp;3&nbsp;]&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+
+</div>
+<div class='text'>
+
+<p> func.bind( thisValue, arg1, ..., argN ) </p>
+ <ul>
+  <li>Performs partial function application (suspect rare use case)</li>
+  <li>Unlike apply and call, this returns a new function</li>
+  <li>Is binding callback to thisValue the most common use case?</li>
+ </ul>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;data&nbsp;and&nbsp;its&nbsp;formatter</span></div>
+<div>var&nbsp;obj&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;format:&nbsp;function(&nbsp;x&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;[&nbsp;<span class='string'>'-'</span>,&nbsp;x,&nbsp;<span class='string'>'-'</span>&nbsp;].join(&nbsp;<span class='string'>''</span>&nbsp;)</div>
+<div>&nbsp;&nbsp;},</div>
+<div>&nbsp;&nbsp;data:&nbsp;[&nbsp;1,&nbsp;2,&nbsp;3,&nbsp;4,&nbsp;5&nbsp;]</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;using&nbsp;bind&nbsp;instead&nbsp;of&nbsp;passing&nbsp;this&nbsp;to&nbsp;forEach</span></div>
+<div>obj.data.forEach(&nbsp;function(&nbsp;x&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;print(&nbsp;this.format(x)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;-1-&nbsp;&nbsp;-2-&nbsp;&nbsp;-3-&nbsp;&nbsp;-4-&nbsp;&nbsp;-5-&nbsp;&nbsp;</div>
+<div>}.<span class='highlight'>bind</span>(&nbsp;obj&nbsp;)&nbsp;)&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;passing&nbsp;this&nbsp;to&nbsp;forEach&nbsp;instead&nbsp;of&nbsp;using&nbsp;bind</span></div>
+<div>obj.data.forEach(&nbsp;function(&nbsp;x&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;print(&nbsp;this.format(x)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;-1-&nbsp;&nbsp;-2-&nbsp;&nbsp;-3-&nbsp;&nbsp;-4-&nbsp;&nbsp;-5-&nbsp;&nbsp;</div>
+<div>},&nbsp;obj&nbsp;)&nbsp;</div>
+
+</div>
+<div class='text'>
+
+<p> arguments </p>
+ <ul>
+  <li>array like - has .length(), but not .forEach(), .slice(), etc</li>
+  <li>strict mode forbids assignment</li>
+  <li>In nonstrict mode arguments keeps up to date with assignment to parameters</li>
+  <li>In strict mode arguments doesn't keep up to date with assignment to parameters</li>
+ </ul>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;enforce&nbsp;arity&nbsp;by&nbsp;checking&nbsp;arguments.length</span></div>
+<div>if&nbsp;(&nbsp;arguments.length&nbsp;< 1 ) {</div>
+<div>&nbsp;&nbsp;throw&nbsp;new&nbsp;Error(&nbsp;<span class='string'>'You&nbsp;need&nbsp;to&nbsp;provide&nbsp;at&nbsp;least&nbsp;1&nbsp;argument'</span>&nbsp;);</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;idiomatic&nbsp;way&nbsp;to&nbsp;converting&nbsp;arguments&nbsp;to&nbsp;real&nbsp;array</span></div>
+<div>function&nbsp;fun()&nbsp;{</div>
+<div>&nbsp;&nbsp;var&nbsp;args&nbsp;=&nbsp;[].slice.call(&nbsp;arguments&nbsp;)&nbsp;<span class='comment'>//&nbsp;one&nbsp;way</span></div>
+<div>&nbsp;&nbsp;var&nbsp;args&nbsp;=&nbsp;Array.prototype.slice.call(&nbsp;arguments&nbsp;)&nbsp;<span class='comment'>//&nbsp;another</span></div>
+<div>&nbsp;&nbsp;args.forEach(&nbsp;(&nbsp;x&nbsp;)&nbsp;=>&nbsp;log(&nbsp;x&nbsp;)&nbsp;)</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>fun(<span class='string'>'a'</span>,&nbsp;<span class='string'>'b'</span>,&nbsp;<span class='string'>'c'</span>)</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;a</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;b</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;c</div>
+
+</div>
+<div class='text'>
+
+<p> pass by reference </p>
+ <ul>
+  <li>Parameters don't pass by reference (good, fewer side effects)</li>
+  <li>Wrap in something to pass by reference</li>
+  <li>I don't think this is so simple</li>
+ </ul>
+
+</div>
+<div class='code'>
+<div>function&nbsp;fun(arg){</div>
+<div>&nbsp;&nbsp;arg.replace(/./g,&nbsp;(x)&nbsp;=>&nbsp;x.toUpperCase()&nbsp;)</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>var&nbsp;str&nbsp;=&nbsp;<span class='string'>'abc'</span></div>
+<div>fun(str)</div>
+<div>log(&nbsp;str&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;abc</div>
+<div>&nbsp;</div>
+<div>function&nbsp;fun(arg){</div>
+<div>&nbsp;&nbsp;log(<span class='string'>'arg='</span>,&nbsp;arg)</div>
+<div>&nbsp;&nbsp;arg[0]&nbsp;=&nbsp;arg[0].replace(/./g,&nbsp;(x)&nbsp;=>&nbsp;x.toUpperCase()&nbsp;)</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;this&nbsp;doesn<span class='string'>'t&nbsp;work,&nbsp;I&nbsp;don'</span>t&nbsp;know&nbsp;why!</span></div>
+<div>var&nbsp;str&nbsp;=&nbsp;<span class='string'>'abc'</span></div>
+<div>fun(&nbsp;[&nbsp;str&nbsp;]&nbsp;)</div>
+<div>log(&nbsp;str&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;abc</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;this&nbsp;does,&nbsp;I&nbsp;don't&nbsp;know&nbsp;why!</span></div>
+<div>var&nbsp;str&nbsp;=&nbsp;[<span class='string'>'abc'</span>]</div>
+<div>fun(&nbsp;str&nbsp;)</div>
+<div>log(&nbsp;str[0]&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;ABC</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;Maybe&nbsp;answer&nbsp;here&nbsp;http://docstore.mik.ua/orelly/webprog/jscript/ch11_02.htm</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;Since&nbsp;strings&nbsp;are&nbsp;immutable,&nbsp;our&nbsp;original&nbsp;question&nbsp;is&nbsp;moot:&nbsp;there&nbsp;is&nbsp;no&nbsp;way</span></div>
+<div><span class='comment'>//&nbsp;to&nbsp;tell&nbsp;if&nbsp;strings&nbsp;are&nbsp;passed&nbsp;by&nbsp;value&nbsp;or&nbsp;by&nbsp;reference.&nbsp;We&nbsp;can&nbsp;assume&nbsp;that,</span></div>
+<div><span class='comment'>//&nbsp;for&nbsp;efficiency,&nbsp;JavaScript&nbsp;is&nbsp;implemented&nbsp;so&nbsp;that&nbsp;strings&nbsp;are&nbsp;passed&nbsp;by</span></div>
+<div><span class='comment'>//&nbsp;reference,&nbsp;but&nbsp;in&nbsp;actuality&nbsp;it&nbsp;doesn't&nbsp;matter,&nbsp;since&nbsp;it&nbsp;has&nbsp;no&nbsp;practical</span></div>
+<div><span class='comment'>//&nbsp;bearing&nbsp;on&nbsp;the&nbsp;code&nbsp;we&nbsp;write.</span></div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Objects</span> 
+<ul>
+<li>Don't forget functions are object too</li>
+</ul>
+</div>
+
+</div>
+<div class='text'>
+
+<p>Object.keys and hasOwnProperty</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;obj&nbsp;=&nbsp;{&nbsp;a:&nbsp;1,&nbsp;b:&nbsp;2,&nbsp;c:&nbsp;3&nbsp;}</div>
+<div>&nbsp;</div>
+<div>Object.keys(&nbsp;obj&nbsp;).forEach(&nbsp;function(&nbsp;x&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;log(&nbsp;x,&nbsp;obj.hasOwnProperty(&nbsp;x&nbsp;)&nbsp;)</div>
+<div>}&nbsp;)</div>
+<div>&nbsp;</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;a&nbsp;true</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;b&nbsp;true</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;c&nbsp;true</div>
+<div>&nbsp;</div>
+<div>for(&nbsp;var&nbsp;x&nbsp;in&nbsp;obj)&nbsp;{</div>
+<div>&nbsp;&nbsp;log(&nbsp;x,&nbsp;obj.hasOwnProperty(&nbsp;x&nbsp;)&nbsp;)</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;a&nbsp;true</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;b&nbsp;true</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;c&nbsp;true</div>
+
+</div>
+<div class='text'>
+
+<p>Avoid object constructor</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;obj&nbsp;=&nbsp;new&nbsp;Object();&nbsp;<span class='comment'>//&nbsp;avoid</span></div>
+<div>var&nbsp;obj&nbsp;=&nbsp;{};&nbsp;<span class='comment'>//&nbsp;prefer</span></div>
+
+</div>
+<div class='text'>
+
+<p>"But you frequently just create an empty object and then manually add
+properties, because descriptors are verbose"</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;proto&nbsp;=&nbsp;{&nbsp;a:&nbsp;1&nbsp;}</div>
+<div>var&nbsp;obj&nbsp;=&nbsp;Object.create(&nbsp;proto&nbsp;)</div>
+<div>obj.b&nbsp;=&nbsp;2</div>
+<div>log(&nbsp;obj.a&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>log(&nbsp;obj.b&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+
+</div>
+<div class='text'>
+
+<p>Object.getPrototypeOf()</p>
+
+</div>
+<div class='code'>
+<div>var&nbsp;obj&nbsp;=&nbsp;Object.create(&nbsp;String.prototype&nbsp;)</div>
+<div>log(&nbsp;Object.getPrototypeOf(&nbsp;obj&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[String:&nbsp;<span class='string'>''</span>]</div>
+<div>log(&nbsp;String.prototype.isPrototypeOf(&nbsp;obj&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;not&nbsp;doing&nbsp;it&nbsp;right&nbsp;(String&nbsp;is&nbsp;a&nbsp;constructor&nbsp;function)</span></div>
+<div>var&nbsp;obj&nbsp;=&nbsp;Object.create(&nbsp;String&nbsp;)</div>
+<div>log(&nbsp;Object.getPrototypeOf(&nbsp;obj&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[Function:&nbsp;String]</div>
+<div>log(&nbsp;String.isPrototypeOf(&nbsp;obj&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;basic&nbsp;case</span></div>
+<div>var&nbsp;proto&nbsp;=&nbsp;{}</div>
+<div>var&nbsp;obj&nbsp;=&nbsp;Object.create(&nbsp;proto&nbsp;)</div>
+<div>log(&nbsp;proto.isPrototypeOf(&nbsp;obj&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+
+</div>
+<div class='text'>
+
+<p>Avoid invoking hasOwnProperty() directly on an object, as it may be overridden</p>
+
+</div>
+<div class='code'>
+<div>Object.prototype.hasOwnProperty.call(obj,&nbsp;<span class='string'>'foo'</span>)</div>
+<div>&nbsp;</div>
+<div>{}.hasOwnProperty.call(obj,&nbsp;<span class='string'>'foo'</span>)&nbsp;<span class='comment'>//&nbsp;shorter</span></div>
+
+</div>
+<div class='text'>
+
+<p>Getters and Setters</p>
+<ul>
+<li>Do I care?</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>var&nbsp;obj&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;x:&nbsp;1,</div>
+<div>&nbsp;&nbsp;get&nbsp;getter()&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.x</div>
+<div>&nbsp;&nbsp;},</div>
+<div>&nbsp;&nbsp;set&nbsp;setter(&nbsp;x&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;this.x&nbsp;=&nbsp;x</div>
+<div>&nbsp;&nbsp;}</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>obj.setter&nbsp;=&nbsp;100</div>
+<div>log(obj.getter)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;100</div>
+
+</div>
+<div class='text'>
+
+<p>The only operations affected by enumerability are</p>
+<ul>
+<li>for in loop</li>
+<li>Object.keys()</li>
+<li>JSON.stringify()</li>
+<li>Best Practices
+<ul>
+<li>For your own code, you can usually ignore enumerability and should avoid the for-in loop</li>
+<li>You normally shouldn't add properties to built-in prototypes and objects. But if you
+do, you should make them nonenumerable to avoid breaking existing code.</li>
+</ul>
+</ul>
+
+</div>
+<div class='code'>
+<div><span></span></div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Arrays</span> 
+<ul>
+<li>Arrays are maps and not touples because they can have holes.</li>
+<li>Note that most JavaScript engines optimize arrays without holes internally and store
+them contiguously.</li>
+<li>Arrays can also have properties (duh length)</li>
+</ul>
+</div>
+
+</div>
+<div class='text'>
+
+<p>Use array length to remove and append elements</p>
+<ul>
+<li>I'd probably use push() to append elements</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>var&nbsp;a&nbsp;=&nbsp;[1,2,3]</div>
+<div>a.length&nbsp;=&nbsp;2</div>
+<div>log(a)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;1,&nbsp;2&nbsp;]</div>
+<div>&nbsp;</div>
+<div>a[a.length]&nbsp;=&nbsp;3</div>
+<div>log(a)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;1,&nbsp;2,&nbsp;3&nbsp;]</div>
+
+</div>
+<div class='text'>
+
+<p>in operator works</p>
+<ul>
+<li>Awkward looking operator isn't it?</li>
+<li>use something like _.includes instead</li>
+<li>Don't use in for loops, what are you thinking?</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>var&nbsp;a&nbsp;=&nbsp;[1,2,3]</div>
+<div>log(&nbsp;1&nbsp;in&nbsp;a&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(&nbsp;_.include(&nbsp;a,&nbsp;1&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div>a.forEach((x,y)&nbsp;=>&nbsp;log(x))</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>Regular expressions</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Literal vs Constructor</p>
+<ul>
+<li>Literal compiled at load time.</li>
+<li>Constructor compiled at runtime.</li>
+<li>If you can prefer literals because of load time compilation errors</li>
+</ul>
+
+</div>
+
+  </div> <!-- /container -->
+
+  <script src="../js/vendor/jquery-1.11.2.min.js">
+  <script src="../js/vendor/bootstrap.min.js"></script>
+
+</body>
+
+</html>

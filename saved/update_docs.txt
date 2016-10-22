@@ -1,0 +1,12 @@
+
+union [array] documentation doesn't work for me, it should be *array.  [arrays], implies an array of arrays
+
+compact removes holes but doesn't specify it explicitly. Its just assumed which I don't like
+
+includes() docs seem insuficient for the examples.  Also it says checks if 'value' but there's no 'value'
+
+take() takes strings but its undocumented
+
+can a generalized ternary function be added to lodash?
+
+

@@ -1,0 +1,335 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h2>Exploring ES6</h2>
+    </div>
+  </div>
+
+  <div class="container">
+
+    
+<div class='text'>
+ 
+<div class='header'>
+ <span>String Interpolation</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>let&nbsp;[&nbsp;a,&nbsp;b&nbsp;]&nbsp;=&nbsp;[&nbsp;1,&nbsp;2&nbsp;]</div>
+<div>log(&nbsp;`${a}&nbsp;${b}`&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Multiple return values</span> 
+ <ul>
+  <li>Use destructuring</li>
+  <li>Ignore return values with blank array element</li>
+ </ul>
+</div>
+
+</div>
+<div class='code'>
+<div>const&nbsp;[&nbsp;,&nbsp;y,&nbsp;m,&nbsp;d&nbsp;]&nbsp;=&nbsp;<span class='string'>"2016-10-17"</span>.match(&nbsp;/(\d+)-(\d+)-(\d+)/&nbsp;)</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;`y:${y},&nbsp;m:${m},&nbsp;d:${d}`&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;y:2016,&nbsp;m:10,&nbsp;d:17</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Multiple return values via objects</span> 
+ <ul>
+  <li>Use destructuring</li>
+ </ul>
+</div>
+
+</div>
+<div class='code'>
+<div>const&nbsp;data&nbsp;=&nbsp;{&nbsp;a:&nbsp;1,&nbsp;b:&nbsp;2,&nbsp;c:&nbsp;3&nbsp;}</div>
+<div>&nbsp;</div>
+<div>let&nbsp;{&nbsp;a,&nbsp;b,&nbsp;c&nbsp;}&nbsp;=&nbsp;data;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;shorthand&nbsp;for&nbsp;</span></div>
+<div><span class='comment'>//&nbsp;{&nbsp;a:a,&nbsp;b:b,&nbsp;c:c&nbsp;}&nbsp;=&nbsp;data</span></div>
+<div>&nbsp;</div>
+<div>log(&nbsp;`a:${a},&nbsp;b:${b},&nbsp;c:${c}`&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2&nbsp;3</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>for-of</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>const&nbsp;data&nbsp;=&nbsp;[&nbsp;1,&nbsp;2,&nbsp;3&nbsp;]</div>
+<div>&nbsp;</div>
+<div>for&nbsp;(const&nbsp;x&nbsp;of&nbsp;data){</div>
+<div>&nbsp;&nbsp;print(x)</div>
+<div>}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2&nbsp;3</div>
+<div>&nbsp;</div>
+<div>let&nbsp;m&nbsp;=&nbsp;new&nbsp;Map([&nbsp;[<span class='string'>'a'</span>,&nbsp;1],&nbsp;[<span class='string'>'b'</span>,&nbsp;2],&nbsp;[<span class='string'>'c'</span>,&nbsp;3]&nbsp;])</div>
+<div>log(m)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;Map&nbsp;{&nbsp;<span class='string'>'a'</span>&nbsp;=>&nbsp;1,&nbsp;<span class='string'>'b'</span>&nbsp;=>&nbsp;2,&nbsp;<span class='string'>'c'</span>&nbsp;=>&nbsp;3&nbsp;}</div>
+<div>&nbsp;</div>
+<div>for&nbsp;(let&nbsp;[key,&nbsp;value]&nbsp;of&nbsp;m.entries())&nbsp;{</div>
+<div>&nbsp;&nbsp;print(`${key}&nbsp;=>&nbsp;${value}`)</div>
+<div>}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;a&nbsp;=>&nbsp;1&nbsp;&nbsp;b&nbsp;=>&nbsp;2&nbsp;&nbsp;c&nbsp;=>&nbsp;3</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>for-of works on strings</span> 
+ <ul>
+  <li>Does anybody care?</li>
+ </ul>
+</div>
+
+</div>
+<div class='code'>
+<div>const&nbsp;str&nbsp;=&nbsp;<span class='string'>'abc'</span></div>
+<div>for(const&nbsp;x&nbsp;of&nbsp;str){</div>
+<div>&nbsp;&nbsp;print(x)</div>
+<div>}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;a&nbsp;b&nbsp;c</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Spread operator works on strings</span> 
+ <ul>
+  <li>Does anybody care?</li>
+ </ul>
+</div>
+
+</div>
+<div class='code'>
+<div>const&nbsp;chars&nbsp;=&nbsp;[...<span class='string'>'abc'</span>]</div>
+<div>log(chars)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'a'</span>,&nbsp;<span class='string'>'b'</span>,&nbsp;<span class='string'>'c'</span>&nbsp;]</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Symbols</span> 
+ <ul>
+  <li>Can be optionally tagged (only for debugging purposes?)</li>
+  <li>Can only be coerced to strings by String(sym) or sym.toString()</li>
+  <li>Ignored by following operations: </li>
+  <ul>
+    <li>Object.keys()</li>
+    <li>Object.getOwnPropertyNames()</li>
+    <li>for-in loop</li>
+  </ul>
+</div>
+
+</div>
+<div class='code'>
+<div>const&nbsp;SYM1&nbsp;=&nbsp;Symbol();</div>
+<div>const&nbsp;SYM2&nbsp;=&nbsp;Symbol(&nbsp;<span class='string'>'two'</span>&nbsp;);</div>
+<div>const&nbsp;SYM3&nbsp;=&nbsp;Symbol(&nbsp;<span class='string'>'this&nbsp;is&nbsp;3'</span>&nbsp;);</div>
+<div>&nbsp;</div>
+<div>const&nbsp;map&nbsp;=&nbsp;new&nbsp;Map</div>
+<div>map[&nbsp;SYM1&nbsp;]&nbsp;=&nbsp;1</div>
+<div>map[&nbsp;SYM2&nbsp;]&nbsp;=&nbsp;2</div>
+<div>map[&nbsp;SYM3&nbsp;]&nbsp;=&nbsp;3</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;map[&nbsp;SYM1&nbsp;]&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>log(&nbsp;map[&nbsp;SYM2&nbsp;]&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div>log(&nbsp;map[&nbsp;SYM3&nbsp;]&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Destructuring</span> 
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;array&nbsp;destructuring</span></div>
+<div>let&nbsp;[a,b]&nbsp;=&nbsp;[1,2]</div>
+<div>log(a,b)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;object&nbsp;destructuring</span></div>
+<div>let&nbsp;{&nbsp;x,&nbsp;y&nbsp;}&nbsp;=&nbsp;{&nbsp;x:&nbsp;1,&nbsp;y:&nbsp;2&nbsp;}</div>
+<div>log(&nbsp;x,&nbsp;y&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;pick&nbsp;what&nbsp;you&nbsp;need</span></div>
+<div>let&nbsp;{&nbsp;y&nbsp;}&nbsp;=&nbsp;{&nbsp;x:&nbsp;1,&nbsp;y:&nbsp;2&nbsp;}</div>
+<div>log(&nbsp;y&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;nested!</span></div>
+<div>let&nbsp;nested&nbsp;=&nbsp;{&nbsp;a:&nbsp;{&nbsp;b:&nbsp;10&nbsp;}&nbsp;}</div>
+<div>let&nbsp;{&nbsp;a:&nbsp;{&nbsp;b:&nbsp;x&nbsp;}&nbsp;}&nbsp;=&nbsp;nested</div>
+<div>log(&nbsp;x&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;10</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;array&nbsp;destructuring&nbsp;works&nbsp;with&nbsp;anything&nbsp;iterable</span></div>
+<div>let&nbsp;[&nbsp;x,&nbsp;...y&nbsp;]&nbsp;=&nbsp;<span class='string'>'abc'</span></div>
+<div>log(&nbsp;x,&nbsp;y&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;a&nbsp;[&nbsp;<span class='string'>'b'</span>,&nbsp;<span class='string'>'c'</span>&nbsp;]</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;default&nbsp;values</span></div>
+<div>let&nbsp;{&nbsp;x&nbsp;=&nbsp;1,&nbsp;y&nbsp;=&nbsp;2&nbsp;}&nbsp;=&nbsp;{}</div>
+<div>log(&nbsp;x,&nbsp;y&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2</div>
+<div>&nbsp;</div>
+<div>let&nbsp;{&nbsp;x&nbsp;=&nbsp;1,&nbsp;y&nbsp;=&nbsp;2&nbsp;}&nbsp;=&nbsp;{&nbsp;y:&nbsp;200&nbsp;}</div>
+<div>log(&nbsp;x,&nbsp;y&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;200</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;default&nbsp;values&nbsp;in&nbsp;arguments</span></div>
+<div>let&nbsp;f&nbsp;=&nbsp;(&nbsp;{&nbsp;a&nbsp;=&nbsp;1,&nbsp;b&nbsp;=&nbsp;1&nbsp;}&nbsp;)&nbsp;=>&nbsp;a&nbsp;*&nbsp;b</div>
+<div>log(&nbsp;f(&nbsp;{}&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>log(&nbsp;f(&nbsp;{&nbsp;a:&nbsp;2&nbsp;}&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>2</div>
+<div>log(&nbsp;f(&nbsp;{&nbsp;a:&nbsp;2,&nbsp;b:&nbsp;2&nbsp;}&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>4</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;destructure&nbsp;array&nbsp;in&nbsp;for-of&nbsp;loop</span></div>
+<div>let&nbsp;array&nbsp;=&nbsp;[&nbsp;[&nbsp;0,&nbsp;1&nbsp;],&nbsp;[&nbsp;2,&nbsp;3&nbsp;]&nbsp;]</div>
+<div>for&nbsp;(&nbsp;let&nbsp;[&nbsp;x,&nbsp;y&nbsp;]&nbsp;of&nbsp;array&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;print(&nbsp;`[${x},&nbsp;${y}]`&nbsp;)</div>
+<div>}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[0,&nbsp;1]&nbsp;&nbsp;[2,&nbsp;3]</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Parameter Handling</span> 
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;one&nbsp;use&nbsp;of&nbsp;destructuring&nbsp;for&nbsp;parameter&nbsp;passing</span></div>
+<div>const&nbsp;items&nbsp;=&nbsp;[&nbsp;[&nbsp;<span class='string'>'foo'</span>,&nbsp;3&nbsp;],&nbsp;[&nbsp;<span class='string'>'bar'</span>,&nbsp;9&nbsp;]&nbsp;];</div>
+<div>items.forEach(&nbsp;(&nbsp;[&nbsp;word,&nbsp;count&nbsp;]&nbsp;)&nbsp;=>&nbsp;{</div>
+<div>&nbsp;&nbsp;console.log(&nbsp;word&nbsp;+&nbsp;<span class='string'>'&nbsp;'</span>&nbsp;+&nbsp;count&nbsp;);</div>
+<div>}&nbsp;);</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;another</span></div>
+<div>const&nbsp;items&nbsp;=&nbsp;[</div>
+<div>&nbsp;&nbsp;{&nbsp;word:&nbsp;<span class='string'>'foo'</span>,&nbsp;count:&nbsp;3&nbsp;},</div>
+<div>&nbsp;&nbsp;{&nbsp;word:&nbsp;<span class='string'>'bar'</span>,&nbsp;count:&nbsp;9&nbsp;},</div>
+<div>];</div>
+<div>&nbsp;</div>
+<div>items.forEach(&nbsp;(&nbsp;{&nbsp;word,&nbsp;count&nbsp;}&nbsp;)&nbsp;=>&nbsp;{</div>
+<div>&nbsp;&nbsp;console.log(&nbsp;word&nbsp;+&nbsp;<span class='string'>'&nbsp;'</span>&nbsp;+&nbsp;count&nbsp;);</div>
+<div>}&nbsp;);</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;with&nbsp;for-of</span></div>
+<div>for&nbsp;(&nbsp;let&nbsp;{&nbsp;word,&nbsp;count&nbsp;}&nbsp;of&nbsp;items&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;console.log(&nbsp;word&nbsp;+&nbsp;<span class='string'>'&nbsp;'</span>&nbsp;+&nbsp;count&nbsp;);</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>New OO features besides Classes</span> 
+ <ul>
+  <li>object literal method definitions</li>
+  <li>prop shorthand</li>
+  <li>computed prop keys</li>
+  <li>Object.assign()</li>
+  <li></li>
+ </ul>
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;method&nbsp;definitions&nbsp;inside&nbsp;object&nbsp;literals</span></div>
+<div>const&nbsp;obj&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;l(){&nbsp;log(<span class='string'>'l'</span>)&nbsp;}</div>
+<div>}</div>
+<div>obj.l()&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;l</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;prop&nbsp;shorthand</span></div>
+<div>let&nbsp;first&nbsp;=&nbsp;<span class='string'>'kevin'</span></div>
+<div>let&nbsp;age&nbsp;=&nbsp;15</div>
+<div>let&nbsp;obj&nbsp;=&nbsp;{&nbsp;first,&nbsp;age&nbsp;}</div>
+<div>log(obj)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{&nbsp;first:&nbsp;<span class='string'>'kevin'</span>,&nbsp;age:&nbsp;15&nbsp;}</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;computed&nbsp;prop&nbsp;keys</span></div>
+<div><span class='comment'>//The&nbsp;main&nbsp;use&nbsp;case&nbsp;for&nbsp;computed&nbsp;property&nbsp;keys&nbsp;is&nbsp;to&nbsp;make&nbsp;it&nbsp;easy&nbsp;to&nbsp;use&nbsp;symbols&nbsp;as&nbsp;property&nbsp;keys.</span></div>
+<div>let&nbsp;fname&nbsp;=&nbsp;<span class='string'>'f'</span></div>
+<div>let&nbsp;sym&nbsp;=&nbsp;Symbol()</div>
+<div>let&nbsp;obj&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;[[<span class='string'>'m'</span>,<span class='string'>'y'</span>,<span class='string'>'v'</span>,<span class='string'>'a'</span>,<span class='string'>'r'</span>].join(<span class='string'>''</span>)]:&nbsp;1,</div>
+<div>&nbsp;&nbsp;<span class='comment'>//&nbsp;works&nbsp;with&nbsp;functions,&nbsp;no&nbsp;idea&nbsp;what&nbsp;to&nbsp;do&nbsp;with&nbsp;this</span></div>
+<div>&nbsp;&nbsp;[fname](){&nbsp;log(<span class='string'>'in&nbsp;f'</span>)&nbsp;},</div>
+<div>&nbsp;&nbsp;[sym](){&nbsp;log(<span class='string'>'in&nbsp;symbol&nbsp;named&nbsp;function'</span>)&nbsp;}</div>
+<div>}</div>
+<div>obj.f()&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;in&nbsp;f</div>
+<div>log(obj.myvar)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>obj[sym]()&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;in&nbsp;symbol&nbsp;named&nbsp;function</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;Object.assign&nbsp;only&nbsp;considers&nbsp;<span class='string'>'own'</span>&nbsp;properties</span></div>
+<div>const&nbsp;source&nbsp;=&nbsp;{&nbsp;f(){&nbsp;log(<span class='string'>'in&nbsp;f'</span>)&nbsp;}&nbsp;}</div>
+<div>const&nbsp;dest&nbsp;=&nbsp;{}</div>
+<div>Object.assign(dest,&nbsp;source)</div>
+<div>dest.f()&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;in&nbsp;f</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Classes</span> 
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;class&nbsp;expressions&nbsp;exist,&nbsp;I&nbsp;just&nbsp;never&nbsp;see&nbsp;them,&nbsp;will&nbsp;probably&nbsp;never&nbsp;use</span></div>
+<div>let&nbsp;myClass&nbsp;=&nbsp;class&nbsp;{}</div>
+<div>log(new&nbsp;myClass())&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;myClass&nbsp;{}</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;don't&nbsp;forget&nbsp;static&nbsp;methods</span></div>
+<div>class&nbsp;MyClass&nbsp;{</div>
+<div>&nbsp;&nbsp;static&nbsp;f(){</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;log(<span class='string'>'in&nbsp;f'</span>)</div>
+<div>&nbsp;&nbsp;}</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>MyClass.f()&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;in&nbsp;f</div>
+
+</div>
+<div class='text'>
+
+<br /> <br /> <br /> <br /> <br />
+<br /> <br /> <br /> <br /> <br />
+<br /> <br /> <br /> <br /> <br />
+ 
+</div>
+
+  </div> <!-- /container -->
+
+  <script src="../js/vendor/jquery-1.11.2.min.js">
+  <script src="../js/vendor/bootstrap.min.js"></script>
+
+</body>
+
+</html>
