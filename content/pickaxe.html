@@ -1,0 +1,219 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h2>Pickaxe</h2>
+    </div>
+  </div>
+
+  <div class="container">
+
+    
+<div class='text'>
+ 
+<div class='header'>
+ <span>Little stuff I keep forgetting</span> 
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;use&nbsp;%w&nbsp;and&nbsp;%W&nbsp;to&nbsp;create&nbsp;arrays&nbsp;*of&nbsp;strings*</span></div>
+<div>a&nbsp;=&nbsp;%w{one&nbsp;two&nbsp;three}</div>
+<div>println&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>"one"</span>,&nbsp;<span class='string'>"two"</span>,&nbsp;<span class='string'>"three"</span>]</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;interpolation&nbsp;works&nbsp;with&nbsp;%W</span></div>
+<div>var&nbsp;=&nbsp;<span class='string'>'four'</span></div>
+<div>a&nbsp;=&nbsp;%W{one&nbsp;two&nbsp;three&nbsp;<span class='comment'>#{var}}</span></div>
+<div>println&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>"one"</span>,&nbsp;<span class='string'>"two"</span>,&nbsp;<span class='string'>"three"</span>,&nbsp;<span class='string'>"four"</span>]</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;if&nbsp;keys&nbsp;in&nbsp;hashes&nbsp;are&nbsp;symbols&nbsp;you&nbsp;can&nbsp;use&nbsp;:&nbsp;notation,&nbsp;but&nbsp;JSON&nbsp;won't&nbsp;convert&nbsp;them&nbsp;back&nbsp;to&nbsp;symbols</span></div>
+<div>require&nbsp;<span class='string'>'json'</span></div>
+<div>h&nbsp;=&nbsp;{a:1,&nbsp;b:2,&nbsp;c:3}</div>
+<div>p&nbsp;h&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{:a=>1,&nbsp;:b=>2,&nbsp;:c=>3}</div>
+<div>h&nbsp;=&nbsp;JSON.parse(h.to_json)</div>
+<div>p&nbsp;h&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{<span class='string'>"a"</span>=>1,&nbsp;<span class='string'>"b"</span>=>2,&nbsp;<span class='string'>"c"</span>=>3}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;using&nbsp;a&nbsp;string&nbsp;as&nbsp;a&nbsp;hash&nbsp;key&nbsp;will&nbsp;dupe&nbsp;and&nbsp;freeze&nbsp;the&nbsp;key</span></div>
+<div>key&nbsp;=&nbsp;<span class='string'>'the-key'</span></div>
+<div>h&nbsp;=&nbsp;{key&nbsp;=>&nbsp;<span class='string'>'the-value'</span>}</div>
+<div>println&nbsp;h&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{<span class='string'>"the-key"</span>=><span class='string'>"the-value"</span>}</div>
+<div>key.chop!</div>
+<div>p&nbsp;key&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;the-ke</div>
+<div>println&nbsp;h&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{<span class='string'>"<span class='highlight'>the-key</span>"</span>=><span class='string'>"the-value"</span>}&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;constants&nbsp;cant&nbsp;be&nbsp;reassigned&nbsp;but&nbsp;they&nbsp;can&nbsp;be&nbsp;messed&nbsp;with&nbsp;unless&nbsp;you&nbsp;freeze&nbsp;them</span></div>
+<div>MyConstant&nbsp;=&nbsp;<span class='string'>'red'</span></div>
+<div>MyConstant.gsub!&nbsp;/^.*$/,&nbsp;<span class='string'>'blue'</span></div>
+<div>p&nbsp;MyConstant&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;blue</div>
+<div>MyConstant.freeze</div>
+<div>MyConstant.gsub!&nbsp;/^.*$/,&nbsp;<span class='string'>'green'</span>&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;can't&nbsp;modify&nbsp;frozen&nbsp;String</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;<span class='string'>"super"</span>&nbsp;without&nbsp;()&nbsp;calls&nbsp;method&nbsp;of&nbsp;same&nbsp;name&nbsp;in&nbsp;parent&nbsp;class&nbsp;with&nbsp;original&nbsp;args</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;Top</div>
+<div>&nbsp;&nbsp;def&nbsp;hi(name)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>'here&nbsp;in&nbsp;Top&nbsp;'</span>&nbsp;+&nbsp;<span class='highlight'>name</span>&nbsp;</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>class&nbsp;Bottom&nbsp;< Top</div>
+<div>&nbsp;&nbsp;def&nbsp;hi(<span class='highlight'>name</span>)&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span class='highlight'>super</span>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>'here&nbsp;in&nbsp;Bottom&nbsp;'</span>&nbsp;+&nbsp;name</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>Bottom.new.hi(<span class='string'>'kevin'</span>)</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;here&nbsp;in&nbsp;Top&nbsp;kevin</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;here&nbsp;in&nbsp;Bottom&nbsp;kevin</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;blocks&nbsp;and&nbsp;scope,&nbsp;defined&nbsp;outside&nbsp;block</span></div>
+<div>&nbsp;</div>
+<div>a&nbsp;=&nbsp;<span class='string'>'outside'</span></div>
+<div>1.times&nbsp;do</div>
+<div>&nbsp;&nbsp;puts&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;outside</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>puts&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;outside</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;blocks&nbsp;and&nbsp;scope,&nbsp;defined&nbsp;inside&nbsp;block</span></div>
+<div>1.times&nbsp;do</div>
+<div>&nbsp;&nbsp;b&nbsp;=&nbsp;<span class='string'>'inside'</span></div>
+<div>&nbsp;&nbsp;puts&nbsp;b&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;inside</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>puts&nbsp;b&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;undefined&nbsp;local&nbsp;variable&nbsp;or&nbsp;method&nbsp;`b'&nbsp;for&nbsp;main:Object&nbsp;(NameError)</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;blocks&nbsp;and&nbsp;scope,&nbsp;defined&nbsp;inside&nbsp;||&nbsp;shadows</span></div>
+<div>&nbsp;</div>
+<div>c&nbsp;=&nbsp;<span class='string'>'outside'</span></div>
+<div>1.times&nbsp;do&nbsp;|<span class='highlight'>;c</span>|&nbsp;</div>
+<div>&nbsp;&nbsp;c&nbsp;=&nbsp;<span class='string'>'inside'</span></div>
+<div>&nbsp;&nbsp;puts&nbsp;c&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;inside</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>puts&nbsp;c&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;outside</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;array&nbsp;acting&nbsp;method&nbsp;(doesn't&nbsp;work&nbsp;with&nbsp;plain&nbsp;functions)&nbsp;and&nbsp;bonus&nbsp;class&nbsp;instance&nbsp;variable</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;MySingletonArray</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;@data&nbsp;=&nbsp;[]&nbsp;<span class='comment'>#&nbsp;class&nbsp;instance&nbsp;variable</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;class&nbsp;<< self</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;[](*indices)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@data[*indices]</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;[]=(*indices,&nbsp;value)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@data[*indices]&nbsp;=&nbsp;value</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>MySingletonArray[1]&nbsp;=&nbsp;:one</div>
+<div>MySingletonArray[2]&nbsp;=&nbsp;:two</div>
+<div>MySingletonArray[3]&nbsp;=&nbsp;:three</div>
+<div>&nbsp;</div>
+<div>p&nbsp;MySingletonArray[1]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;:one</div>
+<div>p&nbsp;MySingletonArray[2]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;:two&nbsp;</div>
+<div>p&nbsp;MySingletonArray[3]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;:three</div>
+<div>p&nbsp;MySingletonArray[1..3]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[:one,&nbsp;:two,&nbsp;:three]</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;ruby&nbsp;<span class='string'>"block&nbsp;expression"</span>&nbsp;is&nbsp;not&nbsp;scoped&nbsp;like&nbsp;ruby&nbsp;blocks&nbsp;(&nbsp;not&nbsp;like&nbsp;javascript&nbsp;{&nbsp;let&nbsp;a&nbsp;=&nbsp;1&nbsp;}&nbsp;)</span></div>
+<div>&nbsp;</div>
+<div>begin</div>
+<div>&nbsp;&nbsp;a&nbsp;=&nbsp;<span class='string'>"in&nbsp;'</span>block<span class='string'>'"</span></div>
+<div>end</div>
+<div>puts&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;<span class='string'>"in&nbsp;block"</span></div>
+<div>&nbsp;</div>
+<div>1.times&nbsp;do</div>
+<div>&nbsp;&nbsp;b&nbsp;=&nbsp;<span class='string'>"in&nbsp;'</span>block<span class='string'>'"</span></div>
+<div>end</div>
+<div>puts&nbsp;b&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;undefined&nbsp;local&nbsp;variable&nbsp;or&nbsp;method&nbsp;`b'&nbsp;for&nbsp;main:Object&nbsp;(NameError)</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;a&nbsp;method&nbsp;definition&nbsp;can&nbsp;contain&nbsp;other&nbsp;method&nbsp;definitions&nbsp;-&nbsp;never&nbsp;ever&nbsp;used&nbsp;this&nbsp;before</span></div>
+<div><span class='comment'>###&nbsp;partial&nbsp;function&nbsp;or&nbsp;currying?&nbsp;&nbsp;Do&nbsp;I&nbsp;care?</span></div>
+<div>def&nbsp;add_it(x)</div>
+<div>&nbsp;&nbsp;$gAdd&nbsp;=&nbsp;x&nbsp;<span class='comment'>#&nbsp;NOTE:&nbsp;no&nbsp;closures&nbsp;happen&nbsp;here,&nbsp;so&nbsp;this&nbsp;has&nbsp;to&nbsp;be&nbsp;a&nbsp;global</span></div>
+<div>&nbsp;&nbsp;def&nbsp;add_it(x)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;$gAdd&nbsp;+&nbsp;x</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>add_it(5)</div>
+<div>puts&nbsp;add_it(1)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;6</div>
+<div>puts&nbsp;add_it(2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;7</div>
+<div>puts&nbsp;add_it(3)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;8</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;keyword&nbsp;arguments,&nbsp;(&nbsp;look&nbsp;the&nbsp;same&nbsp;from&nbsp;a&nbsp;caller&nbsp;point&nbsp;of&nbsp;view?&nbsp;)</span></div>
+<div>&nbsp;</div>
+<div>def&nbsp;myf(args)</div>
+<div>&nbsp;&nbsp;println&nbsp;args</div>
+<div>end</div>
+<div>myf(a:1,&nbsp;b:2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{:a=>1,&nbsp;:b=>2}</div>
+<div>&nbsp;</div>
+<div>def&nbsp;myf(**args)</div>
+<div>&nbsp;&nbsp;println&nbsp;args</div>
+<div>end</div>
+<div>myf(a:1,&nbsp;b:2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{:a=>1,&nbsp;:b=>2}</div>
+<div>&nbsp;</div>
+<div>def&nbsp;myf(a:undefined,&nbsp;b:undefined)</div>
+<div>&nbsp;&nbsp;println&nbsp;a,&nbsp;b</div>
+<div>end</div>
+<div>myf(a:1,&nbsp;b:2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>{</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;puts&nbsp;:here</div>
+<div>&nbsp;</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+
+<br /> <br /> <br />
+<br /> <br /> <br />
+<br /> <br /> <br />
+
+</div>
+
+  </div> <!-- /container -->
+
+  <script src="../js/vendor/jquery-1.11.2.min.js">
+  <script src="../js/vendor/bootstrap.min.js"></script>
+
+</body>
+
+</html>
