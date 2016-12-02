@@ -27,6 +27,7 @@ let f = ( x ) => ( y ) => x + y
   
 let g = f(1)
 log( g(1) )
+// here
 
 // /emit
 

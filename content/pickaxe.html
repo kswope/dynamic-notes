@@ -32,7 +32,7 @@
 <div class='text'>
  
 <div class='header'>
- <span>Little stuff I keep forgetting</span> 
+ <span>Pickaxe Ruby Crystallized (stuff I keep forgetting, and more)</span> 
 </div>
 
 </div>
@@ -61,13 +61,15 @@
 <div>p&nbsp;key&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;the-ke</div>
 <div>println&nbsp;h&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{<span class='string'>"<span class='highlight'>the-key</span>"</span>=><span class='string'>"the-value"</span>}&nbsp;</div>
 <div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><span class='comment'>#&nbsp;constants&nbsp;cant&nbsp;be&nbsp;reassigned&nbsp;but&nbsp;they&nbsp;can&nbsp;be&nbsp;messed&nbsp;with&nbsp;unless&nbsp;you&nbsp;freeze&nbsp;them</span></div>
+<div><span class='comment'>#&nbsp;constants&nbsp;can't&nbsp;be&nbsp;reassigned&nbsp;but&nbsp;they&nbsp;can&nbsp;be&nbsp;messed&nbsp;with&nbsp;unless&nbsp;you&nbsp;freeze&nbsp;them</span></div>
 <div>MyConstant&nbsp;=&nbsp;<span class='string'>'red'</span></div>
 <div>MyConstant.gsub!&nbsp;/^.*$/,&nbsp;<span class='string'>'blue'</span></div>
 <div>p&nbsp;MyConstant&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;blue</div>
 <div>MyConstant.freeze</div>
 <div>MyConstant.gsub!&nbsp;/^.*$/,&nbsp;<span class='string'>'green'</span>&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;can't&nbsp;modify&nbsp;frozen&nbsp;String</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;one&nbsp;liner</span></div>
+<div>MyConstant&nbsp;=&nbsp;<span class='string'>'red'</span>.freeze</div>
 <div>&nbsp;</div>
 <div><span class='comment'>###&nbsp;<span class='string'>"super"</span>&nbsp;without&nbsp;()&nbsp;calls&nbsp;method&nbsp;of&nbsp;same&nbsp;name&nbsp;in&nbsp;parent&nbsp;class&nbsp;with&nbsp;original&nbsp;args</span></div>
 <div>&nbsp;</div>
@@ -192,13 +194,71 @@
 <div>end</div>
 <div>myf(a:1,&nbsp;b:2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2</div>
 <div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;weird&nbsp;class&nbsp;<span class='string'>"can-opener"</span>&nbsp;syntax&nbsp;that&nbsp;comes&nbsp;up&nbsp;sometimes</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClass;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>class&nbsp;<< MyClass</div>
+<div>&nbsp;&nbsp;def&nbsp;hello</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;:hello</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>p&nbsp;MyClass.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
+<div>&nbsp;</div>
+<div>obj&nbsp;=&nbsp;MyClass.new</div>
+<div>&nbsp;</div>
+<div>class&nbsp;<< obj</div>
+<div>&nbsp;&nbsp;def&nbsp;goodbye</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;:goodbye</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>obj.goodbye&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;goodbye</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;class&nbsp;macros&nbsp;are&nbsp;just&nbsp;class&nbsp;methods&nbsp;of&nbsp;the&nbsp;parent&nbsp;class</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;"Class&nbsp;attribute&nbsp;declarations&nbsp;are&nbsp;not&nbsp;part&nbsp;of&nbsp;the&nbsp;Ruby&nbsp;syntax;&nbsp;they&nbsp;are&nbsp;simply</span></div>
+<div><span class='comment'>#&nbsp;methods&nbsp;defined&nbsp;in&nbsp;class&nbsp;Module&nbsp;that&nbsp;create&nbsp;accessor&nbsp;methods&nbsp;automatically."</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;One</div>
+<div>&nbsp;&nbsp;def&nbsp;self.macro</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>'in&nbsp;macro'</span></div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>class&nbsp;Two&nbsp;< One</div>
+<div>&nbsp;&nbsp;macro</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;if&nbsp;you&nbsp;override&nbsp;new,&nbsp;don't&nbsp;forget&nbsp;to&nbsp;call&nbsp;super&nbsp;or&nbsp;you&nbsp;get&nbsp;nowhere</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;def&nbsp;self.new</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>MyClass.new&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;nil</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;Interesting?&nbsp;&nbsp;I&nbsp;don't&nbsp;think&nbsp;there&nbsp;is&nbsp;any&nbsp;possible&nbsp;way&nbsp;to&nbsp;call&nbsp;an&nbsp;instance</span></div>
+<div><span class='comment'>#&nbsp;method&nbsp;defined&nbsp;in&nbsp;a&nbsp;module&nbsp;without&nbsp;mixing&nbsp;it&nbsp;in&nbsp;to&nbsp;another&nbsp;class,&nbsp;which&nbsp;makes</span></div>
+<div><span class='comment'>#&nbsp;sense&nbsp;because&nbsp;<span class='string'>'new'</span>&nbsp;is&nbsp;the&nbsp;only&nbsp;way&nbsp;to&nbsp;reach&nbsp;a&nbsp;method&nbsp;(by&nbsp;way&nbsp;of&nbsp;its</span></div>
+<div><span class='comment'>#&nbsp;instantiated&nbsp;class)&nbsp;and&nbsp;a&nbsp;module&nbsp;is&nbsp;like&nbsp;class&nbsp;but&nbsp;without&nbsp;the&nbsp;<span class='string'>'new'</span></span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;I&nbsp;spoke&nbsp;too&nbsp;soon,&nbsp;you&nbsp;can&nbsp;use&nbsp;module_function&nbsp;macro&nbsp;to&nbsp;copy&nbsp;them&nbsp;to&nbsp;module&nbsp;methods</span></div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
-<div>{</div>
+<div>module&nbsp;MyMod</div>
+<div>&nbsp;&nbsp;def&nbsp;hello</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;:hello</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
 <div>&nbsp;</div>
-<div>&nbsp;&nbsp;puts&nbsp;:here</div>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;include&nbsp;MyMod</div>
+<div>end</div>
 <div>&nbsp;</div>
-<div>}</div>
+<div>MyClass.new.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
 
 </div>
 <div class='text'>

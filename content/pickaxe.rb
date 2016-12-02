@@ -10,7 +10,7 @@ end
 
 =begin 
 <div class='header'>
- <span>Little stuff I keep forgetting</span> 
+ <span>Pickaxe Ruby Crystallized (stuff I keep forgetting, and more)</span> 
 </div>
 =end
 
@@ -40,13 +40,15 @@ key.chop!
 p key #=> the-ke
 println h #=> {"the-key"=>"the-value"} <! the-key >
 
-
-# constants cant be reassigned but they can be messed with unless you freeze them
+# constants can't be reassigned but they can be messed with unless you freeze them
 MyConstant = 'red'
 MyConstant.gsub! /^.*$/, 'blue'
 p MyConstant #=> blue
 MyConstant.freeze
 MyConstant.gsub! /^.*$/, 'green' #=x can't modify frozen String
+
+# one liner
+MyConstant = 'red'.freeze
 
 ### "super" without () calls method of same name in parent class with original args
 
@@ -171,15 +173,72 @@ def myf(a:undefined, b:undefined)
 end
 myf(a:1, b:2) #=> 1 2
 
+### weird class "can-opener" syntax that comes up sometimes
 
+class MyClass; end
+
+class << MyClass
+  def hello
+    puts :hello
+  end
+end
+
+p MyClass.hello #=> hello
+
+obj = MyClass.new
+
+class << obj
+  def goodbye
+    puts :goodbye
+  end
+end
+
+obj.goodbye #=> goodbye
+
+### class macros are just class methods of the parent class
+
+# "Class attribute declarations are not part of the Ruby syntax; they are simply
+# methods defined in class Module that create accessor methods automatically."
+
+class One
+  def self.macro
+    puts 'in macro'
+  end
+end
+
+class Two < One
+  macro
+end
+
+# if you override new, don't forget to call super or you get nowhere
+
+class MyClass
+  def self.new
+  end
+end
+
+MyClass.new #=> nil
 # emit
 
-{
+# Interesting?  I don't think there is any possible way to call an instance
+# method defined in a module without mixing it in to another class, which makes
+# sense because 'new' is the only way to reach a method (by way of its
+# instantiated class) and a module is like class but without the 'new'
+#
+# I spoke too soon, you can use module_function macro to copy them to module methods
 
-  puts :here
 
-}
+module MyMod
+  def hello
+    puts :hello
+  end
+end
 
+class MyClass
+  include MyMod
+end
+
+MyClass.new.hello #=> hello
 
 
 # /emit

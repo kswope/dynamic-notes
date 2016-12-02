@@ -135,6 +135,23 @@ log( map[ SYM2 ] ) //=> 2
 log( map[ SYM3 ] ) //=> 3
 
 
+/* 
+<div class='header'>
+ <span>Symbols ( the truth )</span> 
+ <ul>
+  <li>Seems like the only big deal about symbols is it avoid name clashes</li>
+</div>
+*/
+
+let obj = {
+  red: Symbol('red'),
+  blue: Symbol('red'),
+  green: Symbol('red'),
+}
+
+log(obj.red == obj.red) //=> true
+log(obj.red == obj.blue) //=> false
+
 
 /* 
 <div class='header'>
@@ -273,7 +290,6 @@ dest.f() //=> in f
 let myClass = class {}
 log(new myClass()) //=> myClass {}
 
-// emit
 
 // don't forget static methods
 class MyClass {
@@ -283,6 +299,12 @@ class MyClass {
 }
 
 MyClass.f() //=> in f
+
+// emit
+
+
+
+
 
 // /emit
 

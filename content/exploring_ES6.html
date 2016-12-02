@@ -167,6 +167,26 @@
 <div class='text'>
  
 <div class='header'>
+ <span>Symbols ( the truth )</span> 
+ <ul>
+  <li>Seems like the only big deal about symbols is it avoid name clashes</li>
+</div>
+
+</div>
+<div class='code'>
+<div>let&nbsp;obj&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;red:&nbsp;Symbol(<span class='string'>'red'</span>),</div>
+<div>&nbsp;&nbsp;blue:&nbsp;Symbol(<span class='string'>'red'</span>),</div>
+<div>&nbsp;&nbsp;green:&nbsp;Symbol(<span class='string'>'red'</span>),</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>log(obj.red&nbsp;==&nbsp;obj.red)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(obj.red&nbsp;==&nbsp;obj.blue)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;false</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
  <span>Destructuring</span> 
 </div>
 
