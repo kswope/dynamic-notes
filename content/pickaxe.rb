@@ -411,8 +411,6 @@ p obj.var #=> 2
 
 ### include can also extend using included hook, skeleton example below
 
-# emit
-
 module MyMod
 
   ### instance methods go here
@@ -440,6 +438,44 @@ end
 MyClass.my_class_method #=> in my_class_method
 MyClass.new.my_instance_method #=> in my_instance_method
 
+
+### class singleton
+my_class = Class.new do
+  def hello
+    puts :hello
+  end
+end
+
+my_class.new.hello #=> hello
+
+### class singleton can be child of any class
+my_class = Class.new(String) do
+  def up 
+    self.upcase!
+  end
+end
+
+my_str = my_class.new('this is a string')
+my_str.up
+p my_str #=> THIS IS A STRING
+
+
+### dynamically generate a class
+# emit
+
+def SayHi(name)
+  Class.new do
+    @name = name.capitalize
+    class << self
+      attr_accessor :name
+    end
+    def speak
+      puts "hi #{self.class.name}"
+    end
+  end
+end
+
+SayHi('kevin').new.speak #=> hi Kevin
 
 
 # /emit

@@ -458,6 +458,44 @@
 <div>&nbsp;</div>
 <div>MyClass.my_class_method&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;in&nbsp;my_class_method</div>
 <div>MyClass.new.my_instance_method&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;in&nbsp;my_instance_method</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;class&nbsp;singleton</span></div>
+<div>my_class&nbsp;=&nbsp;Class.new&nbsp;do</div>
+<div>&nbsp;&nbsp;def&nbsp;hello</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;:hello</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>my_class.new.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;class&nbsp;singleton&nbsp;can&nbsp;be&nbsp;child&nbsp;of&nbsp;any&nbsp;class</span></div>
+<div>my_class&nbsp;=&nbsp;Class.new(String)&nbsp;do</div>
+<div>&nbsp;&nbsp;def&nbsp;up&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;self.upcase!</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>my_str&nbsp;=&nbsp;my_class.new(<span class='string'>'this&nbsp;is&nbsp;a&nbsp;string'</span>)</div>
+<div>my_str.up</div>
+<div>p&nbsp;my_str&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;THIS&nbsp;IS&nbsp;A&nbsp;STRING</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;dynamically&nbsp;generate&nbsp;a&nbsp;class</span></div>
+<div>&nbsp;</div>
+<div>def&nbsp;SayHi(name)</div>
+<div>&nbsp;&nbsp;Class.new&nbsp;do</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@name&nbsp;=&nbsp;name.capitalize</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;<< self</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attr_accessor&nbsp;:name</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;speak</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>"hi&nbsp;<span class='comment'>#{self.class.name}"</span></span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>SayHi(<span class='string'>'kevin'</span>).new.speak&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hi&nbsp;Kevin</div>
 
 </div>
 <div class='text'>
