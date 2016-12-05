@@ -10,7 +10,7 @@ end
 
 =begin 
 <div class='header'>
- <span>Pickaxe Ruby Crystallized (stuff I keep forgetting, and more)</span> 
+ <span>Pickaxe Ruby Crystallized
 </div>
 =end
 
@@ -218,7 +218,6 @@ class MyClass
 end
 
 MyClass.new #=> nil
-# emit
 
 # Interesting?  I don't think there is any possible way to call an instance
 # method defined in a module without mixing it in to another class, which makes
@@ -240,11 +239,210 @@ end
 
 MyClass.new.hello #=> hello
 
+# next() will return from a lambda or proc and the value passed to next() is
+# the return value of yield, no idea when this ever comes up
+
+def ten_times
+  10.times do |i|
+    if yield(i)
+      puts "Caller likes #{i}"
+    end
+  end
+end
+
+ten_times do |number|
+  next(true) if number ==7 # next just used to return true from yield, stupid example
+end
+
+### methods can have their own rescue clause... and more!
+
+def func
+  raise 'my error'
+  puts 'in func'
+rescue StandardError => e
+  puts 'in rescue ' + e.message
+  raise # will re-raise with same parameters
+else
+  puts 'runs if nothing raised'
+ensure
+  puts 'will always run'
+end
+
+
+### the little use rescue statement, can be chained omg what?
+
+raise 'whoops' rescue puts 'caught it' #=> caught it
+
+Integer('1.1') #=x invalid value for Integer(): "1.1" (ArgumentError)
+
+v = Integer('1.1') rescue Float('1.1')
+puts v #=> 1.1
+
+
+### retry, used inside rescue clause, ( terrible example )
+
+x=0; accum = []
+begin
+  x += 1
+  raise if x < 5  
+rescue
+  accum << x
+  retry
+end
+
+println accum #=> 1 2 3 4
+
+
+### Symbol.to_proc trick
+
+
+a = %w{one two three}
+
+class Symbol
+  # this already exists, overriding to show how it works
+  def to_proc(*args)
+    Proc.new do |obj, *args| 
+      obj.send(self, *args)
+    end
+  end
+end
+
+class String
+  def splitter
+    self.split ''
+  end
+end
+
+p a.map(&:splitter)
+
+### NOTE: a ruby Class is an object of class Class
+
+### access to singleton object, no idea why I would use this
+
+class MyClass
+end
+
+singleton = class << MyClass
+  def self.hello
+    puts "defined in singleton"
+  end
+  self
+end
+
+singleton.hello
+
+
+### prepend works like include but methods take precedence
+
+module MyMod
+  def hello
+    puts 'hello'
+    super
+  end
+end
+
+class MyClass
+  prepend MyMod
+  def hello
+    puts 'hello again'
+  end
+end
+
+MyClass.new.hello
+#=> hello
+#=> hello again
+
+
+### extend: add *instance* methods to a particular object
+
+
+module MyMod
+  def here
+    puts :here
+  end
+end
+
+obj = []
+obj.extend MyMod
+obj.here #=> here
+
+
+### extend can also be used to add class methods to a class because self is the target
+
+
+class MyClassExtended
+  extend MyMod
+end
+
+MyClassExtended.here #=> here
+
+class MyClassIncluded
+  include MyMod
+end
+
+MyClassIncluded.new.here #=> here
+
+
+### attr_logger meta programming example example using
+###   define_method
+###   instance_variable_set
+
+module AttrLogger
+
+  def attr_logger(x)
+    attr_accessor x
+    define_method("#{x}=") do |val|
+      puts "assigned #{val}"
+      instance_variable_set("@#{x}", val)
+    end
+  end
+
+end
+
+class MyClass
+  extend AttrLogger
+  attr_logger :var # prints out message whenever you assign to "var"
+end
+
+obj = MyClass.new
+obj.var = 2 #=> assigned 2
+p obj.var #=> 2
+
+
+### include can also extend using included hook, skeleton example below
+
+# emit
+
+module MyMod
+
+  ### instance methods go here
+  def my_instance_method
+    puts 'in my_instance_method'
+  end
+
+  ### class methods go here ( this doesn't need to be inside MyMod )
+  module ClassMethods
+    def my_class_method
+      puts "in my_class_method"
+    end
+  end
+
+  def self.included(host_class)
+    host_class.extend(ClassMethods)
+  end
+
+end
+
+class MyClass
+  include MyMod
+end
+
+MyClass.my_class_method #=> in my_class_method
+MyClass.new.my_instance_method #=> in my_instance_method
+
+
 
 # /emit
-
-
-
 
 
 

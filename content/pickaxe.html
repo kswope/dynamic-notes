@@ -32,7 +32,7 @@
 <div class='text'>
  
 <div class='header'>
- <span>Pickaxe Ruby Crystallized (stuff I keep forgetting, and more)</span> 
+ <span>Pickaxe Ruby Crystallized
 </div>
 
 </div>
@@ -259,6 +259,205 @@
 <div>end</div>
 <div>&nbsp;</div>
 <div>MyClass.new.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;next()&nbsp;will&nbsp;return&nbsp;from&nbsp;a&nbsp;lambda&nbsp;or&nbsp;proc&nbsp;and&nbsp;the&nbsp;value&nbsp;passed&nbsp;to&nbsp;next()&nbsp;is</span></div>
+<div><span class='comment'>#&nbsp;the&nbsp;return&nbsp;value&nbsp;of&nbsp;yield,&nbsp;no&nbsp;idea&nbsp;when&nbsp;this&nbsp;ever&nbsp;comes&nbsp;up</span></div>
+<div>&nbsp;</div>
+<div>def&nbsp;ten_times</div>
+<div>&nbsp;&nbsp;10.times&nbsp;do&nbsp;|i|</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;yield(i)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>"Caller&nbsp;likes&nbsp;<span class='comment'>#{i}"</span></span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>ten_times&nbsp;do&nbsp;|number|</div>
+<div>&nbsp;&nbsp;next(true)&nbsp;if&nbsp;number&nbsp;==7&nbsp;<span class='comment'>#&nbsp;next&nbsp;just&nbsp;used&nbsp;to&nbsp;return&nbsp;true&nbsp;from&nbsp;yield,&nbsp;stupid&nbsp;example</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;methods&nbsp;can&nbsp;have&nbsp;their&nbsp;own&nbsp;rescue&nbsp;clause...&nbsp;and&nbsp;more!</span></div>
+<div>&nbsp;</div>
+<div>def&nbsp;func</div>
+<div>&nbsp;&nbsp;raise&nbsp;<span class='string'>'my&nbsp;error'</span></div>
+<div>&nbsp;&nbsp;puts&nbsp;<span class='string'>'in&nbsp;func'</span></div>
+<div>rescue&nbsp;StandardError&nbsp;=>&nbsp;e</div>
+<div>&nbsp;&nbsp;puts&nbsp;<span class='string'>'in&nbsp;rescue&nbsp;'</span>&nbsp;+&nbsp;e.message</div>
+<div>&nbsp;&nbsp;raise&nbsp;<span class='comment'>#&nbsp;will&nbsp;re-raise&nbsp;with&nbsp;same&nbsp;parameters</span></div>
+<div>else</div>
+<div>&nbsp;&nbsp;puts&nbsp;<span class='string'>'runs&nbsp;if&nbsp;nothing&nbsp;raised'</span></div>
+<div>ensure</div>
+<div>&nbsp;&nbsp;puts&nbsp;<span class='string'>'will&nbsp;always&nbsp;run'</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;the&nbsp;little&nbsp;use&nbsp;rescue&nbsp;statement,&nbsp;can&nbsp;be&nbsp;chained&nbsp;omg&nbsp;what?</span></div>
+<div>&nbsp;</div>
+<div>raise&nbsp;<span class='string'>'whoops'</span>&nbsp;rescue&nbsp;puts&nbsp;<span class='string'>'caught&nbsp;it'</span>&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;caught&nbsp;it</div>
+<div>&nbsp;</div>
+<div>Integer(<span class='string'>'1.1'</span>)&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;invalid&nbsp;value&nbsp;for&nbsp;Integer():&nbsp;<span class='string'>"1.1"</span>&nbsp;(ArgumentError)</div>
+<div>&nbsp;</div>
+<div>v&nbsp;=&nbsp;Integer(<span class='string'>'1.1'</span>)&nbsp;rescue&nbsp;Float(<span class='string'>'1.1'</span>)</div>
+<div>puts&nbsp;v&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1.1</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;retry,&nbsp;used&nbsp;inside&nbsp;rescue&nbsp;clause,&nbsp;(&nbsp;terrible&nbsp;example&nbsp;)</span></div>
+<div>&nbsp;</div>
+<div>x=0;&nbsp;accum&nbsp;=&nbsp;[]</div>
+<div>begin</div>
+<div>&nbsp;&nbsp;x&nbsp;+=&nbsp;1</div>
+<div>&nbsp;&nbsp;raise&nbsp;if&nbsp;x&nbsp;< 5  </div>
+<div>rescue</div>
+<div>&nbsp;&nbsp;accum&nbsp;<< x</div>
+<div>&nbsp;&nbsp;retry</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>println&nbsp;accum&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1&nbsp;2&nbsp;3&nbsp;4</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;Symbol.to_proc&nbsp;trick</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>a&nbsp;=&nbsp;%w{one&nbsp;two&nbsp;three}</div>
+<div>&nbsp;</div>
+<div>class&nbsp;Symbol</div>
+<div>&nbsp;&nbsp;<span class='comment'>#&nbsp;this&nbsp;already&nbsp;exists,&nbsp;overriding&nbsp;to&nbsp;show&nbsp;how&nbsp;it&nbsp;works</span></div>
+<div>&nbsp;&nbsp;def&nbsp;to_proc(*args)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;Proc.new&nbsp;do&nbsp;|obj,&nbsp;*args|&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.send(self,&nbsp;*args)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>class&nbsp;String</div>
+<div>&nbsp;&nbsp;def&nbsp;splitter</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;self.split&nbsp;<span class='string'>''</span></div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>p&nbsp;a.map(&:splitter)</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;NOTE:&nbsp;a&nbsp;ruby&nbsp;Class&nbsp;is&nbsp;an&nbsp;object&nbsp;of&nbsp;class&nbsp;Class</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;access&nbsp;to&nbsp;singleton&nbsp;object,&nbsp;no&nbsp;idea&nbsp;why&nbsp;I&nbsp;would&nbsp;use&nbsp;this</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClass</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>singleton&nbsp;=&nbsp;class&nbsp;<< MyClass</div>
+<div>&nbsp;&nbsp;def&nbsp;self.hello</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>"defined&nbsp;in&nbsp;singleton"</span></div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;self</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>singleton.hello</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;prepend&nbsp;works&nbsp;like&nbsp;include&nbsp;but&nbsp;methods&nbsp;take&nbsp;precedence</span></div>
+<div>&nbsp;</div>
+<div>module&nbsp;MyMod</div>
+<div>&nbsp;&nbsp;def&nbsp;hello</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>'hello'</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;super</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;prepend&nbsp;MyMod</div>
+<div>&nbsp;&nbsp;def&nbsp;hello</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>'hello&nbsp;again'</span></div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>MyClass.new.hello</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello&nbsp;again</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;extend:&nbsp;add&nbsp;*instance*&nbsp;methods&nbsp;to&nbsp;a&nbsp;particular&nbsp;object</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>module&nbsp;MyMod</div>
+<div>&nbsp;&nbsp;def&nbsp;here</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;:here</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>obj&nbsp;=&nbsp;[]</div>
+<div>obj.extend&nbsp;MyMod</div>
+<div>obj.here&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;here</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;extend&nbsp;can&nbsp;also&nbsp;be&nbsp;used&nbsp;to&nbsp;add&nbsp;class&nbsp;methods&nbsp;to&nbsp;a&nbsp;class&nbsp;because&nbsp;self&nbsp;is&nbsp;the&nbsp;target</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClassExtended</div>
+<div>&nbsp;&nbsp;extend&nbsp;MyMod</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>MyClassExtended.here&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;here</div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClassIncluded</div>
+<div>&nbsp;&nbsp;include&nbsp;MyMod</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>MyClassIncluded.new.here&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;here</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;attr_logger&nbsp;meta&nbsp;programming&nbsp;example&nbsp;example&nbsp;using</span></div>
+<div><span class='comment'>###&nbsp;&nbsp;&nbsp;define_method</span></div>
+<div><span class='comment'>###&nbsp;&nbsp;&nbsp;instance_variable_set</span></div>
+<div>&nbsp;</div>
+<div>module&nbsp;AttrLogger</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;def&nbsp;attr_logger(x)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;attr_accessor&nbsp;x</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;define_method(<span class='string'>"<span class='comment'>#{x}="</span>)&nbsp;do&nbsp;|val|</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>"assigned&nbsp;<span class='comment'>#{val}"</span></span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instance_variable_set(<span class='string'>"@<span class='comment'>#{x}"</span>,&nbsp;val)</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;extend&nbsp;AttrLogger</div>
+<div>&nbsp;&nbsp;attr_logger&nbsp;:var&nbsp;<span class='comment'>#&nbsp;prints&nbsp;out&nbsp;message&nbsp;whenever&nbsp;you&nbsp;assign&nbsp;to&nbsp;<span class='string'>"var"</span></span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>obj&nbsp;=&nbsp;MyClass.new</div>
+<div>obj.var&nbsp;=&nbsp;2&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;assigned&nbsp;2</div>
+<div>p&nbsp;obj.var&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;include&nbsp;can&nbsp;also&nbsp;extend&nbsp;using&nbsp;included&nbsp;hook,&nbsp;skeleton&nbsp;example&nbsp;below</span></div>
+<div>&nbsp;</div>
+<div>module&nbsp;MyMod</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;<span class='comment'>###&nbsp;instance&nbsp;methods&nbsp;go&nbsp;here</span></div>
+<div>&nbsp;&nbsp;def&nbsp;my_instance_method</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>'in&nbsp;my_instance_method'</span></div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;<span class='comment'>###&nbsp;class&nbsp;methods&nbsp;go&nbsp;here&nbsp;(&nbsp;this&nbsp;doesn't&nbsp;need&nbsp;to&nbsp;be&nbsp;inside&nbsp;MyMod&nbsp;)</span></div>
+<div>&nbsp;&nbsp;module&nbsp;ClassMethods</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;my_class_method</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>"in&nbsp;my_class_method"</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;def&nbsp;self.included(host_class)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;host_class.extend(ClassMethods)</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;include&nbsp;MyMod</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>MyClass.my_class_method&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;in&nbsp;my_class_method</div>
+<div>MyClass.new.my_instance_method&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;in&nbsp;my_instance_method</div>
 
 </div>
 <div class='text'>
