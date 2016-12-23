@@ -481,7 +481,6 @@ SayHi('kevin').new.speak #=> hi Kevin
 # /emit
 
 
-
 =begin
 <br /> <br /> <br />
 <br /> <br /> <br />
