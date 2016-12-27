@@ -42,7 +42,8 @@
 <div>end</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
-<div><span class='comment'>#&nbsp;didn't&nbsp;know&nbsp;about&nbsp;this&nbsp;one</span></div>
+<div><span class='comment'>#&nbsp;didn't&nbsp;know&nbsp;about&nbsp;this&nbsp;one,&nbsp;or&nbsp;have&nbsp;had&nbsp;any&nbsp;reason&nbsp;to&nbsp;use&nbsp;it</span></div>
+<div><span class='comment'>#&nbsp;skips&nbsp;validations!</span></div>
 <div>Model.update_all&nbsp;<span class='string'>"deleted&nbsp;=&nbsp;1"</span></div>
 
 </div>
@@ -52,6 +53,176 @@
  <span><a href='http://guides.rubyonrails.org/active_record_migrations.html'>AR Migrations</a></span> 
  <span>
 </div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;looks&nbsp;good&nbsp;(set&nbsp;it&nbsp;to&nbsp;run&nbsp;with&nbsp;every&nbsp;rake&nbsp;db:migrate)</span></div>
+<div>"The&nbsp;annotate_models&nbsp;gem&nbsp;automatically&nbsp;adds&nbsp;and&nbsp;updates&nbsp;comments&nbsp;at&nbsp;the&nbsp;top&nbsp;of</div>
+<div>each&nbsp;model&nbsp;summarizing&nbsp;the&nbsp;schema&nbsp;if&nbsp;you&nbsp;desire&nbsp;that&nbsp;functionality."</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;if&nbsp;your&nbsp;have&nbsp;a&nbsp;migration&nbsp;that&nbsp;executes&nbsp;custom&nbsp;SQL&nbsp;sql&nbsp;statements&nbsp;that&nbsp;cannot</span></div>
+<div><span class='comment'>#&nbsp;be&nbsp;expressed&nbsp;in&nbsp;schema.rb&nbsp;then&nbsp;switch&nbsp;the&nbsp;schema&nbsp;output&nbsp;to&nbsp;to&nbsp;:sql&nbsp;in</span></div>
+<div><span class='comment'>#&nbsp;config/application.rb&nbsp;(&nbsp;doesn't&nbsp;look&nbsp;like&nbsp;its&nbsp;there&nbsp;when&nbsp;the&nbsp;default&nbsp;is&nbsp;:ruby</span></div>
+<div><span class='comment'>#&nbsp;)</span></div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span><a href='http://guides.rubyonrails.org/active_record_validations.html'>AR Validations</a></span> 
+ <span>
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;These&nbsp;(among&nbsp;more&nbsp;obscure&nbsp;ones)&nbsp;skip&nbsp;validations&nbsp;so&nbsp;watch&nbsp;out!&nbsp;&nbsp;These&nbsp;just</span></div>
+<div><span class='comment'>#&nbsp;seem&nbsp;dangerous&nbsp;to&nbsp;me,&nbsp;especially&nbsp;since&nbsp;they&nbsp;are&nbsp;so&nbsp;readily&nbsp;available.&nbsp;&nbsp;They</span></div>
+<div><span class='comment'>#&nbsp;also&nbsp;update&nbsp;the&nbsp;DB.&nbsp;&nbsp;I&nbsp;might&nbsp;write&nbsp;a&nbsp;gem&nbsp;that&nbsp;overrides&nbsp;these&nbsp;with&nbsp;a&nbsp;warning.</span></div>
+<div><span class='comment'>#&nbsp;Name&nbsp;it&nbsp;<span class='string'>"no_invalid_updates"</span>&nbsp;and&nbsp;rename&nbsp;to&nbsp;update_all_without_validation?,</span></div>
+<div><span class='comment'>#&nbsp;update_all_without_further_consideration?&nbsp;&nbsp;update_all_with_extreme_prejudice</span></div>
+<div><span class='comment'>#&nbsp;update_attributes_without_validations?</span></div>
+<div>obj.update_all</div>
+<div>obj.update_attribute</div>
+<div>obj.update_column</div>
+<div>obj.update_columns</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;Update&nbsp;will&nbsp;updated&nbsp;the&nbsp;DB&nbsp;but&nbsp;run&nbsp;the&nbsp;validations.</span></div>
+<div>obj.update(attributes)</div>
+<div>Model.update(id,&nbsp;attributes)</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;Note&nbsp;that&nbsp;validations&nbsp;are&nbsp;only&nbsp;run&nbsp;when&nbsp;validation&nbsp;is&nbsp;saved()&nbsp;or&nbsp;create(),&nbsp;so</span></div>
+<div><span class='comment'>#&nbsp;errors&nbsp;will&nbsp;not&nbsp;be&nbsp;reported.&nbsp;&nbsp;valid?&nbsp;is&nbsp;another&nbsp;way&nbsp;to&nbsp;run&nbsp;the&nbsp;validations,</span></div>
+<div><span class='comment'>#&nbsp;which&nbsp;will&nbsp;fill&nbsp;errors.messages.&nbsp;&nbsp;In&nbsp;other&nbsp;words,&nbsp;dont&nbsp;look&nbsp;in&nbsp;object.errors</span></div>
+<div><span class='comment'>#&nbsp;until&nbsp;you've&nbsp;run&nbsp;either&nbsp;saved,&nbsp;create,&nbsp;or&nbsp;valid?</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;get&nbsp;errors&nbsp;for&nbsp;specific&nbsp;field&nbsp;with&nbsp;(&nbsp;but&nbsp;only&nbsp;after&nbsp;validations&nbsp;have&nbsp;been&nbsp;run&nbsp;)</span></div>
+<div>obj.errors[:attribute]</div>
+<div>&nbsp;</div>
+<div>irb>&nbsp;Person.new.errors[:name].any?&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;false</div>
+<div>irb>&nbsp;Person.create.errors[:name].any?&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;These&nbsp;should&nbsp;work&nbsp;too&nbsp;but&nbsp;I&nbsp;can't&nbsp;test&nbsp;them&nbsp;now</span></div>
+<div>irb>&nbsp;p.valid?</div>
+<div>irb>&nbsp;p.errros[:name].any?&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div>irb>&nbsp;p.validate&nbsp;<span class='comment'>#&nbsp;alias&nbsp;of&nbsp;valid?</span></div>
+<div>irb>&nbsp;p.errros[:name].any?&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;finally&nbsp;rails&nbsp;5&nbsp;stopped&nbsp;being&nbsp;stupid&nbsp;and&nbsp;gives&nbsp;you&nbsp;access&nbsp;to&nbsp;error&nbsp;messges&nbsp;as</span></div>
+<div><span class='comment'>#&nbsp;keys&nbsp;and&nbsp;not&nbsp;strings,&nbsp;not&nbsp;sure&nbsp;yet&nbsp;if&nbsp;you&nbsp;can&nbsp;add&nbsp;your&nbsp;own</span></div>
+<div>class&nbsp;Person&nbsp;< ApplicationRecord</div>
+<div>&nbsp;&nbsp;validates&nbsp;:name,&nbsp;presence:&nbsp;true</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>>>&nbsp;person&nbsp;=&nbsp;Person.new</div>
+<div>>>&nbsp;person.valid?</div>
+<div>>>&nbsp;person.errors.details[:name]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[{error:&nbsp;:blank}]</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;validation:&nbsp;acceptance,&nbsp;if&nbsp;not&nbsp;in&nbsp;database&nbsp;a&nbsp;virutal&nbsp;field&nbsp;will&nbsp;be&nbsp;created&nbsp;for&nbsp;it</span></div>
+<div>validates&nbsp;:terms_of_service,&nbsp;acceptance:&nbsp;true&nbsp;<span class='comment'>#&nbsp;for&nbsp;checkboxes</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;if&nbsp;using&nbsp;confirmation&nbsp;validation&nbsp;don't&nbsp;forget&nbsp;the&nbsp;presence&nbsp;validation&nbsp;too</span></div>
+<div>class&nbsp;Person&nbsp;< ApplicationRecord</div>
+<div>&nbsp;&nbsp;validates&nbsp;:email,&nbsp;confirmation:&nbsp;true</div>
+<div>&nbsp;&nbsp;validates&nbsp;:email_confirmation,&nbsp;presence:&nbsp;true</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;uniqueness&nbsp;validations&nbsp;are&nbsp;case&nbsp;sensitive&nbsp;by&nbsp;default!&nbsp;&nbsp;But&nbsp;mysql&nbsp;is&nbsp;case</span></div>
+<div><span class='comment'>#&nbsp;insensitive&nbsp;by&nbsp;default!</span></div>
+<div><span class='comment'>#&nbsp;email&nbsp;must&nbsp;be&nbsp;case&nbsp;insensitive</span></div>
+<div><span class='comment'>#&nbsp;username&nbsp;probably&nbsp;should&nbsp;be&nbsp;case&nbsp;sensitive,&nbsp;or&nbsp;should&nbsp;it?</span></div>
+<div>validates&nbsp;:username,&nbsp;uniqueness:&nbsp;{&nbsp;case_sensitive:&nbsp;true&nbsp;}&nbsp;<span class='comment'>#&nbsp;<--- default!</span></div>
+<div>validates&nbsp;:email,&nbsp;uniqueness:&nbsp;{&nbsp;case_sensitive:&nbsp;false&nbsp;}</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;A&nbsp;Proc&nbsp;:message&nbsp;value&nbsp;is&nbsp;given&nbsp;two&nbsp;arguments:&nbsp;the&nbsp;object&nbsp;being&nbsp;validated,&nbsp;and</span></div>
+<div><span class='comment'>#&nbsp;a&nbsp;hash&nbsp;with&nbsp;:model,&nbsp;:attribute,&nbsp;and&nbsp;:value&nbsp;key-value&nbsp;pairs.&nbsp;&nbsp;&nbsp;I&nbsp;don't</span></div>
+<div><span class='comment'>#&nbsp;understand&nbsp;what&nbsp;:value&nbsp;key-value&nbsp;pairs&nbsp;are.</span></div>
+<div>validates&nbsp;:username,&nbsp;message:&nbsp;->(object,&nbsp;data)&nbsp;do</div>
+<div>&nbsp;&nbsp;<span class='string'>"Sorry&nbsp;<span class='comment'>#{object.name},&nbsp;is&nbsp;already&nbsp;taken"</span>&nbsp;</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;the&nbsp;default&nbsp;<span class='string'>":on"</span>&nbsp;in&nbsp;a&nbsp;validation&nbsp;is&nbsp;upon&nbsp;update&nbsp;and&nbsp;create,&nbsp;but&nbsp;you&nbsp;can</span></div>
+<div><span class='comment'>#&nbsp;change&nbsp;that&nbsp;with</span></div>
+<div>validates&nbsp;username,&nbsp;uniqueness:&nbsp;true,&nbsp;on:&nbsp;create&nbsp;<span class='comment'>#&nbsp;dupes&nbsp;allowed&nbsp;on&nbsp;update</span></div>
+<div>validates&nbsp;username,&nbsp;uniqueness:&nbsp;true,&nbsp;on:&nbsp;update&nbsp;<span class='comment'>#&nbsp;dupes&nbsp;allow&nbsp;on&nbsp;create</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;Note:&nbsp;The&nbsp;valid?&nbsp;method&nbsp;will&nbsp;verify&nbsp;that&nbsp;the&nbsp;errors&nbsp;collection&nbsp;is&nbsp;empty</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;errors&nbsp;add&nbsp;is&nbsp;same&nbsp;as&nbsp;appending&nbsp;an&nbsp;error&nbsp;to&nbsp;messages&nbsp;arrays&nbsp;</span></div>
+<div>errors.add(:username,&nbsp;<span class='string'>'blah'</span>)</div>
+<div>errors.messages[:name]&nbsp;<< <span class='string'>'blah'</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>errors.add(:name,&nbsp;:invalid_characters)</div>
+<div>errors.add(:name,&nbsp;<span class='string'>"cannot&nbsp;contain&nbsp;the&nbsp;characters&nbsp;!@<span class='comment'>#%*()_-+="</span>)</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;error&nbsp;details</span></div>
+<div>def&nbsp;my_custom_validator</div>
+<div>&nbsp;&nbsp;errors.add(:username,&nbsp;</div>
+<div>end</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span><a href='http://guides.rubyonrails.org/active_record_callbacks.html'>AR Callbacks</a></span> 
+ <span>
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;the&nbsp;AR&nbsp;lifecycle&nbsp;callbacks&nbsp;can&nbsp;take&nbsp;a&nbsp;block</span></div>
+<div>before_create&nbsp;|x|</div>
+<div>&nbsp;&nbsp;<span class='comment'>#&nbsp;do&nbsp;something</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;after_save&nbsp;is&nbsp;run&nbsp;both&nbsp;upon&nbsp;create&nbsp;and&nbsp;update.</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;Use&nbsp;after_initialize&nbsp;if&nbsp;you&nbsp;are&nbsp;tempted&nbsp;to&nbsp;override&nbsp;initialize.</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;after_find&nbsp;is&nbsp;called&nbsp;whenever&nbsp;AR&nbsp;loads&nbsp;a&nbsp;record&nbsp;from&nbsp;the&nbsp;database,&nbsp;good&nbsp;spot</span></div>
+<div><span class='comment'>#&nbsp;for&nbsp;caching?</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;The&nbsp;callback&nbsp;chain&nbsp;is&nbsp;wrapped&nbsp;in&nbsp;database&nbsp;transation.&nbsp;&nbsp;If&nbsp;any&nbsp;BEFORE&nbsp;callback</span></div>
+<div><span class='comment'>#&nbsp;returns&nbsp;false&nbsp;a&nbsp;rollback&nbsp;happens.&nbsp;&nbsp;<span class='string'>'after'</span>&nbsp;callbacks&nbsp;can&nbsp;only&nbsp;break&nbsp;out&nbsp;of</span></div>
+<div><span class='comment'>#&nbsp;transaction&nbsp;by&nbsp;raising&nbsp;an&nbsp;exception.</span></div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span><a href='http://guides.rubyonrails.org/association_basics.html'>AR Associations</a></span> 
+ <span>
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;Finally&nbsp;migrations&nbsp;support&nbsp;foreign&nbsp;key&nbsp;constraints,&nbsp;and&nbsp;in&nbsp;a&nbsp;nice&nbsp;way.</span></div>
+<div><span class='comment'>#&nbsp;But&nbsp;I&nbsp;dont&nbsp;see&nbsp;a&nbsp;cascading&nbsp;delete.</span></div>
+<div>create_table&nbsp;:accounts&nbsp;do&nbsp;|t|</div>
+<div>&nbsp;&nbsp;t.belongs_to&nbsp;:supplier,&nbsp;index:&nbsp;true,&nbsp;unique:&nbsp;true,&nbsp;foreign_key:&nbsp;true</div>
+<div>&nbsp;&nbsp;<span class='comment'>#&nbsp;...</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;handy&nbsp;way&nbsp;to&nbsp;bust&nbsp;the&nbsp;cache&nbsp;provided&nbsp;by&nbsp;reload</span></div>
+<div>@author&nbsp;=&nbsp;@book.reload.author</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
 
 </div>
 
