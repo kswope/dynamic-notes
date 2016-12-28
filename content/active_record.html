@@ -213,6 +213,42 @@
 <div>&nbsp;</div>
 <div><span class='comment'>#&nbsp;handy&nbsp;way&nbsp;to&nbsp;bust&nbsp;the&nbsp;cache&nbsp;provided&nbsp;by&nbsp;reload</span></div>
 <div>@author&nbsp;=&nbsp;@book.reload.author</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span><a href='http://guides.rubyonrails.org/active_record_querying.html'>AR Querying</a></span> 
+ <span>
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;Don<span class='string'>'t&nbsp;forget&nbsp;take(),&nbsp;seems&nbsp;useful&nbsp;but&nbsp;I'</span>ve&nbsp;never&nbsp;used&nbsp;it&nbsp;before.&nbsp;&nbsp;I'd</span></div>
+<div><span class='comment'>#&nbsp;describe&nbsp;it&nbsp;as&nbsp;a&nbsp;limited&nbsp;all(),&nbsp;in&nbsp;which&nbsp;case&nbsp;it&nbsp;prefer&nbsp;it&nbsp;was&nbsp;named&nbsp;some(x)</span></div>
+<div>client&nbsp;=&nbsp;Client.take&nbsp;<span class='comment'>#&nbsp;defaults&nbsp;to&nbsp;1</span></div>
+<div>clients&nbsp;=&nbsp;Client.take(2)</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;To&nbsp;avoid&nbsp;big&nbsp;record&nbsp;set&nbsp;memory&nbsp;problems&nbsp;you&nbsp;can&nbsp;use&nbsp;find_each</span></div>
+<div>User.find_each&nbsp;do&nbsp;|user|</div>
+<div>&nbsp;&nbsp;<span class='comment'>#&nbsp;do&nbsp;something</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;can&nbsp;end&nbsp;a&nbsp;more&nbsp;complicated&nbsp;query&nbsp;also</span></div>
+<div><span class='comment'>#&nbsp;NOTE:&nbsp;cannot&nbsp;use&nbsp;order&nbsp;or&nbsp;limit</span></div>
+<div>User.where(weekly_subscriber:&nbsp;true).find_each&nbsp;do&nbsp;|user|</div>
+<div>&nbsp;&nbsp;<span class='comment'>#&nbsp;...</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;also&nbsp;returns&nbsp;an&nbsp;enumerator</span></div>
+<div>Person.find_each.with_index&nbsp;do&nbsp;|person,&nbsp;index|</div>
+<div>&nbsp;&nbsp;<span class='comment'>#&nbsp;...</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;if&nbsp;you&nbsp;prefer&nbsp;batches&nbsp;(defaults&nbsp;to&nbsp;1000)</span></div>
+<div>Person.where(<span class='string'>"age&nbsp;>&nbsp;21"</span>).find_in_batches&nbsp;do&nbsp;|group|</div>
+<div>end</div>
+<div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div><br /></div>

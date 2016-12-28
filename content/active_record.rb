@@ -182,6 +182,41 @@ end
 @author = @book.reload.author
 
 
+=begin
+<div class='header'>
+ <span><a href='http://guides.rubyonrails.org/active_record_querying.html'>AR Querying</a></span> 
+ <span>
+</div>
+=end
+
+
+# Don't forget take(), seems useful but I've never used it before.  I'd
+# describe it as a limited all(), in which case it prefer it was named some(x)
+client = Client.take # defaults to 1
+clients = Client.take(2)
+
+# To avoid big record set memory problems you can use find_each
+User.find_each do |user|
+  # do something
+end
+
+# can end a more complicated query also
+# NOTE: cannot use order or limit
+User.where(weekly_subscriber: true).find_each do |user|
+  # ...
+end
+
+# also returns an enumerator
+Person.find_each.with_index do |person, index|
+  # ...
+end
+
+# if you prefer batches (defaults to 1000)
+Person.where("age > 21").find_in_batches do |group|
+end
+
+
+
 <br />
 <br />
 <br />
