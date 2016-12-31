@@ -22,7 +22,7 @@
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
     <div class="container">
-      <h2>Active Record</h2>
+      <h2>Rails Guides</h2>
     </div>
   </div>
 
@@ -248,6 +248,137 @@
 <div><span class='comment'>#&nbsp;if&nbsp;you&nbsp;prefer&nbsp;batches&nbsp;(defaults&nbsp;to&nbsp;1000)</span></div>
 <div>Person.where(<span class='string'>"age&nbsp;>&nbsp;21"</span>).find_in_batches&nbsp;do&nbsp;|group|</div>
 <div>end</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;GREAT:&nbsp;use&nbsp;none()&nbsp;if&nbsp;you&nbsp;want&nbsp;no&nbsp;results&nbsp;that&nbsp;wont&nbsp;break&nbsp;code</span></div>
+<div>if&nbsp;something_true</div>
+<div>&nbsp;&nbsp;return&nbsp;Articles.where(something:x)</div>
+<div>else</div>
+<div>&nbsp;&nbsp;return&nbsp;Articles.none</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;scopes&nbsp;work&nbsp;the&nbsp;same&nbsp;as&nbsp;class&nbsp;methods</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;Article&nbsp;< ApplicationRecord</div>
+<div>&nbsp;&nbsp;scope&nbsp;:published,&nbsp;->&nbsp;{&nbsp;where(published:&nbsp;true)&nbsp;}</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;not&nbsp;sure&nbsp;how&nbsp;AR&nbsp;automagically&nbsp;chains&nbsp;this</span></div>
+<div>class&nbsp;Article&nbsp;< ApplicationRecord</div>
+<div>&nbsp;&nbsp;def&nbsp;self.published</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;where(published:&nbsp;true)</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;default&nbsp;scopes&nbsp;can&nbsp;also&nbsp;be&nbsp;class&nbsp;methods</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;Client&nbsp;< ApplicationRecord</div>
+<div>&nbsp;&nbsp;default_scope&nbsp;{&nbsp;where(<span class='string'>"removed_at&nbsp;IS&nbsp;NULL"</span>)&nbsp;}</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>class&nbsp;Client&nbsp;< ApplicationRecord</div>
+<div>&nbsp;&nbsp;def&nbsp;self.default_scope</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span class='comment'>#&nbsp;Should&nbsp;return&nbsp;an&nbsp;ActiveRecord::Relation.</span></div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>###&nbsp;NOTE:&nbsp;The&nbsp;default_scope&nbsp;is&nbsp;also&nbsp;applied&nbsp;while&nbsp;creating/building&nbsp;a&nbsp;record.</span></div>
+<div><span class='comment'>#&nbsp;It&nbsp;is&nbsp;not&nbsp;applied&nbsp;while&nbsp;updating&nbsp;a&nbsp;record.</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;turn&nbsp;off&nbsp;scoping&nbsp;with&nbsp;unscope</span></div>
+<div>Client.unscoped.all</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;unscope&nbsp;can&nbsp;also&nbsp;take&nbsp;a&nbsp;block</span></div>
+<div>Client.unscoped&nbsp;{</div>
+<div>&nbsp;&nbsp;Client.created_before(Time.zone.now)</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;enums&nbsp;map&nbsp;to&nbsp;integer&nbsp;field</span></div>
+<div>class&nbsp;Book&nbsp;< ApplicationRecord</div>
+<div>&nbsp;&nbsp;enum&nbsp;availability:&nbsp;[:available,&nbsp;:unavailable]</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>Book.where(availability:&nbsp;:available)</div>
+<div>Book.available</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;looks&nbsp;like&nbsp;exists?&nbsp;is&nbsp;some&nbsp;kinda&nbsp;of&nbsp;bool&nbsp;converter,&nbsp;probably&nbsp;like&nbsp;!!</span></div>
+<div>Client.exists?(1)</div>
+<div>Client.exists?(id:&nbsp;[1,2,3])&nbsp;<span class='comment'>#&nbsp;works&nbsp;like&nbsp;||</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;also&nbsp;any?&nbsp;and&nbsp;many?</span></div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span><a href='http://guides.rubyonrails.org/layouts_and_rendering.html#structuring-layouts'>Structuring Layouts</a></span> 
+ <span>
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;To&nbsp;send&nbsp;display&nbsp;html&nbsp;from&nbsp;a&nbsp;view&nbsp;up&nbsp;to&nbsp;a&nbsp;layout,&nbsp;for&nbsp;example,&nbsp;if&nbsp;your&nbsp;layout</span></div>
+<div><span class='comment'>#&nbsp;file&nbsp;has&nbsp;a&nbsp;links&nbsp;margin&nbsp;that&nbsp;your&nbsp;current&nbsp;view&nbsp;needs&nbsp;to&nbsp;insert&nbsp;into</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;in&nbsp;layouts/application.html.erb</span></div>
+<div>&lt;body></div>
+<div>&nbsp;&nbsp;<%= yield :links %></div>
+<div>&nbsp;&nbsp;<%= yield %></div>
+<div>&lt;/body></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;in&nbsp;a&nbsp;view</span></div>
+<div><% content_for :links do %></div>
+<div>&nbsp;&nbsp;&lt;a&nbsp;href=<span class='string'>'/home'</span>>Home&lt;/a></div>
+<div><% end %></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;there's&nbsp;a&nbsp;hash&nbsp;local_assigns&nbsp;that&nbsp;contains&nbsp;locals&nbsp;passed&nbsp;into&nbsp;template&nbsp;and</span></div>
+<div><span class='comment'>#&nbsp;its&nbsp;suggested&nbsp;it&nbsp;is&nbsp;used&nbsp;for&nbsp;determining&nbsp;if&nbsp;a&nbsp;local&nbsp;is&nbsp;set</span></div>
+<div>&nbsp;</div>
+<div>&lt;%&nbsp;if&nbsp;local_assigns[:full]&nbsp;%></div>
+<div>&lt;%=&nbsp;simple_format&nbsp;article.body&nbsp;%></div>
+<div>&lt;%&nbsp;else&nbsp;%></div>
+<div>&lt;%=&nbsp;truncate&nbsp;article.body&nbsp;%></div>
+<div>&lt;%&nbsp;end&nbsp;%></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;but&nbsp;i<span class='string'>'m&nbsp;not&nbsp;sure&nbsp;why&nbsp;you&nbsp;can'</span>t&nbsp;just&nbsp;used&nbsp;defined?</span></div>
+<div>&lt;%&nbsp;if&nbsp;defined?&nbsp;full&nbsp;%></div>
+<div>&lt;%=&nbsp;simple_format&nbsp;article.body&nbsp;%></div>
+<div>&lt;%&nbsp;else&nbsp;%></div>
+<div>&lt;%=&nbsp;truncate&nbsp;article.body&nbsp;%></div>
+<div>&lt;%&nbsp;end&nbsp;%></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;render&nbsp;and&nbsp;<span class='string'>"render&nbsp;partial"</span>&nbsp;are&nbsp;slightly&nbsp;different.&nbsp;&nbsp;render&nbsp;takes&nbsp;arguments</span></div>
+<div><span class='comment'>#&nbsp;but&nbsp;isn't&nbsp;smart&nbsp;enough&nbsp;to&nbsp;process&nbsp;things&nbsp;like&nbsp;locals:{}&nbsp;and&nbsp;object:.</span></div>
+<div>&lt:%&nbsp;render&nbsp;object:@user,&nbsp;locals:{var1:1}&nbsp;%>&nbsp;<span class='comment'>#&nbsp;doesnt&nbsp;work</span></div>
+<div>&lt:%&nbsp;render&nbsp;partial:&nbsp;object:@user,&nbsp;locals:{var1:1}&nbsp;%>&nbsp;<span class='comment'>#&nbsp;works</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;why&nbsp;ever&nbsp;just&nbsp;use&nbsp;render?&nbsp;&nbsp;Not&nbsp;sure,&nbsp;but&nbsp;this&nbsp;shorthand&nbsp;seems&nbsp;popular.&nbsp;&nbsp;It</span></div>
+<div><span class='comment'>#&nbsp;will&nbsp;run&nbsp;the&nbsp;partial&nbsp;_customer.html.erb&nbsp;and&nbsp;populate&nbsp;the&nbsp;variable&nbsp;customer</span></div>
+<div><span class='comment'>#&nbsp;with&nbsp;@customer</span></div>
+<div>&lt;%&nbsp;render&nbsp;@customer&nbsp;%></div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;render&nbsp;a&nbsp;collection,&nbsp;partial&nbsp;is&nbsp;run&nbsp;once&nbsp;for&nbsp;every&nbsp;element,&nbsp;and&nbsp;assigned&nbsp;each</span></div>
+<div><span class='comment'>#&nbsp;element&nbsp;to&nbsp;variable&nbsp;with&nbsp;name&nbsp;of&nbsp;partial,&nbsp;<span class='string'>'one'</span>&nbsp;in&nbsp;this&nbsp;case</span></div>
+<div>&lt;%=&nbsp;render&nbsp;partial:&nbsp;<span class='string'>'shared/one'</span>,&nbsp;collection:[1,2,3]&nbsp;%></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>

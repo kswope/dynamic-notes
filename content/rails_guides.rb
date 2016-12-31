@@ -216,6 +216,137 @@ Person.where("age > 21").find_in_batches do |group|
 end
 
 
+# GREAT: use none() if you want no results that wont break code
+if something_true
+  return Articles.where(something:x)
+else
+  return Articles.none
+end
+
+### scopes work the same as class methods
+
+class Article < ApplicationRecord
+  scope :published, -> { where(published: true) }
+end
+
+# not sure how AR automagically chains this
+class Article < ApplicationRecord
+  def self.published
+    where(published: true)
+  end
+end
+
+
+### default scopes can also be class methods
+
+class Client < ApplicationRecord
+  default_scope { where("removed_at IS NULL") }
+end
+
+
+class Client < ApplicationRecord
+  def self.default_scope
+    # Should return an ActiveRecord::Relation.
+  end
+end
+
+### NOTE: The default_scope is also applied while creating/building a record.
+# It is not applied while updating a record.
+
+
+# turn off scoping with unscope
+Client.unscoped.all
+
+# unscope can also take a block
+Client.unscoped {
+  Client.created_before(Time.zone.now)
+}
+
+
+
+# enums map to integer field
+class Book < ApplicationRecord
+  enum availability: [:available, :unavailable]
+end
+
+Book.where(availability: :available)
+Book.available
+
+
+# looks like exists? is some kinda of bool converter, probably like !!
+Client.exists?(1)
+Client.exists?(id: [1,2,3]) # works like ||
+
+# also any? and many?
+
+
+
+
+=begin
+<div class='header'>
+ <span><a href='http://guides.rubyonrails.org/layouts_and_rendering.html#structuring-layouts'>Structuring Layouts</a></span> 
+ <span>
+</div>
+=end
+
+# To send display html from a view up to a layout, for example, if your layout
+# file has a links margin that your current view needs to insert into
+
+# in layouts/application.html.erb
+&lt;body>
+  <%= yield :links %>
+  <%= yield %>
+&lt;/body>
+
+# in a view
+<% content_for :links do %>
+  &lt;a href='/home'>Home&lt;/a>
+<% end %>
+
+
+# there's a hash local_assigns that contains locals passed into template and
+# its suggested it is used for determining if a local is set
+
+&lt;% if local_assigns[:full] %>
+&lt;%= simple_format article.body %>
+&lt;% else %>
+&lt;%= truncate article.body %>
+&lt;% end %>
+
+# but i'm not sure why you can't just used defined?
+&lt;% if defined? full %>
+&lt;%= simple_format article.body %>
+&lt;% else %>
+&lt;%= truncate article.body %>
+&lt;% end %>
+
+# render and "render partial" are slightly different.  render takes arguments
+# but isn't smart enough to process things like locals:{} and object:.
+&lt:% render object:@user, locals:{var1:1} %> # doesnt work
+&lt:% render partial: object:@user, locals:{var1:1} %> # works
+
+# why ever just use render?  Not sure, but this shorthand seems popular.  It
+# will run the partial _customer.html.erb and populate the variable customer
+# with @customer
+&lt;% render @customer %>
+
+# render a collection, partial is run once for every element, and assigned each
+# element to variable with name of partial, 'one' in this case
+&lt;%= render partial: 'shared/one', collection:[1,2,3] %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <br />
 <br />
