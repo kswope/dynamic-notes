@@ -32,8 +32,50 @@
 <div class='text'>
  
 <div class='header'>
- <span>Nothing here yet</span> 
+ <span>Foundations</span> 
 </div>
+
+</div>
+<div class='text'>
+
+<p>You must use <b>return</b> when returning multiple results from a method, or just return the array</p>
+
+</div>
+<div class='code'>
+<div>def&nbsp;m</div>
+<div>&nbsp;&nbsp;return&nbsp;1,2,3</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>print&nbsp;m&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[1,&nbsp;2,&nbsp;3]</div>
+<div>&nbsp;</div>
+<div>def&nbsp;m</div>
+<div>&nbsp;&nbsp;1,2,3</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>print&nbsp;m&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[1,&nbsp;2,&nbsp;3]&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;syntax&nbsp;error,&nbsp;unexpected&nbsp;<span class='string'>','</span>,&nbsp;expecting&nbsp;keyword_end</div>
+
+</div>
+<div class='text'>
+
+<p>__send__ is an safer alternative to send if you are paranoid about somebody
+monkeypatching send. Note: send can call an objects private methods.  If may be
+safer to use public send for 'tainted' send parameters.</p>
+
+</div>
+<div class='code'>
+<div>Object.new.send(:local_variables)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[:_]</div>
+<div>Object.new.public_send(:local_variables)&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;NoMethodError:&nbsp;private&nbsp;method&nbsp;`local_variables'&nbsp;called</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
 
 </div>
 

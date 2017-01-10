@@ -16,10 +16,6 @@ end
 
 
 
-# use %w and %W to create arrays *of strings*
-a = %w{one two three}
-println a #=> ["one", "two", "three"]
-
 # interpolation works with %W
 var = 'four'
 a = %W{one two three #{var}}
