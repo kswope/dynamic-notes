@@ -65,7 +65,61 @@ safer to use public send for 'tainted' send parameters.</p>
 <div class='code'>
 <div>Object.new.send(:local_variables)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[:_]</div>
 <div>Object.new.public_send(:local_variables)&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;NoMethodError:&nbsp;private&nbsp;method&nbsp;`local_variables'&nbsp;called</div>
+
+</div>
+<div class='text'>
+
+<p>Beware that setter methods will return the set value, not what the method returns, for consistency</p>
+
+</div>
+<div class='code'>
+<div>class&nbsp;My</div>
+<div>&nbsp;&nbsp;def&nbsp;x=(x)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@x&nbsp;=&nbsp;x</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span class='string'><span class='highlight'>'boooo'</span></span>&nbsp;</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;def&nbsp;x</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@x</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
 <div>&nbsp;</div>
+<div>o&nbsp;=&nbsp;My.new</div>
+<div>p&nbsp;o.x&nbsp;=&nbsp;<span class='highlight'>1</span>&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;&nbsp;<span class='highlight'>1</span>,&nbsp;not&nbsp;<span class='string'>'boooo'</span></div>
+
+</div>
+<div class='text'>
+
+<p>The default superclass of a class is Object </p>
+
+</div>
+<div class='code'>
+<div>class&nbsp;MyClass</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;same&nbsp;as</span></div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClass&nbsp;< Object</div>
+<div>end</div>
+
+</div>
+<div class='text'>
+
+<p>You can make a class like this:</p>
+
+</div>
+<div class='code'>
+<div>my_class&nbsp;=&nbsp;Class.new&nbsp;do</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;def&nbsp;hello</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;:hello</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>my_class.new.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>page&nbsp;119</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div><br /></div>
