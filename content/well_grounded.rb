@@ -82,7 +82,19 @@ end
 my_class.new.hello #=> hello
 
 
-page 119
+left off page 119
+
+=begin 
+<div class='header'>
+ <span>Collections central: Enumerable and Enumerator</span> 
+</div>
+=end
+
+
+
+
+
+
 
 
 <br />
