@@ -27,7 +27,7 @@ print m #=> [1, 2, 3] #=x syntax error, unexpected ',', expecting keyword_end
 =begin
 <p>__send__ is an safer alternative to send if you are paranoid about somebody
 monkeypatching send. Note: send can call an objects private methods.  If may be
-safer to use public send for 'tainted' send parameters.</p>
+safer to use public_send for 'tainted' send parameters.</p>
 =end
 
 
@@ -91,7 +91,89 @@ left off page 119
 =end
 
 
+=begin
+<p>Danger of find()ing for nil</p>
+=end
 
+p [1,2,3,nil,4,5,6].find {|n| n.nil?} #=> nil
+p [1,2,3,4,5,6].find {|n| n.nil?} #=> nil
+
+# use include? instead
+p [1,2,3,nil,4,5,6].include? nil #=> true
+p [1,2,3,4,5,6].include? nil #=> false
+
+
+=begin
+<p>select! / reject! is a handy but brutal</p>
+=end
+
+a = [1,2,3,4,5,6,7,8]
+a.select! {|x| x % 2 == 1}
+p a #=> [1,3,5,7]
+
+# there's an opposite
+a = [1,2,3,4,5,6,7,8]
+a.reject! {|x| x % 2 == 1}
+p a #=> [2,4,6,8]
+
+
+=begin
+<p>grep and ===</p>
+<ul>
+<li>
+grep calls === on argument for each element
+</li>
+<li>
+same as enumerable.select {|element| expression === element }
+</li>
+</ul>
+=end
+
+
+p [1,2,"3",4,"5",6].grep String #=> ["3", "5"]
+p ['red', 'white', 'blue'].grep /w/ #=> ['white]
+p [10, 20, 30, 40, 50].grep 20..40 #=> [20, 30, 40]
+
+# grep also takes a block for mutations
+
+p ['red', 'white', 'blue'].grep(/w/) {|x| x.upcase} #=> ['WHITE]
+
+# or just do it like this with map and don't confuse everybody
+p ['red', 'white', 'blue'].grep(/w/).map {|x| x.upcase} #=> ['WHITE]
+
+=begin
+<p>take and drop look handy</p>
+=end
+
+a = [1,2,3]
+p a.take(2) #=> [1,2]
+p a #=> [1,2,3] (unchanged)
+
+p a.drop(2) #=> [3]
+p a #=> [1,2,3] (unchanged)
+
+=begin
+<p>take_while and drop_while are like first and select</p>
+=end
+
+p [12,32,54,100,445,35353,333333].take_while {|x| x < 500} #=> [12, 32, 54, 100, 445]
+p [12,32,54,100,445,35353,333333].drop_while {|x| x < 500} #=> [35353, 333333]
+
+
+=begin
+<p>min_by is less confusing than min and the spaceship operator if you aren't using numbers</p>
+=end
+
+# emit
+
+p %w{red blue green purple yellow}.min #=> blue
+p %w{red blue green purple yellow}.min_by {|x| x.size } #=> red
+p %w{red blue green purple yellow}.min_by {|x| x[0].ord } #=> blue
+
+
+# /emit
+
+p 304
 
 
 

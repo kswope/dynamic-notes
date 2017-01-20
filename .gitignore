@@ -29,3 +29,4 @@ node_modules
 
 # used for babel-node because it doesn't support piping
 out.js
+.DS_Store

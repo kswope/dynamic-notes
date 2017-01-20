@@ -59,7 +59,7 @@
 
 <p>__send__ is an safer alternative to send if you are paranoid about somebody
 monkeypatching send. Note: send can call an objects private methods.  If may be
-safer to use public send for 'tainted' send parameters.</p>
+safer to use public_send for 'tainted' send parameters.</p>
 
 </div>
 <div class='code'>
@@ -129,7 +129,104 @@ safer to use public send for 'tainted' send parameters.</p>
 </div>
 
 </div>
+<div class='text'>
+
+<p>Danger of find()ing for nil</p>
+
+</div>
 <div class='code'>
+<div>p&nbsp;[1,2,3,nil,4,5,6].find&nbsp;{|n|&nbsp;n.nil?}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;nil</div>
+<div>p&nbsp;[1,2,3,4,5,6].find&nbsp;{|n|&nbsp;n.nil?}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;nil</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;use&nbsp;include?&nbsp;instead</span></div>
+<div>p&nbsp;[1,2,3,nil,4,5,6].include?&nbsp;nil&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>p&nbsp;[1,2,3,4,5,6].include?&nbsp;nil&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;false</div>
+
+</div>
+<div class='text'>
+
+<p>select! / reject! is a handy but brutal</p>
+
+</div>
+<div class='code'>
+<div>a&nbsp;=&nbsp;[1,2,3,4,5,6,7,8]</div>
+<div>a.select!&nbsp;{|x|&nbsp;x&nbsp;%&nbsp;2&nbsp;==&nbsp;1}</div>
+<div>p&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[1,3,5,7]</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;there's&nbsp;an&nbsp;opposite</span></div>
+<div>a&nbsp;=&nbsp;[1,2,3,4,5,6,7,8]</div>
+<div>a.reject!&nbsp;{|x|&nbsp;x&nbsp;%&nbsp;2&nbsp;==&nbsp;1}</div>
+<div>p&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[2,4,6,8]</div>
+
+</div>
+<div class='text'>
+
+<p>grep and ===</p>
+<ul>
+<li>
+grep calls === on argument for each element
+</li>
+<li>
+same as enumerable.select {|element| expression === element }
+</li>
+</ul>
+
+</div>
+<div class='code'>
+<div>p&nbsp;[1,2,<span class='string'>"3"</span>,4,<span class='string'>"5"</span>,6].grep&nbsp;String&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>"3"</span>,&nbsp;<span class='string'>"5"</span>]</div>
+<div>p&nbsp;[<span class='string'>'red'</span>,&nbsp;<span class='string'>'white'</span>,&nbsp;<span class='string'>'blue'</span>].grep&nbsp;/w/&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;['white]</div>
+<div>p&nbsp;[10,&nbsp;20,&nbsp;30,&nbsp;40,&nbsp;50].grep&nbsp;20..40&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[20,&nbsp;30,&nbsp;40]</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;grep&nbsp;also&nbsp;takes&nbsp;a&nbsp;block&nbsp;for&nbsp;mutations</span></div>
+<div>&nbsp;</div>
+<div>p&nbsp;[<span class='string'>'red'</span>,&nbsp;<span class='string'>'white'</span>,&nbsp;<span class='string'>'blue'</span>].grep(/w/)&nbsp;{|x|&nbsp;x.upcase}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;['WHITE]</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;or&nbsp;just&nbsp;do&nbsp;it&nbsp;like&nbsp;this&nbsp;with&nbsp;map&nbsp;and&nbsp;don't&nbsp;confuse&nbsp;everybody</span></div>
+<div>p&nbsp;[<span class='string'>'red'</span>,&nbsp;<span class='string'>'white'</span>,&nbsp;<span class='string'>'blue'</span>].grep(/w/).map&nbsp;{|x|&nbsp;x.upcase}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;['WHITE]</div>
+
+</div>
+<div class='text'>
+
+<p>take and drop look handy</p>
+
+</div>
+<div class='code'>
+<div>a&nbsp;=&nbsp;[1,2,3]</div>
+<div>p&nbsp;a.take(2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[1,2]</div>
+<div>p&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[1,2,3]&nbsp;(unchanged)</div>
+<div>&nbsp;</div>
+<div>p&nbsp;a.drop(2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[3]</div>
+<div>p&nbsp;a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[1,2,3]&nbsp;(unchanged)</div>
+
+</div>
+<div class='text'>
+
+<p>take_while and drop_while are like first and select</p>
+
+</div>
+<div class='code'>
+<div>p&nbsp;[12,32,54,100,445,35353,333333].take_while&nbsp;{|x|&nbsp;x&nbsp;< 500} <span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[12,&nbsp;32,&nbsp;54,&nbsp;100,&nbsp;445]</div>
+<div>p&nbsp;[12,32,54,100,445,35353,333333].drop_while&nbsp;{|x|&nbsp;x&nbsp;< 500} <span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[35353,&nbsp;333333]</div>
+
+</div>
+<div class='text'>
+
+<p>min_by is less confusing than min and the spaceship operator if you aren't using numbers</p>
+
+</div>
+<div class='code'>
+<div>p&nbsp;%w{red&nbsp;blue&nbsp;green&nbsp;purple&nbsp;yellow}.min&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;blue</div>
+<div>p&nbsp;%w{red&nbsp;blue&nbsp;green&nbsp;purple&nbsp;yellow}.min_by&nbsp;{|x|&nbsp;x.size&nbsp;}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;red</div>
+<div>p&nbsp;%w{red&nbsp;blue&nbsp;green&nbsp;purple&nbsp;yellow}.min_by&nbsp;{|x|&nbsp;x[0].ord&nbsp;}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;blue</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>p&nbsp;304</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
 <div><br /></div>
 <div><br /></div>
 <div><br /></div>
