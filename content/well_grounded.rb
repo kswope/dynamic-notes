@@ -179,14 +179,84 @@ p %w{red blue green purple yellow}.min_by {|x| x[0].ord } #=> blue
 things.sort
 
 # specify how to sort
-things.sort {|a,b| a.value<=>b.value} 
+things.sort {|a,b| a.value <=> b.value } 
 
 # specify what to sort on
 things.sort_by {|a| a.value } 
 
 
+=begin
+<p>Include Comparable, define <=>, and get comparison abilities for your class</p>
+=end
+
 # emit
+class ComparableClass
+  include Comparable
+  attr_accessor :value
+  def initialize(value)
+    self.value = value
+  end
+  def <=>(other)
+    value <=> other.value
+  end
+  def inspect
+    value
+  end
+end
+
+objs = 5.times.map {|x| ComparableClass.new(x) }
+p objs[0] < objs[3] #=> true
+p objs[2] < objs[1] #=> false
 # /emit
+
+
+
+
+
+
+=begin
+<p>Enumerators can be implemented like below (enumerators depend on fibers ).  I
+wrote this in 5 minutes and it still hurts my head to think about.</p>
+=end
+
+
+class MyEnumerator
+
+  def initialize(&b)
+
+    @fiber = Fiber.new do
+      yielder = ->(x){ Fiber.yield x }
+      b.call(yielder)
+    end
+
+  end
+
+  def next
+    @fiber.resume
+  end
+
+end
+
+
+e = MyEnumerator.new do |y|
+  [1,2,3].each do |x| 
+    y.yield x
+  end
+end
+
+p e.next #=> 1
+p e.next #=> 2
+p e.next #=> 3
+
+
+
+
+
+
+
+
+
+
 
 
 
