@@ -164,17 +164,29 @@ p [12,32,54,100,445,35353,333333].drop_while {|x| x < 500} #=> [35353, 333333]
 <p>min_by is less confusing than min and the spaceship operator if you aren't using numbers</p>
 =end
 
-# emit
 
 p %w{red blue green purple yellow}.min #=> blue
 p %w{red blue green purple yellow}.min_by {|x| x.size } #=> red
 p %w{red blue green purple yellow}.min_by {|x| x[0].ord } #=> blue
 
 
+
+=begin
+<p>Three ways to sort an array of custom classes</p>
+=end
+
+# define a method <=> for things 
+things.sort
+
+# specify how to sort
+things.sort {|a,b| a.value<=>b.value} 
+
+# specify what to sort on
+things.sort_by {|a| a.value } 
+
+
+# emit
 # /emit
-
-p 304
-
 
 
 

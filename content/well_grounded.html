@@ -218,10 +218,23 @@ same as enumerable.select {|element| expression === element }
 <div>p&nbsp;%w{red&nbsp;blue&nbsp;green&nbsp;purple&nbsp;yellow}.min&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;blue</div>
 <div>p&nbsp;%w{red&nbsp;blue&nbsp;green&nbsp;purple&nbsp;yellow}.min_by&nbsp;{|x|&nbsp;x.size&nbsp;}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;red</div>
 <div>p&nbsp;%w{red&nbsp;blue&nbsp;green&nbsp;purple&nbsp;yellow}.min_by&nbsp;{|x|&nbsp;x[0].ord&nbsp;}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;blue</div>
+
+</div>
+<div class='text'>
+
+<p>Three ways to sort an array of custom classes</p>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;define&nbsp;a&nbsp;method&nbsp;<=>&nbsp;for&nbsp;things&nbsp;</span></div>
+<div>things.sort</div>
 <div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;specify&nbsp;how&nbsp;to&nbsp;sort</span></div>
+<div>things.sort&nbsp;{|a,b|&nbsp;a.value<=>b.value}&nbsp;</div>
 <div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;specify&nbsp;what&nbsp;to&nbsp;sort&nbsp;on</span></div>
+<div>things.sort_by&nbsp;{|a|&nbsp;a.value&nbsp;}&nbsp;</div>
 <div>&nbsp;</div>
-<div>p&nbsp;304</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
