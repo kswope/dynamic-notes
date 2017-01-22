@@ -189,7 +189,6 @@ things.sort_by {|a| a.value }
 <p>Include Comparable, define <=>, and get comparison abilities for your class</p>
 =end
 
-# emit
 class ComparableClass
   include Comparable
   attr_accessor :value
@@ -207,7 +206,6 @@ end
 objs = 5.times.map {|x| ComparableClass.new(x) }
 p objs[0] < objs[3] #=> true
 p objs[2] < objs[1] #=> false
-# /emit
 
 
 
@@ -271,7 +269,15 @@ p e.next #=> 2
 p e.next #=> 3
 
 
+=begin
+<p>Protect an object with its enumerable</p>
+=end
 
+# emit
+a = (0..9).to_a
+e = a.enum_for
+p e.map {|x| x}
+# /emit
 
 
 
