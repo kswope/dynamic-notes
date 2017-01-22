@@ -264,7 +264,7 @@ same as enumerable.select {|element| expression === element }
 <div class='text'>
 
 <p>Enumerators can be implemented like below (enumerators depend on fibers ).  I
-wrote this in 5 minutes and it still hurts my head to think about.</p>
+wrote this in 5 minutes but it still hurts my head to think about.</p>
 
 </div>
 <div class='code'>
@@ -288,9 +288,32 @@ wrote this in 5 minutes and it still hurts my head to think about.</p>
 <div>&nbsp;</div>
 <div>e&nbsp;=&nbsp;MyEnumerator.new&nbsp;do&nbsp;|y|</div>
 <div>&nbsp;&nbsp;[1,2,3].each&nbsp;do&nbsp;|x|&nbsp;</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;y.yield&nbsp;x</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;y.yield&nbsp;x&nbsp;<span class='comment'>#&nbsp;y.call(x)&nbsp;seems&nbsp;to&nbsp;work&nbsp;for&nbsp;custom&nbsp;enumerator,&nbsp;not&nbsp;for&nbsp;standard&nbsp;enumerator</span></div>
 <div>&nbsp;&nbsp;end</div>
 <div>end</div>
+<div>&nbsp;</div>
+<div>p&nbsp;e.next&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>p&nbsp;e.next&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div>p&nbsp;e.next&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+
+</div>
+<div class='text'>
+
+<p>enum_for takes a method to enumerate on, and could be implemented like this</p>
+
+</div>
+<div class='code'>
+<div>class&nbsp;Array</div>
+<div>&nbsp;&nbsp;def&nbsp;my_enum_for(method&nbsp;=&nbsp;:each)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;Enumerator.new&nbsp;do&nbsp;|y|</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;send(method)&nbsp;do&nbsp;|x|</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;<< x</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>e&nbsp;=&nbsp;[1,2,3].my_enum_for(:map)</div>
 <div>&nbsp;</div>
 <div>p&nbsp;e.next&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
 <div>p&nbsp;e.next&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>

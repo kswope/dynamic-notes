@@ -216,7 +216,7 @@ p objs[2] < objs[1] #=> false
 
 =begin
 <p>Enumerators can be implemented like below (enumerators depend on fibers ).  I
-wrote this in 5 minutes and it still hurts my head to think about.</p>
+wrote this in 5 minutes but it still hurts my head to think about.</p>
 =end
 
 
@@ -240,9 +240,31 @@ end
 
 e = MyEnumerator.new do |y|
   [1,2,3].each do |x| 
-    y.yield x
+    y.yield x # y.call(x) seems to work for custom enumerator, not for standard enumerator
   end
 end
+
+p e.next #=> 1
+p e.next #=> 2
+p e.next #=> 3
+
+
+
+=begin
+<p>enum_for takes a method to enumerate on, and could be implemented like this</p>
+=end
+
+class Array
+  def my_enum_for(method = :each)
+    Enumerator.new do |y|
+      send(method) do |x|
+        y << x
+      end
+    end
+  end
+end
+
+e = [1,2,3].my_enum_for(:map)
 
 p e.next #=> 1
 p e.next #=> 2
