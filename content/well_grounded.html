@@ -322,17 +322,36 @@ wrote this in 5 minutes but it still hurts my head to think about.</p>
 </div>
 <div class='text'>
 
-<p>Protect an object with its enumerable</p>
+<p>Protect an object with its enumerable (not sure how useful this is)</p>
 
 </div>
 <div class='code'>
 <div>a&nbsp;=&nbsp;(0..9).to_a</div>
 <div>e&nbsp;=&nbsp;a.enum_for</div>
-<div>p&nbsp;e.map&nbsp;{|x|&nbsp;x}</div>
+<div>p&nbsp;e.map&nbsp;{|x|&nbsp;x}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[0,&nbsp;1,&nbsp;2,&nbsp;3,&nbsp;4,&nbsp;5,&nbsp;6,&nbsp;7,&nbsp;8,&nbsp;9]</div>
+<div>e&nbsp;<< 10 <span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;undefined&nbsp;method&nbsp;`<<' for Enumerator:</div>
+
+</div>
+<div class='text'>
+
+<p>Making a class 'enumerable' without including Enumerable by hooking its each() up to enumerator</p>
+
+</div>
+<div class='code'>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;def&nbsp;initialize</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@a&nbsp;=&nbsp;(0..9).to_a</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;def&nbsp;each</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@a.each&nbsp;{|x|&nbsp;yield&nbsp;x}</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
 <div>&nbsp;</div>
+<div>obj&nbsp;=&nbsp;MyClass.new</div>
+<div>obj.each&nbsp;{|x|&nbsp;print&nbsp;x&nbsp;}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;0123456789</div>
 <div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
+<div>p&nbsp;obj.enum_for(:each).min&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;0</div>
+<div>p&nbsp;obj.enum_for(:each).max&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;9</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>

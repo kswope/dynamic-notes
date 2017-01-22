@@ -270,18 +270,37 @@ p e.next #=> 3
 
 
 =begin
-<p>Protect an object with its enumerable</p>
+<p>Protect an object with its enumerable (not sure how useful this is)</p>
 =end
 
 # emit
 a = (0..9).to_a
 e = a.enum_for
-p e.map {|x| x}
+p e.map {|x| x} #=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+e << 10 #=x undefined method `<<' for Enumerator:
 # /emit
 
 
 
+=begin
+<p>Making a class 'enumerable' without including Enumerable by hooking its each() up to enumerator</p>
+=end
 
+
+class MyClass
+  def initialize
+    @a = (0..9).to_a
+  end
+  def each
+    @a.each {|x| yield x}
+  end
+end
+
+obj = MyClass.new
+obj.each {|x| print x } #=> 0123456789
+
+p obj.enum_for(:each).min #=> 0
+p obj.enum_for(:each).max #=> 9
 
 
 
