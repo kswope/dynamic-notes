@@ -273,12 +273,10 @@ p e.next #=> 3
 <p>Protect an object with its enumerable (not sure how useful this is)</p>
 =end
 
-# emit
 a = (0..9).to_a
 e = a.enum_for
 p e.map {|x| x} #=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 e << 10 #=x undefined method `<<' for Enumerator:
-# /emit
 
 
 
@@ -303,8 +301,52 @@ p obj.enum_for(:each).min #=> 0
 p obj.enum_for(:each).max #=> 9
 
 
+=begin 
+<div class='header'>
+ <span>Regex</span> 
+</div>
+=end
 
 
+=begin
+<p>Three ways to test for regex match, ugh</p>
+=end
+
+re = /there/
+string = 'here there everywhere'
+
+puts "Match!" if re.match(string)
+puts "Match!" if string =~ re
+puts "Match!" if re =~ string # reverse of previous
+puts "Match!" if re === string
+puts "Match!" if string === re #=x doesn't work in reverse
+
+=begin 
+<div class='header'>
+ <span>Object Individualization</span> 
+</div>
+=end
+
+
+=begin
+<p>extend() : "the mixing of a module into an object's singleton class"</p>
+=end
+
+# emit
+module MyModule
+  def hello
+    puts :hello
+  end
+end
+
+obj = Object.new
+obj.extend MyModule
+obj.hello #=> hello
+
+String.extend MyModule
+'asdf'.class.hello #=> hello
+
+# /emit
 
 
 

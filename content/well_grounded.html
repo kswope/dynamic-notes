@@ -352,9 +352,56 @@ wrote this in 5 minutes but it still hurts my head to think about.</p>
 <div>&nbsp;</div>
 <div>p&nbsp;obj.enum_for(:each).min&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;0</div>
 <div>p&nbsp;obj.enum_for(:each).max&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;9</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Regex</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Three ways to test for regex match, ugh</p>
+
+</div>
+<div class='code'>
+<div>re&nbsp;=&nbsp;/there/</div>
+<div>string&nbsp;=&nbsp;<span class='string'>'here&nbsp;there&nbsp;everywhere'</span></div>
 <div>&nbsp;</div>
+<div>puts&nbsp;<span class='string'>"Match!"</span>&nbsp;if&nbsp;re.match(string)</div>
+<div>puts&nbsp;<span class='string'>"Match!"</span>&nbsp;if&nbsp;string&nbsp;=~&nbsp;re</div>
+<div>puts&nbsp;<span class='string'>"Match!"</span>&nbsp;if&nbsp;re&nbsp;=~&nbsp;string&nbsp;<span class='comment'>#&nbsp;reverse&nbsp;of&nbsp;previous</span></div>
+<div>puts&nbsp;<span class='string'>"Match!"</span>&nbsp;if&nbsp;re&nbsp;===&nbsp;string</div>
+<div>puts&nbsp;<span class='string'>"Match!"</span>&nbsp;if&nbsp;string&nbsp;===&nbsp;re&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;doesn't&nbsp;work&nbsp;in&nbsp;reverse</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Object Individualization</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>extend() : "the mixing of a module into an object's singleton class"</p>
+
+</div>
+<div class='code'>
+<div>module&nbsp;MyModule</div>
+<div>&nbsp;&nbsp;def&nbsp;hello</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;:hello</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
 <div>&nbsp;</div>
+<div>obj&nbsp;=&nbsp;Object.new</div>
+<div>obj.extend&nbsp;MyModule</div>
+<div>obj.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
 <div>&nbsp;</div>
+<div>String.extend&nbsp;MyModule</div>
+<div><span class='string'>'asdf'</span>.class.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
