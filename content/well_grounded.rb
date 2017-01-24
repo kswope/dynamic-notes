@@ -119,14 +119,8 @@ p a #=> [2,4,6,8]
 
 =begin
 <p>grep and ===</p>
-<ul>
-<li>
-grep calls === on argument for each element
-</li>
-<li>
-same as enumerable.select {|element| expression === element }
-</li>
-</ul>
+<i> grep calls === on argument for each element </i><br />
+<i> same as enumerable.select {|element| expression === element }</i>
 =end
 
 
@@ -330,6 +324,9 @@ puts "Match!" if string === re #=x doesn't work in reverse
 
 =begin
 <p>extend() : "the mixing of a module into an object's singleton class"</p>
+<i>From ruby-doc.org: "Adds to obj the instance methods from each module given as a parameter."</i><br />
+<i>Common use: dump a modules instance methods into a class's eigenclass</i><br />
+<i>Difference from include(): which dumps modules instance methods into classes instance methods</p>
 =end
 
 # emit
@@ -345,6 +342,13 @@ obj.hello #=> hello
 
 String.extend MyModule
 'asdf'.class.hello #=> hello
+
+# this would have worked too
+class << obj
+  include MyModule # <!include>
+end
+
+obj.hello #=> hello
 
 # /emit
 
