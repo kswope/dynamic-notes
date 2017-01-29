@@ -406,7 +406,153 @@ wrote this in 5 minutes but it still hurts my head to think about.</p>
 <div>end</div>
 <div>&nbsp;</div>
 <div>obj.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Callable and Runnable Objects</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>Some idioms used used proc objects</p>
+
+</div>
+<div class='code'>
+<div><span class='comment'>#&nbsp;currying</span></div>
+<div>def&nbsp;mult(factor)</div>
+<div>&nbsp;&nbsp;Proc.new&nbsp;do&nbsp;|x|</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;*&nbsp;factor</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>mult3&nbsp;=&nbsp;mult(3)</div>
+<div>p&nbsp;mult3.call(3)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;9</div>
 <div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;counter</span></div>
+<div>def&nbsp;mk_counter</div>
+<div>&nbsp;&nbsp;count&nbsp;=&nbsp;0</div>
+<div>&nbsp;&nbsp;Proc.new&nbsp;{&nbsp;count&nbsp;=&nbsp;count&nbsp;+&nbsp;1&nbsp;}</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>counter&nbsp;=&nbsp;mk_counter</div>
+<div>p&nbsp;counter.call&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>p&nbsp;counter.call&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div>p&nbsp;counter.call&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+
+</div>
+<div class='text'>
+
+<p>Weird way to run runable object</p>
+
+</div>
+<div class='code'>
+<div>proc&nbsp;=&nbsp;Proc.new&nbsp;{|x|&nbsp;puts&nbsp;x&nbsp;}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;normal</span></div>
+<div>proc.call(<span class='string'>'asdf'</span>)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;asdf</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;not&nbsp;that&nbsp;weird</span></div>
+<div>proc[<span class='string'>'asdf'</span>]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;asdf</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;weird</span></div>
+<div>proc.(<span class='string'>'asdf'</span>)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;asdf</div>
+
+</div>
+<div class='text'>
+
+<p>instance_eval for more friendly configuration</p>
+
+</div>
+<div class='code'>
+<div>class&nbsp;Person</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;def&nbsp;initialize(&block)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span class='comment'>#&nbsp;the&nbsp;secret&nbsp;sauce&nbsp;-&nbsp;run&nbsp;block&nbsp;in&nbsp;context&nbsp;of&nbsp;self</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;instance_eval(&block)&nbsp;</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;<span class='comment'>#&nbsp;both&nbsp;setter&nbsp;and&nbsp;getter</span></div>
+<div>&nbsp;&nbsp;def&nbsp;first(name=nil)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@first&nbsp;=&nbsp;@first&nbsp;||&nbsp;name</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;<span class='comment'>#&nbsp;both&nbsp;setter&nbsp;and&nbsp;getter</span></div>
+<div>&nbsp;&nbsp;def&nbsp;last(name=nil)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@last&nbsp;=&nbsp;@last&nbsp;||&nbsp;name</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>person&nbsp;=&nbsp;Person.new&nbsp;do</div>
+<div>&nbsp;&nbsp;first&nbsp;<span class='string'>'Bob'</span></div>
+<div>&nbsp;&nbsp;last&nbsp;<span class='string'>'Smith'</span></div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>p&nbsp;person.first&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;Bob</div>
+<div>p&nbsp;person.last&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;Smith</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Callbacks, hooks, and runtime introspection</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<p>method_missing can be used for delegation</p>
+
+</div>
+<div class='code'>
+<div>class&nbsp;MyArray</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;def&nbsp;initialize</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@array&nbsp;=&nbsp;[]</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;def&nbsp;method_missing(method,&nbsp;*args,&nbsp;&b)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;@array.send(method,&nbsp;*args,&nbsp;&b)</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>ma&nbsp;=&nbsp;MyArray.new</div>
+<div>ma&nbsp;<< 1</div>
+<div>ma&nbsp;<< 2</div>
+<div>ma&nbsp;<< 3</div>
+<div>p&nbsp;ma.join(<span class='string'>',&nbsp;'</span>)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;<span class='string'>"1,&nbsp;2,&nbsp;3"</span></div>
+
+</div>
+<div class='text'>
+
+<p>use included to mixin a class method with include()</p>
+<i>could use extend() but sometimes you want to mixin *both* class and instance methods</i>
+
+</div>
+<div class='code'>
+<div>module&nbsp;MyModule</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;def&nbsp;a_instance_method</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>'hello&nbsp;from&nbsp;a_instance_method'</span></div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;def&nbsp;self.included(c)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;c.a_class_method</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;puts&nbsp;<span class='string'>'hello&nbsp;from&nbsp;a_class_method'</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;end</div>
+<div>&nbsp;&nbsp;end</div>
+<div>&nbsp;</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;include&nbsp;MyModule</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>MyClass.a_class_method&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello&nbsp;from&nbsp;a_class_method</div>
+<div>MyClass.new.a_instance_method&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello&nbsp;from&nbsp;a_instance_method</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>

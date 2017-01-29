@@ -329,7 +329,6 @@ puts "Match!" if string === re #=x doesn't work in reverse
 <i>Difference from include(): which dumps modules instance methods into classes instance methods</p>
 =end
 
-# emit
 module MyModule
   def hello
     puts :hello
@@ -350,8 +349,148 @@ end
 
 obj.hello #=> hello
 
-# /emit
 
+=begin 
+<div class='header'>
+ <span>Callable and Runnable Objects</span> 
+</div>
+=end
+
+
+=begin
+<p>Some idioms used used proc objects</p>
+=end
+
+# currying
+def mult(factor)
+  Proc.new do |x|
+    x * factor
+  end
+end
+mult3 = mult(3)
+p mult3.call(3) #=> 9
+
+# counter
+def mk_counter
+  count = 0
+  Proc.new { count = count + 1 }
+end
+
+counter = mk_counter
+p counter.call #=> 1
+p counter.call #=> 2
+p counter.call #=> 3
+
+
+
+=begin
+<p>Weird way to run runable object</p>
+=end
+
+proc = Proc.new {|x| puts x }
+
+# normal
+proc.call('asdf') #=> asdf
+
+# not that weird
+proc['asdf'] #=> asdf
+
+# weird
+proc.('asdf') #=> asdf
+
+
+=begin
+<p>instance_eval for more friendly configuration</p>
+=end
+
+class Person
+
+  def initialize(&block)
+    # the secret sauce - run block in context of self
+    instance_eval(&block) 
+  end
+
+  # both setter and getter
+  def first(name=nil)
+    @first = @first || name
+  end
+
+  # both setter and getter
+  def last(name=nil)
+    @last = @last || name
+  end
+
+end
+
+person = Person.new do
+  first 'Bob'
+  last 'Smith'
+end
+
+p person.first #=> Bob
+p person.last #=> Smith
+
+
+
+=begin 
+<div class='header'>
+ <span>Callbacks, hooks, and runtime introspection</span> 
+</div>
+=end
+
+
+=begin
+<p>method_missing can be used for delegation</p>
+=end
+
+class MyArray
+  
+  def initialize
+    @array = []
+  end
+
+  def method_missing(method, *args, &b)
+    @array.send(method, *args, &b)
+  end
+
+end
+
+ma = MyArray.new
+ma << 1
+ma << 2
+ma << 3
+p ma.join(', ') #=> "1, 2, 3"
+
+
+=begin
+<p>use included to mixin a class method with include()</p>
+<i>could use extend() but sometimes you want to mixin *both* class and instance methods</i>
+=end
+
+# emit
+
+module MyModule
+
+  def a_instance_method
+    puts 'hello from a_instance_method'
+  end
+
+  def self.included(c)
+    def c.a_class_method
+      puts 'hello from a_class_method'
+    end
+  end
+
+end
+
+class MyClass
+  include MyModule
+end
+
+MyClass.a_class_method #=> hello from a_class_method
+MyClass.new.a_instance_method #=> hello from a_instance_method
+
+# /emit
 
 
 <br />
