@@ -90,6 +90,60 @@ my_class.new.hello #=> hello
 
 
 
+=begin
+<p>to_a is related to the splat operator</p>
+<i>the splat operator uses .to_a()</i>
+=end
+
+class MyClass
+  def to_a
+    ['hi', 'there'] 
+  end
+end
+
+p *MyClass.new
+#=> hi
+#=> there
+
+
+=begin
+<p>splat related cool trick for being sure to create an array</p>
+<i>seems to_a is not required for a variable to respond to *</i>
+=end
+
+a = 1 # integer
+p [*a] #=> [1]
+a = 'asf' # string
+p [*a] #=> ['asdf']
+a = [1,2,3] # array
+p [*a] #=> [1,2,3]
+
+=begin
+<p>use Integer() to convert or validate an integer</p>
+=end
+
+i = Integer(1)
+p i = Integer(1.623) #=> 1
+p i = Integer('number') #=x invalid value for Integer(): "number" (ArgumentError) <!ArgumentError>
+
+
+=begin
+<p>to_s is used by puts, etc</p>
+<p>to_str is used when a string is required, like + and <<</p>
+=end
+
+# emit
+class MyClass
+  def to_str
+    'instance of MyClass'
+  end
+end
+
+puts 'this is an ' + MyClass.new #=> this is an instance of MyClass
+# /emit
+
+
+
 
 =begin 
 <div class='header'>
@@ -506,8 +560,6 @@ MyClass.new.a_instance_method #=> hello from a_instance_method
 <i></i>
 =end
 
-# emit
-# /emit
 
 
 

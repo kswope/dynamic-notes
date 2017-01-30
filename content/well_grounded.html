@@ -127,6 +127,66 @@ safer to use public_send for 'tainted' send parameters.</p>
 
 </div>
 <div class='text'>
+
+<p>to_a is related to the splat operator</p>
+<i>the splat operator uses .to_a()</i>
+
+</div>
+<div class='code'>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;def&nbsp;to_a</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;[<span class='string'>'hi'</span>,&nbsp;<span class='string'>'there'</span>]&nbsp;</div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>p&nbsp;*MyClass.new</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hi</div>
+<div><span class='glyphicon glyphicon-arrow-right'></span>&nbsp;there</div>
+
+</div>
+<div class='text'>
+
+<p>splat related cool trick for being sure to create an array</p>
+<i>seems to_a is not required for a variable to respond to *</i>
+
+</div>
+<div class='code'>
+<div>a&nbsp;=&nbsp;1&nbsp;<span class='comment'>#&nbsp;integer</span></div>
+<div>p&nbsp;[*a]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[1]</div>
+<div>a&nbsp;=&nbsp;<span class='string'>'asf'</span>&nbsp;<span class='comment'>#&nbsp;string</span></div>
+<div>p&nbsp;[*a]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>'asdf'</span>]</div>
+<div>a&nbsp;=&nbsp;[1,2,3]&nbsp;<span class='comment'>#&nbsp;array</span></div>
+<div>p&nbsp;[*a]&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[1,2,3]</div>
+
+</div>
+<div class='text'>
+
+<p>use Integer() to convert or validate an integer</p>
+
+</div>
+<div class='code'>
+<div>i&nbsp;=&nbsp;Integer(1)</div>
+<div>p&nbsp;i&nbsp;=&nbsp;Integer(1.623)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>p&nbsp;i&nbsp;=&nbsp;Integer(<span class='string'>'number'</span>)&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;invalid&nbsp;value&nbsp;for&nbsp;Integer():&nbsp;<span class='string'>"number"</span>&nbsp;(<span class='highlight'>ArgumentError</span>)&nbsp;</div>
+
+</div>
+<div class='text'>
+
+<p>to_s is used by puts, etc</p>
+<p>to_str is used when a string is required, like + and <<</p>
+
+</div>
+<div class='code'>
+<div>class&nbsp;MyClass</div>
+<div>&nbsp;&nbsp;def&nbsp;to_str</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span class='string'>'instance&nbsp;of&nbsp;MyClass'</span></div>
+<div>&nbsp;&nbsp;end</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>puts&nbsp;<span class='string'>'this&nbsp;is&nbsp;an&nbsp;'</span>&nbsp;+&nbsp;MyClass.new&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;this&nbsp;is&nbsp;an&nbsp;instance&nbsp;of&nbsp;MyClass</div>
+
+</div>
+<div class='text'>
  
 <div class='header'>
  <span>Collections central: Enumerable and Enumerator</span> 
