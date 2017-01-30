@@ -25,10 +25,14 @@ print m #=> [1, 2, 3] #=x syntax error, unexpected ',', expecting keyword_end
 
 
 =begin
-<p>__send__ is an safer alternative to send if you are paranoid about somebody
-monkeypatching send. Note: send can call an objects private methods.  If may be
-safer to use public_send for 'tainted' send parameters.</p>
+<p>__send__ is an safer alternative to send if you are paranoid about somebody monkeypatching send.</p>
 =end
+
+=begin
+<p>Note: send can call an objects private methods.
+If may be safer to use public_send for 'tainted' send parameters.</p>
+=end
+
 
 
 Object.new.send(:local_variables) #=> [:_]
