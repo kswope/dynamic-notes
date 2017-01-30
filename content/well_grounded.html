@@ -117,9 +117,13 @@ safer to use public_send for 'tainted' send parameters.</p>
 <div>end</div>
 <div>&nbsp;</div>
 <div>my_class.new.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>left&nbsp;off&nbsp;page&nbsp;119</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>Built in Essentials</span> 
+</div>
 
 </div>
 <div class='text'>
@@ -382,7 +386,7 @@ wrote this in 5 minutes but it still hurts my head to think about.</p>
 
 <p>extend() : "the mixing of a module into an object's singleton class"</p>
 <i>From ruby-doc.org: "Adds to obj the instance methods from each module given as a parameter."</i><br />
-<i>Common use: dump a modules instance methods into a class's eigenclass</i><br />
+<i>Common use: dump a modules instance methods into a class's singleton class</i><br />
 <i>Difference from include(): which dumps modules instance methods into classes instance methods</p>
 
 </div>
@@ -553,9 +557,18 @@ wrote this in 5 minutes but it still hurts my head to think about.</p>
 <div>&nbsp;</div>
 <div>MyClass.a_class_method&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello&nbsp;from&nbsp;a_class_method</div>
 <div>MyClass.new.a_instance_method&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello&nbsp;from&nbsp;a_instance_method</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
+
+</div>
+<div class='text'>
+
+<p>Note: Is it true there is no way to mixin module class methods?</p>
+<i>Using include() we can include instance methods into a class.</i><br />
+<i>Using extend() we can include instance methods into an objects singleton class.</i><br />
+<i>There might be with unbind and bind, but its looking like a mess.</i>
+<i></i>
+
+</div>
+<div class='code'>
 <div><br /></div>
 <div><br /></div>
 <div><br /></div>

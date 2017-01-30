@@ -82,7 +82,14 @@ end
 my_class.new.hello #=> hello
 
 
-left off page 119
+=begin 
+<div class='header'>
+ <span>Built in Essentials</span> 
+</div>
+=end
+
+
+
 
 =begin 
 <div class='header'>
@@ -325,7 +332,7 @@ puts "Match!" if string === re #=x doesn't work in reverse
 =begin
 <p>extend() : "the mixing of a module into an object's singleton class"</p>
 <i>From ruby-doc.org: "Adds to obj the instance methods from each module given as a parameter."</i><br />
-<i>Common use: dump a modules instance methods into a class's eigenclass</i><br />
+<i>Common use: dump a modules instance methods into a class's singleton class</i><br />
 <i>Difference from include(): which dumps modules instance methods into classes instance methods</p>
 =end
 
@@ -467,7 +474,6 @@ p ma.join(', ') #=> "1, 2, 3"
 <i>could use extend() but sometimes you want to mixin *both* class and instance methods</i>
 =end
 
-# emit
 
 module MyModule
 
@@ -490,7 +496,28 @@ end
 MyClass.a_class_method #=> hello from a_class_method
 MyClass.new.a_instance_method #=> hello from a_instance_method
 
+
+
+=begin
+<p>Note: Is it true there is no way to mixin module class methods?</p>
+<i>Using include() we can include instance methods into a class.</i><br />
+<i>Using extend() we can include instance methods into an objects singleton class.</i><br />
+<i>There might be with unbind and bind, but its looking like a mess.</i>
+<i></i>
+=end
+
+# emit
 # /emit
+
+
+
+
+
+
+
+
+
+
 
 
 <br />
