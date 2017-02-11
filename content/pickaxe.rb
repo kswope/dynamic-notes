@@ -159,7 +159,7 @@ def myf(args)
 end
 myf(a:1, b:2) #=> {:a=>1, :b=>2}
 
-def myf(**args)
+def myf(*args)
   println args
 end
 myf(a:1, b:2) #=> {:a=>1, :b=>2}
@@ -236,7 +236,9 @@ end
 MyClass.new.hello #=> hello
 
 # next() will return from a lambda or proc and the value passed to next() is
-# the return value of yield, no idea when this ever comes up
+# the return value of yield, no idea when this ever comes up.  In other words,
+# normally the result from the block is passed to yield, but next can short
+# circuit the block and return its own value.  next() is the blocks version of return
 
 def ten_times
   10.times do |i|
@@ -249,6 +251,23 @@ end
 ten_times do |number|
   next(true) if number ==7 # next just used to return true from yield, stupid example
 end
+
+# another example of why next is used to short circuit block, returning from a
+# block would throw a LocalJumpException
+myproc = Proc.new do
+  return :goodbye # <!return>
+end
+
+p myproc.call #=x unexpected return (LocalJumpError)
+
+
+myproc = Proc.new do
+  next :goodbye
+end
+
+p myproc.call #=> :goodbye
+
+
 
 ### methods can have their own rescue clause... and more!
 

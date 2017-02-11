@@ -9,7 +9,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title></title>
+  <title>Dynamic Notes</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -180,7 +180,7 @@
 <div>end</div>
 <div>myf(a:1,&nbsp;b:2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{:a=>1,&nbsp;:b=>2}</div>
 <div>&nbsp;</div>
-<div>def&nbsp;myf(**args)</div>
+<div>def&nbsp;myf(*args)</div>
 <div>&nbsp;&nbsp;println&nbsp;args</div>
 <div>end</div>
 <div>myf(a:1,&nbsp;b:2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;{:a=>1,&nbsp;:b=>2}</div>
@@ -257,7 +257,9 @@
 <div>MyClass.new.hello&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;hello</div>
 <div>&nbsp;</div>
 <div><span class='comment'>#&nbsp;next()&nbsp;will&nbsp;return&nbsp;from&nbsp;a&nbsp;lambda&nbsp;or&nbsp;proc&nbsp;and&nbsp;the&nbsp;value&nbsp;passed&nbsp;to&nbsp;next()&nbsp;is</span></div>
-<div><span class='comment'>#&nbsp;the&nbsp;return&nbsp;value&nbsp;of&nbsp;yield,&nbsp;no&nbsp;idea&nbsp;when&nbsp;this&nbsp;ever&nbsp;comes&nbsp;up</span></div>
+<div><span class='comment'>#&nbsp;the&nbsp;return&nbsp;value&nbsp;of&nbsp;yield,&nbsp;no&nbsp;idea&nbsp;when&nbsp;this&nbsp;ever&nbsp;comes&nbsp;up.&nbsp;&nbsp;In&nbsp;other&nbsp;words,</span></div>
+<div><span class='comment'>#&nbsp;normally&nbsp;the&nbsp;result&nbsp;from&nbsp;the&nbsp;block&nbsp;is&nbsp;passed&nbsp;to&nbsp;yield,&nbsp;but&nbsp;next&nbsp;can&nbsp;short</span></div>
+<div><span class='comment'>#&nbsp;circuit&nbsp;the&nbsp;block&nbsp;and&nbsp;return&nbsp;its&nbsp;own&nbsp;value.&nbsp;&nbsp;next()&nbsp;is&nbsp;the&nbsp;blocks&nbsp;version&nbsp;of&nbsp;return</span></div>
 <div>&nbsp;</div>
 <div>def&nbsp;ten_times</div>
 <div>&nbsp;&nbsp;10.times&nbsp;do&nbsp;|i|</div>
@@ -270,6 +272,23 @@
 <div>ten_times&nbsp;do&nbsp;|number|</div>
 <div>&nbsp;&nbsp;next(true)&nbsp;if&nbsp;number&nbsp;==7&nbsp;<span class='comment'>#&nbsp;next&nbsp;just&nbsp;used&nbsp;to&nbsp;return&nbsp;true&nbsp;from&nbsp;yield,&nbsp;stupid&nbsp;example</span></div>
 <div>end</div>
+<div>&nbsp;</div>
+<div><span class='comment'>#&nbsp;another&nbsp;example&nbsp;of&nbsp;why&nbsp;next&nbsp;is&nbsp;used&nbsp;to&nbsp;short&nbsp;circuit&nbsp;block,&nbsp;returning&nbsp;from&nbsp;a</span></div>
+<div><span class='comment'>#&nbsp;block&nbsp;would&nbsp;throw&nbsp;a&nbsp;LocalJumpException</span></div>
+<div>myproc&nbsp;=&nbsp;Proc.new&nbsp;do</div>
+<div>&nbsp;&nbsp;<span class='highlight'>return</span>&nbsp;:goodbye&nbsp;</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>p&nbsp;myproc.call&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;unexpected&nbsp;return&nbsp;(LocalJumpError)</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>myproc&nbsp;=&nbsp;Proc.new&nbsp;do</div>
+<div>&nbsp;&nbsp;next&nbsp;:goodbye</div>
+<div>end</div>
+<div>&nbsp;</div>
+<div>p&nbsp;myproc.call&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;:goodbye</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
 <div>&nbsp;</div>
 <div><span class='comment'>###&nbsp;methods&nbsp;can&nbsp;have&nbsp;their&nbsp;own&nbsp;rescue&nbsp;clause...&nbsp;and&nbsp;more!</span></div>
 <div>&nbsp;</div>
