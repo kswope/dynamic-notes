@@ -32,16 +32,38 @@
 <div class='text'>
  
 <div class='header'>
- <span>Header</span> 
+ <span>Producing undefined</span> 
 </div>
 
 </div>
 <div class='code'>
-<div>let&nbsp;f&nbsp;=&nbsp;(&nbsp;x&nbsp;)&nbsp;=>&nbsp;(&nbsp;y&nbsp;)&nbsp;=>&nbsp;x&nbsp;+&nbsp;y</div>
+<div><span class='comment'>//&nbsp;can&nbsp;sometimes&nbsp;cause&nbsp;problems&nbsp;if&nbsp;undefined&nbsp;is&nbsp;defined</span></div>
+<div>log(&nbsp;undefined&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;undefined</div>
 <div>&nbsp;</div>
-<div>let&nbsp;g&nbsp;=&nbsp;f(1)</div>
-<div>log(&nbsp;g(1)&nbsp;)</div>
-<div><span class='comment'>//&nbsp;here</span></div>
+<div><span class='comment'>//&nbsp;void&nbsp;anything&nbsp;is&nbsp;undefined</span></div>
+<div>log(&nbsp;void&nbsp;0&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;undefined</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;a&nbsp;function&nbsp;that&nbsp;doesn't&nbsp;return&nbsp;a&nbsp;value&nbsp;returns&nbsp;undefined</span></div>
+<div>log(&nbsp;(&nbsp;()&nbsp;=>&nbsp;{}&nbsp;)()&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;undefined</div>
+
+</div>
+<div class='text'>
+ 
+<div class='header'>
+ <span>function.length is the arity</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>log(&nbsp;(()&nbsp;=>&nbsp;{}).length&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;0</div>
+<div>log(&nbsp;((x)&nbsp;=>&nbsp;{}).length&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;1</div>
+<div>log(&nbsp;((x,y)&nbsp;=>&nbsp;{}).length&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;2</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>let&nbsp;tap&nbsp;=&nbsp;(&nbsp;x&nbsp;)&nbsp;=>&nbsp;(&nbsp;y&nbsp;)&nbsp;=>&nbsp;y(&nbsp;x&nbsp;)</div>
+<div>&nbsp;</div>
+<div>log(&nbsp;tap(&nbsp;1&nbsp;)(&nbsp;x&nbsp;=>&nbsp;x&nbsp;+&nbsp;1&nbsp;)&nbsp;)</div>
 
 </div>
 <div class='text'>

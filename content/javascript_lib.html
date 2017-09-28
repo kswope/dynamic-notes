@@ -1,0 +1,112 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Dynamic Notes</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h2>Javascript Lib</h2>
+    </div>
+  </div>
+
+  <div class="container">
+
+    
+<div class='text'>
+ 
+<div class='header'>
+ <span>Useful String Methods and Properties</span> 
+ <ul>
+ <li>.length</li>
+ <li>indexOf()</li>
+ <li>includes(str)</li>
+ <li>.slice(start, [end])</li>
+ <li>.substr(start, [length])</li>
+ <li></li>
+ <li></li>
+ <li></li>
+
+ </ul>
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;length&nbsp;not&nbsp;a&nbsp;method</span></div>
+<div>log(&nbsp;<span class='string'>'str'</span>.length&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;3</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;return&nbsp;character&nbsp;at&nbsp;any&nbsp;index</span></div>
+<div>log(&nbsp;<span class='string'>'str'</span>&nbsp;[&nbsp;1&nbsp;]&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;t</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;find&nbsp;location&nbsp;of&nbsp;substring</span></div>
+<div>log(&nbsp;<span class='string'>'this&nbsp;is&nbsp;a&nbsp;string'</span>.indexOf(&nbsp;<span class='string'>'&nbsp;is&nbsp;'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;4</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;indexOf&nbsp;returns&nbsp;-1&nbsp;if&nbsp;nothing&nbsp;found</span></div>
+<div>log(&nbsp;<span class='string'>'this&nbsp;is&nbsp;a&nbsp;string'</span>.indexOf(&nbsp;<span class='string'>'banana'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;-1</div>
+<div>&nbsp;</div>
+<div>if&nbsp;(&nbsp;<span class='string'>'this&nbsp;is&nbsp;a&nbsp;string'</span>.indexOf(&nbsp;<span class='string'>'banana'</span>&nbsp;)&nbsp;===&nbsp;-1&nbsp;)&nbsp;{</div>
+<div>&nbsp;&nbsp;log(&nbsp;<span class='string'>'no&nbsp;bananas'</span>&nbsp;)</div>
+<div>}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;no&nbsp;bananas</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;slice&nbsp;returns&nbsp;a&nbsp;substring,&nbsp;isn<span class='string'>'t&nbsp;well&nbsp;named&nbsp;because&nbsp;it&nbsp;doesn'</span>t&nbsp;modufy</span></div>
+<div><span class='comment'>//&nbsp;existing&nbsp;string,&nbsp;second&nbsp;argument,&nbsp;the&nbsp;terminator&nbsp;(optional),&nbsp;isn't&nbsp;included,</span></div>
+<div><span class='comment'>//&nbsp;its&nbsp;<span class='string'>"up&nbsp;to"</span>,&nbsp;if&nbsp;not&nbsp;specified&nbsp;will&nbsp;default&nbsp;to&nbsp;end&nbsp;of&nbsp;string.</span></div>
+<div>let&nbsp;str&nbsp;=&nbsp;<span class='string'>'this-is-a-string'</span></div>
+<div>let&nbsp;str2&nbsp;=&nbsp;str.slice(&nbsp;0,&nbsp;4&nbsp;)</div>
+<div>log(&nbsp;str&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;'this&nbsp;is&nbsp;a&nbsp;string</div>
+<div>log(str2)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;this</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;with&nbsp;negative&nbsp;second&nbsp;argument&nbsp;it&nbsp;works&nbsp;like&nbsp;this</span></div>
+<div>log(&nbsp;str.slice(&nbsp;0,&nbsp;(str.length&nbsp;-&nbsp;3)&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;this-is-a-str</div>
+<div>log(&nbsp;str.slice(&nbsp;0,&nbsp;-3&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;this-is-a-str</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;omit&nbsp;last&nbsp;character</span></div>
+<div>log(&nbsp;str.slice(&nbsp;0,&nbsp;-1&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;this-is-a-strin</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;substring()&nbsp;seems&nbsp;to&nbsp;be&nbsp;a&nbsp;version&nbsp;of&nbsp;slice&nbsp;but&nbsp;with&nbsp;weird&nbsp;behavior,&nbsp;avoid</span></div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;while&nbsp;slice&nbsp;uses&nbsp;indexes,&nbsp;substr&nbsp;uses&nbsp;index&nbsp;and&nbsp;length</span></div>
+<div>log(&nbsp;str.substr(&nbsp;0,&nbsp;3&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;thi</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;replace()&nbsp;finds&nbsp;and&nbsp;replaces&nbsp;a&nbsp;substring</span></div>
+<div>log(&nbsp;<span class='string'>'one&nbsp;two&nbsp;three'</span>.replace(&nbsp;<span class='string'>'two'</span>,&nbsp;<span class='string'>'TWO'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;one&nbsp;TWO&nbsp;three</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;includes&nbsp;looks&nbsp;like&nbsp;a&nbsp;find&nbsp;but&nbsp;without&nbsp;the&nbsp;ugly&nbsp;-1&nbsp;of&nbsp;indexOf()</span></div>
+<div>log(&nbsp;<span class='string'>'one&nbsp;two&nbsp;three'</span>.includes(&nbsp;<span class='string'>'two'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div><br /></div>
+
+</div>
+
+  </div> <!-- /container -->
+
+  <script src="../js/vendor/jquery-1.11.2.min.js">
+  <script src="../js/vendor/bootstrap.min.js"></script>
+
+</body>
+
+</html>
