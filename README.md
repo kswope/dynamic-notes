@@ -14,6 +14,8 @@ To run generator, server, etc (don't forget to turn on browsers LiveReload):
 > npm start
 ```
 
+Open browser at http://localhost:4000/
+
 A bunch of files are watched, including those in ./content.  When a file
 changes, convert_content.rb is run and LiveUpdate is triggered (if the plugin
 installed)
