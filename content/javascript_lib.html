@@ -34,15 +34,27 @@
 <div class='header'>
  <span>Useful String Methods and Properties</span> 
  <ul>
- <li>.length</li>
- <li>indexOf()</li>
- <li>includes(str)</li>
- <li>.slice(start, [end])</li>
- <li>.substr(start, [length])</li>
- <li></li>
- <li></li>
- <li></li>
-
+   <li>.length</li>
+   <li>.indexOf(str, [offset]) ES1</li>
+   <li>.search(str) ES3</li>
+   <li>.lastIndexOf(str) ES1</li>
+   <li>.includes(str) ES6</li>
+   <li>.startsWith(str) ES6</li>
+   <li>.endsWith(str) ES6</li>
+   <li>.slice(start, [end]) ES3</li>
+   <li>.substring(start, [indexEnd]) ES3</li>
+   <li>.substr(start, [length]) ES3</li>
+   <li>.replace(find, replace)</li>
+   <li>.charAt(number) ES1</li>
+   <li>.concat(str) ES3</li>
+   <li>.repeat(number) ES6</li>
+   <li>.match(regexp) ES3</li>
+   <li>.trim() ES5</li>
+   <li>.split(separator, [limit]) (sep is string or regex) ES3</li>
+   <li>.toLowerCase(str) ES1</li>
+   <li>.toUpperCase(str) ES1</li>
+   <li>.toString() ES3 (like ruby inspect, I think console.log calls this)</li>
+   <li>[@@iterator]()</li>
  </ul>
 </div>
 
@@ -56,6 +68,7 @@
 <div>&nbsp;</div>
 <div><span class='comment'>//&nbsp;find&nbsp;location&nbsp;of&nbsp;substring</span></div>
 <div>log(&nbsp;<span class='string'>'this&nbsp;is&nbsp;a&nbsp;string'</span>.indexOf(&nbsp;<span class='string'>'&nbsp;is&nbsp;'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;4</div>
+<div>log(&nbsp;<span class='string'>'this&nbsp;is&nbsp;a&nbsp;string'</span>.lastIndexOf(&nbsp;<span class='string'>'&nbsp;is&nbsp;'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;4</div>
 <div>&nbsp;</div>
 <div><span class='comment'>//&nbsp;indexOf&nbsp;returns&nbsp;-1&nbsp;if&nbsp;nothing&nbsp;found</span></div>
 <div>log(&nbsp;<span class='string'>'this&nbsp;is&nbsp;a&nbsp;string'</span>.indexOf(&nbsp;<span class='string'>'banana'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;-1</div>
@@ -64,6 +77,9 @@
 <div>&nbsp;&nbsp;log(&nbsp;<span class='string'>'no&nbsp;bananas'</span>&nbsp;)</div>
 <div>}&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;no&nbsp;bananas</div>
 <div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;search&nbsp;is&nbsp;like&nbsp;indexOf&nbsp;but&nbsp;uses&nbsp;a&nbsp;regex&nbsp;(indexOf&nbsp;takes&nbsp;a&nbsp;start&nbsp;position,&nbsp;search&nbsp;doesnt)</span></div>
+<div><span class='comment'>//&nbsp;search&nbsp;forces&nbsp;a&nbsp;regex&nbsp;match&nbsp;so&nbsp;its&nbsp;slower.</span></div>
+<div>log(&nbsp;<span class='string'>'this&nbsp;is&nbsp;a&nbsp;string'</span>.search(&nbsp;<span class='string'>'&nbsp;is&nbsp;'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;4</div>
 <div>&nbsp;</div>
 <div><span class='comment'>//&nbsp;slice&nbsp;returns&nbsp;a&nbsp;substring,&nbsp;isn<span class='string'>'t&nbsp;well&nbsp;named&nbsp;because&nbsp;it&nbsp;doesn'</span>t&nbsp;modufy</span></div>
 <div><span class='comment'>//&nbsp;existing&nbsp;string,&nbsp;second&nbsp;argument,&nbsp;the&nbsp;terminator&nbsp;(optional),&nbsp;isn't&nbsp;included,</span></div>
@@ -80,17 +96,43 @@
 <div><span class='comment'>//&nbsp;omit&nbsp;last&nbsp;character</span></div>
 <div>log(&nbsp;str.slice(&nbsp;0,&nbsp;-1&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;this-is-a-strin</div>
 <div>&nbsp;</div>
-<div><span class='comment'>//&nbsp;substring()&nbsp;seems&nbsp;to&nbsp;be&nbsp;a&nbsp;version&nbsp;of&nbsp;slice&nbsp;but&nbsp;with&nbsp;weird&nbsp;behavior,&nbsp;avoid</span></div>
+<div><span class='comment'>//&nbsp;substring()&nbsp;seems&nbsp;to&nbsp;be&nbsp;a&nbsp;version&nbsp;of&nbsp;slice&nbsp;but&nbsp;with&nbsp;weird&nbsp;behavior,&nbsp;reorders&nbsp;first&nbsp;two&nbsp;parameters</span></div>
 <div>&nbsp;</div>
 <div><span class='comment'>//&nbsp;while&nbsp;slice&nbsp;uses&nbsp;indexes,&nbsp;substr&nbsp;uses&nbsp;index&nbsp;and&nbsp;length</span></div>
 <div>log(&nbsp;str.substr(&nbsp;0,&nbsp;3&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;thi</div>
 <div>&nbsp;</div>
-<div><span class='comment'>//&nbsp;replace()&nbsp;finds&nbsp;and&nbsp;replaces&nbsp;a&nbsp;substring</span></div>
+<div><span class='comment'>//&nbsp;replace()&nbsp;finds&nbsp;and&nbsp;replaces&nbsp;a&nbsp;substring,&nbsp;takes&nbsp;regex,&nbsp;even&nbsp;/regex/g</span></div>
 <div>log(&nbsp;<span class='string'>'one&nbsp;two&nbsp;three'</span>.replace(&nbsp;<span class='string'>'two'</span>,&nbsp;<span class='string'>'TWO'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;one&nbsp;TWO&nbsp;three</div>
 <div>&nbsp;</div>
-<div><span class='comment'>//&nbsp;includes&nbsp;looks&nbsp;like&nbsp;a&nbsp;find&nbsp;but&nbsp;without&nbsp;the&nbsp;ugly&nbsp;-1&nbsp;of&nbsp;indexOf()</span></div>
-<div>log(&nbsp;<span class='string'>'one&nbsp;two&nbsp;three'</span>.includes(&nbsp;<span class='string'>'two'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div><span class='comment'>//&nbsp;charAt&nbsp;seems&nbsp;like&nbsp;indexing</span></div>
+<div>log(&nbsp;<span class='string'>'string'</span>.charAt(&nbsp;2&nbsp;)&nbsp;===&nbsp;<span class='string'>'string'</span>&nbsp;[&nbsp;2&nbsp;]&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
 <div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;concat&nbsp;two&nbsp;strings</span></div>
+<div>log(&nbsp;<span class='string'>'hello&nbsp;'</span>.concat(&nbsp;<span class='string'>'world'</span>&nbsp;)&nbsp;)</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;three&nbsp;related&nbsp;es6&nbsp;methods</span></div>
+<div>log(&nbsp;<span class='string'>'one&nbsp;two&nbsp;three'</span>.startsWith(&nbsp;<span class='string'>'one'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div><span class='comment'>//&nbsp;includes&nbsp;looks&nbsp;like&nbsp;indexOf()&nbsp;but&nbsp;without&nbsp;the&nbsp;ugly&nbsp;-1</span></div>
+<div>log(&nbsp;<span class='string'>'one&nbsp;two&nbsp;three'</span>.includes(&nbsp;<span class='string'>'two'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>log(&nbsp;<span class='string'>'one&nbsp;two&nbsp;three'</span>.endsWith(&nbsp;<span class='string'>'three'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;repeat,&nbsp;who&nbsp;cares</span></div>
+<div>log(&nbsp;<span class='string'>'*'</span>.repeat(&nbsp;5&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;*****</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;split</span></div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.split(&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>'abc'</span>]&nbsp;does&nbsp;nothing</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.split(&nbsp;<span class='string'>''</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>'a'</span>,&nbsp;<span class='string'>'b'</span>,&nbsp;<span class='string'>'c'</span>]&nbsp;separates&nbsp;on&nbsp;all&nbsp;characters</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.split(&nbsp;<span class='string'>'b'</span>&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>'a'</span>,&nbsp;<span class='string'>'c'</span>]&nbsp;separator&nbsp;is&nbsp;string</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.split(&nbsp;/b/&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>'a'</span>,&nbsp;<span class='string'>'c'</span>]&nbsp;separator&nbsp;is&nbsp;regex</div>
+<div>log(&nbsp;<span class='string'>'abc'</span>.split(&nbsp;/(b)/&nbsp;)&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[<span class='string'>'a'</span>,&nbsp;<span class='string'>'b'</span>,&nbsp;<span class='string'>'c'</span>]&nbsp;includes&nbsp;separator</div>
+<div>&nbsp;</div>
+<div>let&nbsp;i&nbsp;=&nbsp;<span class='string'>'hello'</span>[Symbol.iterator]()</div>
+<div>log(&nbsp;i.next().value&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;h</div>
+<div>log(&nbsp;i.next().value&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;e</div>
+<div>log(&nbsp;i.next().value&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;l</div>
+<div>log(&nbsp;i.next().value&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;l</div>
+<div>log(&nbsp;i.next().value&nbsp;)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;o</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 <div>&nbsp;</div>

@@ -8,10 +8,10 @@
 }
 
 .header span {
-  font-size: 3rem;  
+  font-size: 2rem;  
 }
 
-p, ul {
+p, ul, blockquote {
   margin-top: 2rem;
   font-size: 2rem;
 }
