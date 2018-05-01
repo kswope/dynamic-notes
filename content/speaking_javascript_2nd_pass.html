@@ -612,9 +612,436 @@ constructing an Error object via the new keyword would.
 
 <div class='header'>
  <span>
-  forEach description and analysis
+    arr.forEach(f(), this) takes an optional this argument 
   </span> 
 </div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Toolkit for inheritance 
+</span> 
+<ul>
+  <li>Object.create(proto [, propDescObj]</li>
+  <li>Object.getPrototypeOf(jane)</li>
+</ul>
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ Use Object.keys(o) to get own properties of and object.
+</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  use "prop in o" to find if o has a property (looks at prototypes too)
+</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ Avoid invoking hasOwnProperty() directly on an object, as it may be overridden
+ (e.g., by an own property whose key is hasOwnProperty):
+</span> 
+<ul>
+<li>Object.prototype.hasOwnProperty.call(obj, 'foo')</li>
+<li>{}.hasOwnProperty.call(obj, 'foo')</li>
+</ul>
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ The instanceof operator allows us to check whether an object is an instance of
+ a given constructor:
+</span> 
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ Avoid replacing a constructors prototype because its already set up correctly,
+ like the constructor property.
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div><span class='comment'>//&nbsp;Avoid:</span></div>
+<div>C.prototype&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;method1:&nbsp;function()&nbsp;{}</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;Prefer:</span></div>
+<div>C.prototype.method1&nbsp;=&nbsp;function()&nbsp;{}</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ If you completely replace prototype then reset the constructor property.
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>C.prototype&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;constructor:&nbsp;C,</div>
+<div>&nbsp;&nbsp;method1:&nbsp;function()&nbsp;{}</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ Crockford privacy pattern
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>function&nbsp;Constructor()&nbsp;{</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;let&nbsp;data&nbsp;=&nbsp;[]&nbsp;<span class='comment'>//&nbsp;private</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;this.fun&nbsp;=&nbsp;function()&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;<span class='comment'>//&nbsp;access&nbsp;to&nbsp;private&nbsp;data</span></div>
+<div>&nbsp;&nbsp;}</div>
+<div>&nbsp;</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Singleton Constructor
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>function&nbsp;Singleton()&nbsp;{</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;<span class='comment'>//&nbsp;relies&nbsp;on&nbsp;function&nbsp;properties</span></div>
+<div>&nbsp;&nbsp;if&nbsp;(Singleton.inst)&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;Singleton.inst</div>
+<div>&nbsp;&nbsp;}&nbsp;else&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;Singleton.inst&nbsp;=&nbsp;this</div>
+<div>&nbsp;&nbsp;}</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;this.random&nbsp;=&nbsp;Math.random()</div>
+<div>&nbsp;</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div><span class='comment'>//&nbsp;Another&nbsp;singleton&nbsp;pattern,&nbsp;but&nbsp;without&nbsp;constructor</span></div>
+<div>let&nbsp;o&nbsp;=&nbsp;function()&nbsp;{</div>
+<div>&nbsp;&nbsp;let&nbsp;instance</div>
+<div>&nbsp;&nbsp;return&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;getInstance:&nbsp;function()&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!instance)&nbsp;{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instance&nbsp;=&nbsp;{n:&nbsp;Math.random()}</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;instance</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+<div>&nbsp;&nbsp;}</div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>let&nbsp;o2&nbsp;=&nbsp;o()</div>
+<div>log(o2.getInstance())</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ Revealing module pattern
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>let&nbsp;o&nbsp;=&nbsp;function()&nbsp;{</div>
+<div>&nbsp;&nbsp;function&nbsp;f()&nbsp;{}</div>
+<div>&nbsp;&nbsp;return&nbsp;{f}</div>
+<div>}</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Objects that are "array like", implement indexing and a length property, can
+  use many Array methods, but not all. 
+</span> 
+<ul>
+<li>concat</li>
+<li>every</li>
+<li>filter</li>
+<li>forEach</li>
+<li>indexOf</li>
+<li>join</li>
+<li>lastIndexOf</li>
+<li>map</li>
+<li>pop</li>
+<li>push</li>
+<li>reduce</li>
+<li>reduceRight</li>
+<li>reverse</li>
+<li>shift</li>
+<li>slice</li>
+<li>some</li>
+<li>sort</li>
+<li>splice</li>
+<li>toLocaleString</li>
+<li>toString</li>
+<li>unshift</li>
+</ul>
+</div>
+
+</div>
+<div class='code'>
+<div>let&nbsp;o&nbsp;=&nbsp;{</div>
+<div>&nbsp;&nbsp;length:&nbsp;3,</div>
+<div>&nbsp;&nbsp;0:&nbsp;<span class='string'>"a"</span>,</div>
+<div>&nbsp;&nbsp;1:&nbsp;<span class='string'>"b"</span>,</div>
+<div>&nbsp;&nbsp;2:&nbsp;<span class='string'>"c"</span></div>
+<div>}</div>
+<div>&nbsp;</div>
+<div>let&nbsp;v&nbsp;=&nbsp;Array.prototype.map.call(o,&nbsp;x&nbsp;=>&nbsp;x)</div>
+<div>log(v)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'a'</span>,&nbsp;<span class='string'>'b'</span>,&nbsp;<span class='string'>'c'</span>&nbsp;]</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ The dict Pattern: Objects Without Prototypes Are Better Maps
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>var&nbsp;dict&nbsp;=&nbsp;Object.create(null)</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+   Do not delete elements of arrays because it creates holes, use splice
+   instead.
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>a&nbsp;=&nbsp;[1,&nbsp;2,&nbsp;3][(1,&nbsp;2,&nbsp;3)]</div>
+<div>delete&nbsp;a[1]&nbsp;<span class='glyphicon glyphicon-fire' style='color:orange'></span>&nbsp;bad!</div>
+<div>a&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;1,&nbsp;<1 empty item>,&nbsp;3&nbsp;]</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ Test for array with Array.isArray
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>log(Array.isArray([]))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;true</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Array.prototype.push takes multiple arguments
+</span> 
+<p>
+Array.prototype.concat is another option, but it is not destructive.
+</p>
+</div>
+
+</div>
+<div class='code'>
+<div>let&nbsp;a&nbsp;=&nbsp;[]</div>
+<div>a.push(1,&nbsp;2,&nbsp;3)</div>
+<div>log(a)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;1,&nbsp;2,&nbsp;3&nbsp;]</div>
+<div>&nbsp;</div>
+<div>a.push(...[4,&nbsp;5,&nbsp;6])</div>
+<div>log(a)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;1,&nbsp;2,&nbsp;3,&nbsp;4,&nbsp;5,&nbsp;6&nbsp;]</div>
+<div>&nbsp;</div>
+<div>a&nbsp;=&nbsp;a.concat([7,&nbsp;8,&nbsp;9])</div>
+<div>log(a)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;1,&nbsp;2,&nbsp;3,&nbsp;4,&nbsp;5,&nbsp;6&nbsp;]</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Array.prototype.splice( start [, deleteCount [, element1 [, element2] ] ] )
+</span> 
+<p>
+  start can be negative, which counts from the end.
+</p>
+<p>
+  deleteCount is optional, if missing splice deletes all elements after start
+</p>
+<p>
+  inserts the optional elements
+</p>
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Array.prototype.concat(arr1 [, arr2])
+</span> 
+<ul>
+<li>Non destructive</li>
+<li>Takes multiple arguments</li>
+<li>Arguments can be arrays or elements, will automatically splat arrays</li>
+<li>With no arguments creates a shallow copy.</li>
+</ul>
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  indexOf(search [, start]) exists for both arrays and strings
+</span> 
+<ul>
+<li>
+Same with lastIndexOf
+</li>
+<li>
+=== is used
+</li>
+</ul>
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Iteration examination methods
+</span> 
+<ul>
+<li>foreach(callback [, thisValue])</li>
+<ul>
+<li>Does not support break</li>
+<li>To break use some() instead and return true to break and ignore returned true</li>
+</ul>
+<li>every(callback [, thisValue])</li>
+<ul>
+<li>returns true if callback returns true for every element</li>
+<li>returns true if array is empty</li>
+</ul>
+<li>some(callback [, thisValue])</li>
+<ul>
+<li>returns true if callback returns true for at least one element</li>
+<li>returns false if array is empty</li>
+</ul>
+</ul>
+<p>
+function callback(element, index, array)
+</p>
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Iteration transformation methods
+</span> 
+<ul>
+<li>map(callback [, thisValue])</li>
+<li>filter(callback [, thisValue])</li>
+</ul>
+<p>
+function callback(element, index, array)
+</p>
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Reduction methods
+</span> 
+<ul>
+<li>reduce(callback [, initialValue])</li>
+<li>reduceRight(callback [, initialValue])</li>
+</ul>
+<p>
+function callback(previousValue, element, index, array)
+</p>
+</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  profile with console.time([name]) and console.endTime([name])
+</span> 
+</div>
+
+</div>
+<div class='code'>
+<div>console.time(<span class='string'>"a"</span>)</div>
+<div>for&nbsp;(let&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;< 1000; i++) {}</div>
+<div>console.timeEnd(<span class='string'>"a"</span>)&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;a:&nbsp;0.305ms</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  Regexp.prototype.exec(str)
+</span> 
+<ul>
+<li>If using /g flag holds state so can be use to find successive matches</li>
+<li>Make sure to compile regex outside a loop or it resets state</li>
+<li>exec is complicated!</li>
+</ul>
+</div>
+
+</div>
+<div class='code'>
+<div>let&nbsp;str&nbsp;=&nbsp;<span class='string'>"abc123"</span></div>
+<div>&nbsp;</div>
+<div>let&nbsp;re&nbsp;=&nbsp;/(a)/g</div>
+<div>log(re.exec(str))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;[&nbsp;<span class='string'>'a'</span>,&nbsp;<span class='string'>'a'</span>,&nbsp;index:&nbsp;0,&nbsp;input:&nbsp;<span class='string'>'abc123'</span>&nbsp;]</div>
+<div>log(re.exec(str))&nbsp;<span class='glyphicon glyphicon-arrow-right'></span>&nbsp;null</div>
 
 </div>
 <div class='text'>

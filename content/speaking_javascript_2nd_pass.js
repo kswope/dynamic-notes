@@ -508,7 +508,6 @@ var obj = {} // prefer
 </div>
 */
 
-// emit
 let o = {
   x: 1,
   add: function(x) {
@@ -520,15 +519,395 @@ let a1 = o.add.bind(o)
 
 log(a1(3)) //=> 4
 
+/*
+<div class='header'>
+ <span>
+    arr.forEach(f(), this) takes an optional this argument 
+  </span> 
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+  Toolkit for inheritance 
+</span> 
+<ul>
+  <li>Object.create(proto [, propDescObj]</li>
+  <li>Object.getPrototypeOf(jane)</li>
+</ul>
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+ Use Object.keys(o) to get own properties of and object.
+</span> 
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+  use "prop in o" to find if o has a property (looks at prototypes too)
+</span> 
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+ Avoid invoking hasOwnProperty() directly on an object, as it may be overridden
+ (e.g., by an own property whose key is hasOwnProperty):
+</span> 
+<ul>
+<li>Object.prototype.hasOwnProperty.call(obj, 'foo')</li>
+<li>{}.hasOwnProperty.call(obj, 'foo')</li>
+</ul>
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+ The instanceof operator allows us to check whether an object is an instance of
+ a given constructor:
+</span> 
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+ Avoid replacing a constructors prototype because its already set up correctly,
+ like the constructor property.
+</span> 
+</div>
+*/
+
+// Avoid:
+C.prototype = {
+  method1: function() {}
+}
+
+// Prefer:
+C.prototype.method1 = function() {}
+
+/*
+<div class='header'>
+ <span>
+ If you completely replace prototype then reset the constructor property.
+</span> 
+</div>
+*/
+
+C.prototype = {
+  constructor: C,
+  method1: function() {}
+}
+
+/*
+<div class='header'>
+ <span>
+ Crockford privacy pattern
+</span> 
+</div>
+*/
+
+function Constructor() {
+
+  let data = [] // private
+
+  this.fun = function() {
+    data // access to private data
+  }
+
+}
+
+/*
+<div class='header'>
+ <span>
+  Singleton Constructor
+</span> 
+</div>
+*/
+
+function Singleton() {
+
+  // relies on function properties
+  if (Singleton.inst) {
+    return Singleton.inst
+  } else {
+    Singleton.inst = this
+  }
+
+  this.random = Math.random()
+
+}
+
+// Another singleton pattern, but without constructor
+let o = function() {
+  let instance
+  return {
+    getInstance: function() {
+      if (!instance) {
+        instance = {n: Math.random()}
+      }
+      return instance
+    }
+  }
+}
+
+let o2 = o()
+log(o2.getInstance())
+
+/*
+<div class='header'>
+ <span>
+ Revealing module pattern
+</span> 
+</div>
+*/
+
+let o = function() {
+  function f() {}
+  return {f}
+}
+
+/*
+<div class='header'>
+ <span>
+  Objects that are "array like", implement indexing and a length property, can
+  use many Array methods, but not all. 
+</span> 
+<ul>
+<li>concat</li>
+<li>every</li>
+<li>filter</li>
+<li>forEach</li>
+<li>indexOf</li>
+<li>join</li>
+<li>lastIndexOf</li>
+<li>map</li>
+<li>pop</li>
+<li>push</li>
+<li>reduce</li>
+<li>reduceRight</li>
+<li>reverse</li>
+<li>shift</li>
+<li>slice</li>
+<li>some</li>
+<li>sort</li>
+<li>splice</li>
+<li>toLocaleString</li>
+<li>toString</li>
+<li>unshift</li>
+</ul>
+</div>
+*/
+
+let o = {
+  length: 3,
+  0: "a",
+  1: "b",
+  2: "c"
+}
+
+let v = Array.prototype.map.call(o, x => x)
+log(v) //=> [ 'a', 'b', 'c' ]
+
+/*
+<div class='header'>
+ <span>
+ The dict Pattern: Objects Without Prototypes Are Better Maps
+</span> 
+</div>
+*/
+
+var dict = Object.create(null)
+
+/*
+<div class='header'>
+ <span>
+   Do not delete elements of arrays because it creates holes, use splice
+   instead.
+</span> 
+</div>
+*/
+
+a = [1, 2, 3][(1, 2, 3)]
+delete a[1] //=x bad!
+a //=> [ 1, <1 empty item>, 3 ]
+
+/*
+<div class='header'>
+ <span>
+ Test for array with Array.isArray
+</span> 
+</div>
+*/
+
+log(Array.isArray([])) //=> true
+
+/*
+<div class='header'>
+ <span>
+  Array.prototype.push takes multiple arguments
+</span> 
+<p>
+Array.prototype.concat is another option, but it is not destructive.
+</p>
+</div>
+*/
+
+let a = []
+a.push(1, 2, 3)
+log(a) //=> [ 1, 2, 3 ]
+
+a.push(...[4, 5, 6])
+log(a) //=> [ 1, 2, 3, 4, 5, 6 ]
+
+a = a.concat([7, 8, 9])
+log(a) //=> [ 1, 2, 3, 4, 5, 6 ]
+
+/*
+<div class='header'>
+ <span>
+  Array.prototype.splice( start [, deleteCount [, element1 [, element2] ] ] )
+</span> 
+<p>
+  start can be negative, which counts from the end.
+</p>
+<p>
+  deleteCount is optional, if missing splice deletes all elements after start
+</p>
+<p>
+  inserts the optional elements
+</p>
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+  Array.prototype.concat(arr1 [, arr2])
+</span> 
+<ul>
+<li>Non destructive</li>
+<li>Takes multiple arguments</li>
+<li>Arguments can be arrays or elements, will automatically splat arrays</li>
+<li>With no arguments creates a shallow copy.</li>
+</ul>
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+  indexOf(search [, start]) exists for both arrays and strings
+</span> 
+<ul>
+<li>
+Same with lastIndexOf
+</li>
+<li>
+=== is used
+</li>
+</ul>
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+  Iteration examination methods
+</span> 
+<ul>
+<li>foreach(callback [, thisValue])</li>
+<ul>
+<li>Does not support break</li>
+<li>To break use some() instead and return true to break and ignore returned true</li>
+</ul>
+<li>every(callback [, thisValue])</li>
+<ul>
+<li>returns true if callback returns true for every element</li>
+<li>returns true if array is empty</li>
+</ul>
+<li>some(callback [, thisValue])</li>
+<ul>
+<li>returns true if callback returns true for at least one element</li>
+<li>returns false if array is empty</li>
+</ul>
+</ul>
+<p>
+function callback(element, index, array)
+</p>
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+  Iteration transformation methods
+</span> 
+<ul>
+<li>map(callback [, thisValue])</li>
+<li>filter(callback [, thisValue])</li>
+</ul>
+<p>
+function callback(element, index, array)
+</p>
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+  Reduction methods
+</span> 
+<ul>
+<li>reduce(callback [, initialValue])</li>
+<li>reduceRight(callback [, initialValue])</li>
+</ul>
+<p>
+function callback(previousValue, element, index, array)
+</p>
+</div>
+*/
+
+/*
+<div class='header'>
+ <span>
+  profile with console.time([name]) and console.endTime([name])
+</span> 
+</div>
+*/
+
+// emit
+console.time("a")
+for (let i = 0; i < 1000; i++) {}
+console.timeEnd("a") //=> a: 0.305ms
 // /emit
 
 /*
 <div class='header'>
  <span>
-  forEach description and analysis
-  </span> 
+  Regexp.prototype.exec(str)
+</span> 
+<ul>
+<li>If using /g flag holds state so can be use to find successive matches</li>
+<li>Make sure to compile regex outside a loop or it resets state</li>
+<li>exec is complicated!</li>
+</ul>
 </div>
 */
+
+let str = "abc123"
+
+let re = /(a)/g
+log(re.exec(str)) //=> [ 'a', 'a', index: 0, input: 'abc123' ]
+log(re.exec(str)) //=> null
 
 /*
 <br />
