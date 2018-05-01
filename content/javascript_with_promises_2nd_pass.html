@@ -48,7 +48,7 @@ function log(...args){
 <div class='header'>
  <span>
    Promise constructor and resolver
-</span> 
+ </span> 
 </div>
 <blockquote>
   When Promise is used as a constructor it requires a callback known as a
@@ -59,12 +59,53 @@ function log(...args){
 </blockquote>
 
 </div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+ Promise convenience functions
+ </span> 
+</div>
+
+</div>
 <div class='code'>
-<div><br /></div>
-<div>&nbsp;&nbsp;<br /></div>
-<div>&nbsp;&nbsp;<br /></div>
-<div>&nbsp;&nbsp;<br /></div>
-<div>&nbsp;&nbsp;<br /></div>
+<div><span class='comment'>////&nbsp;Equivalent&nbsp;ways&nbsp;to&nbsp;create&nbsp;a&nbsp;resolved&nbsp;promise.</span></div>
+<div>&nbsp;</div>
+<div>new&nbsp;Promise((resolve)&nbsp;=>&nbsp;{</div>
+<div>&nbsp;&nbsp;resolve(<span class='string'>'the&nbsp;long&nbsp;way'</span>)</div>
+<div>})</div>
+<div>&nbsp;</div>
+<div>Promise.resolve(<span class='string'>'the&nbsp;short&nbsp;way'</span>)</div>
+
+</div>
+<div class='text'>
+
+<div class='header'>
+ <span>
+  As a general rule, any function that uses a promise should also return a
+  promise.
+ </span> 
+</div>
+<blockquote>
+When a promise is not propagated, the calling code cannot know when the
+promise is fulfilled and thus cannot effectively perform work after the fact.
+It’s easy to ignore this rule when writing a function whose caller does not
+care when the async work is finished, but don’t be fooled. It’s much easier
+to return a promise that initially goes unused than to retrofit promises into
+a series of functions later on.
+</blockquote>
+
+</div>
+<div class='text'>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 </div>
 
